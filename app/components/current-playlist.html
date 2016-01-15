@@ -1,0 +1,17 @@
+<div id='results' class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h3>Artist : Album</h3>
+                </div>
+                <div class='panel-body'>
+                    <ul class='list-unstyled tracklist' >
+                        <div ng-repeat='track in playlist.tracks'>
+                            <li>
+                                <div class='list-item'><i class='glyphicon glyphicon-play'></i>{{track.trackName}}<span class='pull-right'>{{playlist.secToMinSec(track.runTime())}}</span></div>
+                            </li>
+                            <li><hr></li>
+                        </div>
+                        
+                        
+                    </ul>
+                </div>
+            </div>

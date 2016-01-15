@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html ng-app='main-app'>
+<head>
+    <title>Page Title</title>
+    
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src='tracklists.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="app.js"></script>
+    
+    <link rel='stylesheet' href='css/player.css'>
+</head>
+
+<body>
+
+<!--NAVIGATION BAR-->
+
+<div id='main'>
+
+    <nav-bar></nav-bar>
+
+<!--END NAVIGATION BAR-->
+
+<!--PLAYLISTS AND RESULTS-->
+
+<div class='container' id='content'>
+    <div class='row'>
+        <div class='col-md-4 hidden-xs'>
+            <saved-playlists></saved-playlists>
+        </div>
+        <div class='col-md-8'>
+            <current-playlist></current-playlist>
+        </div>
+    </div>
+</div>
+<!--END PLAYLISTS AND RESULTS-->
+
+
+
+</div>
+
+<!--PLAYER-->
+
+<!-- <footer class='footer'>
+<div id='bottom' class='container-fluid'>
+    <div class='container'>
+    <div class='row'>
+        
+            
+            <div id='controls' class='col-md-3'>
+                
+                <i class='glyphicon glyphicon-fast-backward'></i>
+                <i class='glyphicon glyphicon-play'></i>
+                <i class='glyphicon glyphicon-fast-forward'></i>
+                &nbsp;
+                <span id='playtime'>2:08</span>
+                
+                
+                
+            </div>
+            
+            <div class='col-md-9'>
+            <input type='range' class='navbar-right' id='progress' />
+            </div>
+            
+        </div>
+    </div>
+
+</footer> -->
+<player></player>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<div id='playlists' class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h3>Playlists</h3>
+                </div>
+                <div class='panel-body'>
+                    <ul class='list-unstyled tracklist'>
+                        <div ng-repeat='list in savedLists.lists'>
+                            <li>
+                                <div class='list-item'><i class='glyphicon glyphicon-music'></i>{{list.artistName}} - {{list.albumName}}<span class='pull-right'># songs</span></div>
+                            </li>
+                            <li><hr></li>
+                        </div>
+                        
+                    </ul>
+                </div>
+            </div>
