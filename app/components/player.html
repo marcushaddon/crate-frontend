@@ -10,14 +10,14 @@
                 <i class='glyphicon glyphicon-play'></i>
                 <i class='glyphicon glyphicon-fast-forward'></i>
                 &nbsp;
-                <span id='playtime'>2:08</span>
+                <span id='playtime'>{{secToMinSec(currentTime)}}</span>
                 
                 
                 
             </div>
             
             <div class='col-md-9'>
-            <input type='range' class='navbar-right' id='progress' />
+            <input type='range' class='navbar-right' id='progress' value='{{currentTime}}'/>
             </div>
             
         </div>

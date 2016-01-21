@@ -4,12 +4,13 @@
                 </div>
                 <div class='panel-body'>
                     <ul class='list-unstyled tracklist' >
-                        <div ng-repeat='track in playlist.tracks'>
+                        <div ng-repeat='track in currentList'>
                             <li>
-                                <div class='list-item'><i class='glyphicon glyphicon-play'></i>{{track.trackName}}<span class='pull-right'>{{playlist.secToMinSec(track.runTime())}}</span></div>
+                                <div class='list-item'><i class='glyphicon glyphicon-play'></i>{{track.trackName}}<span class='pull-right'>{{secToMinSec(track.runTime())}}</span></div>
                             </li>
                             <li><hr></li>
                         </div>
+                        
                         
                         
                     </ul>

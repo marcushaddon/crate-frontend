@@ -23,6 +23,6 @@ var kakashiTracks = [
 			];
 
 var playlists = [{artistName: 'Mort Garson', albumName: 'Plantasia', tracks: plantasiaTracks},
-				 {artistName: 'Takeshi Taruchi and Bunnies', albumName: "Seichô Takeuchi Bushi", tracks: null},
+				 {artistName: 'Takeshi Taruchi', albumName: "Let's Go Classics!", tracks: null},
 				 {artistName: 'Yasuaki Shimizu', albumName:'Kakashi', tracks: kakashiTracks}
 			];
