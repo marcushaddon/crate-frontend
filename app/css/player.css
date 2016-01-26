@@ -35,10 +35,12 @@ body {
     clear: both;
     position: absolute;
     z-index: 10;
-    height: 3em;
-    margin-top: -3em;
+    /*height: 3em;*/
+    /*margin-top: -3em;*/
     background-color: black;
     width: 100%;
+    bottom: 0;
+
 }
 
 #underwear {
@@ -56,6 +58,20 @@ li .list-item i {
 
 div .list-item span {
     color: grey;
+}
+
+.selected {
+  font-weight: bold;
+}
+
+.selected hr {
+  border: solid;
+  border-width: 1px;
+}
+
+#totalTime {
+  font-weight: normal;
+  font-size: 12px;
 }
 
 /*input[type=range] {

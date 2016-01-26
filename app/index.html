@@ -2,7 +2,7 @@
 
 <html ng-app='main-app'>
 <head>
-    <title>Page Title</title>
+    <title>Angular YT Music Player</title>
     
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -20,12 +20,13 @@
 
 <!--NAVIGATION BAR-->
 
-<div id='main'>
+<div id='main' ng-controller='Player as PlayCtrl'>
 
     <nav-bar></nav-bar>
 
 <!--END NAVIGATION BAR-->
 
+<!-- <span>{{PlayCtrl.currentTrack}}</span> -->
 <!--PLAYLISTS AND RESULTS-->
 
 <div class='container' id='content'>
@@ -40,14 +41,14 @@
 </div>
 <!--END PLAYLISTS AND RESULTS-->
 
-
+<player></player>
+</div>
 
 </div>
 
 <!--PLAYER-->
 
-<player></player>
-</div>
+
 
 </body>
 </html>

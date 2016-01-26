@@ -2,19 +2,47 @@
 
 angular.module('main-app', [])
 
-.controller('Player', function($scope){
-	var app = $scope;
-	$scope.lists = playlists;
-	$scope.selected = 0;
-	$scope.currentList = $scope.lists[$scope.selected].tracks;
+.controller('Player', function(){
+	app = this;
+	this.lists = playlists;
+	this.currentList = this.lists[0];
+	this.tracks = function() { return this.currentList.tracks; };
+	this.currentTrack = this.tracks()[0];
 
-	$scope.currentTime = 0;
-	$scope.trackLength = 50;
+	this.setList = function(list) {
+		this.currentList = list;
+	};
+
+	this.setTrack = function(track) {
+		this.currentTrack = track;
+		this.progress = 0;
+	};
+
+	this.isCurrentList = function(list) {
+		if (app.currentList == list) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	this.isCurrentTrack = function(track) {
+		if (app.currentTrack == track) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	this.progress = 0;
+
+	this.isPlaying = false;
 	
 
 
+
 	//better implemented as a custom filter
-	$scope.secToMinSec = function(seconds) {
+	this.secToMinSec = function(seconds) {
 					var wholeSecs = Math.floor(seconds);
 					var secs = (wholeSecs % 60);
 					var minutes = (wholeSecs - secs) / 60;
@@ -28,20 +56,14 @@ angular.module('main-app', [])
 .directive('savedPlaylists', function(){
 	return {
 		restrict: 'E',
-		replace: true,
-		templateUrl: 'components/saved-playlists.html',
-		controller: 'Player',
-		controllerAs: 'PlayerCtrl'
+		templateUrl: 'components/saved-playlists.html'
 	};
 })
 
 .directive('currentPlaylist', function(){
 	return {
 		restrict: 'E',
-		replace: true,
-		templateUrl: 'components/current-playlist.html',
-		controller: 'Player',
-			controllerAs: 'PlayerCtrl'
+		templateUrl: 'components/current-playlist.html'
 	};
 })
 
@@ -59,10 +81,7 @@ angular.module('main-app', [])
 .directive('player', function(){
 	return {
 		restrict: 'E',
-		replace: true,
-		templateUrl: 'components/player.html',
-		controller: 'Player',
-		controllerAs: 'player'
+		templateUrl: 'components/player.html'
 	};
 });
 
