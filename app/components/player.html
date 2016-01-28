@@ -6,9 +6,9 @@
             
             <div id='controls' class='col-md-3'>
                 
-                <i class='glyphicon glyphicon-fast-backward'></i>
-                <i class='glyphicon glyphicon-play'></i>
-                <i class='glyphicon glyphicon-fast-forward'></i>
+                <i class='glyphicon glyphicon-fast-backward' ng-click='PlayCtrl.back()' ng-dblclick='PlayCtrl.backBack()'></i>
+                <i ng-class="PlayCtrl.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" ng-click='PlayCtrl.playToggle()'></i>
+                <i class='glyphicon glyphicon-fast-forward' ng-click='PlayCtrl.next()'></i>
                 &nbsp;
                 <span id='playtime'>{{PlayCtrl.secToMinSec(PlayCtrl.progress)}}</span>
                 <span id='totalTime'>/ {{PlayCtrl.secToMinSec(PlayCtrl.currentTrack.runTime())}}</span>

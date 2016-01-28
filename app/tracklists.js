@@ -22,7 +22,20 @@ var kakashiTracks = [
 			{trackNum: 8, trackName: "Utukushiki Tennen", albumName: "Kakashi" , artistName: "Yasuaki Shimizu", videoId: "HKY38Nx8dSo", begin: 1939, stop : 2220, runTime : function() {return this.stop - this.begin;}},
 			];
 
+var workTracks = [
+			{trackNum: 1, trackName: "Accidentals", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 0, stop: 207 , runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 2, trackName: "The Book Lovers", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 207, stop: 497, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 3, trackName: "The Message from Home", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 497, stop : 797, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 4, trackName: "Phantom", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 797, stop: 1009, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 5, trackName: "We've Got Time", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 1009, stop : 1261, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 6, trackName: "Living Room", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 1261, stop : 1469, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 7, trackName: "According to No Plan", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 1469, stop : 1657, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 8, trackName: "The World Backwards", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 1657, stop : 1898, runTime : function() {return this.stop - this.begin;}},
+			{trackNum: 8, trackName: "Lights Out", albumName: "Work and Non Work" , artistName: "Broadcast", videoId: "JZbKix7UAz4", begin: 1898, stop : 2170, runTime : function() {return this.stop - this.begin;}}
+			];
+
+
 var playlists = [{artistName: 'Mort Garson', albumName: 'Plantasia', tracks: plantasiaTracks},
-				 {artistName: 'Takeshi Taruchi', albumName: "Let's Go Classics!", tracks: null},
+				 {artistName: 'Broadcast', albumName: "Work and Non Work", tracks: workTracks},
 				 {artistName: 'Yasuaki Shimizu', albumName:'Kakashi', tracks: kakashiTracks}
 			];

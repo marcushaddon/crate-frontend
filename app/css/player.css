@@ -74,6 +74,10 @@ div .list-item span {
   font-size: 12px;
 }
 
+#player {
+  display: none;
+}
+
 /*input[type=range] {
   -webkit-appearance: none;
   width: 100%;

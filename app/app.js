@@ -2,7 +2,7 @@
 
 angular.module('main-app', [])
 
-.controller('Player', function(){
+.controller('Player', function($scope){
 	app = this;
 	this.lists = playlists;
 	this.currentList = this.lists[0];
@@ -15,7 +15,13 @@ angular.module('main-app', [])
 
 	this.setTrack = function(track) {
 		this.currentTrack = track;
-		this.progress = 0;
+		player.loadVideoById({ videoId: app.currentTrack.videoId, startSeconds: app.currentTrack.begin });
+		this.isPlaying = true;
+		if (!loop) {
+	      loop = setInterval(this.update, 1000);
+	    }
+
+
 	};
 
 	this.isCurrentList = function(list) {
@@ -32,11 +38,58 @@ angular.module('main-app', [])
 		} else {
 			return false;
 		}
+
+		return player.getPlayerState();
 	};
 
 	this.progress = 0;
 
 	this.isPlaying = false;
+
+	this.playToggle = function() {
+		switch(player.getPlayerState()) {
+      	  case -1:
+	      case 0:
+	      case 2:
+	      case 3:
+	      case 5:
+	        player.playVideo();
+	        this.isPlaying = true;
+	        loop = window.setInterval(this.update, 1000);
+	        break;
+	      default:
+	        player.pauseVideo();
+	        this.isPlaying = false;
+	        window.clearInterval(loop);
+	        loop = false;
+	      }
+	};
+
+	this.back = function() {
+		player.seekTo(app.currentTrack.begin);
+	};
+
+	this.backBack = function() {
+		//these are both awful and need to be re written
+		app.currentTrack = app.tracks()[app.tracks().indexOf(app.currentTrack) - 1];
+		app.setTrack(app.currentTrack);
+	};
+
+	this.next = function() {
+		//wow thats ugly
+		app.currentTrack = app.tracks()[app.tracks().indexOf(app.currentTrack) + 1];
+		app.setTrack(app.currentTrack);
+	};
+
+	this.update = function() {
+		app.progress = player.getCurrentTime() - app.currentTrack.begin;
+		if (player.getCurrentTime() >= app.currentTrack.stop) {
+			console.log("THATS ALL FOLKS");
+			app.next();
+
+		}
+		$scope.$apply();
+	}
 	
 
 
@@ -84,6 +137,7 @@ angular.module('main-app', [])
 		templateUrl: 'components/player.html'
 	};
 });
+
 
 })();
 
