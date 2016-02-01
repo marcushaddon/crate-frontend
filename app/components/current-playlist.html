@@ -4,9 +4,9 @@
                 </div>
                 <div class='panel-body'>
                     <ul class='list-unstyled tracklist' >
-                        <div ng-class='{selected: PlayCtrl.isCurrentTrack(track)}' ng-repeat='track in PlayCtrl.tracks()' ng-dblclick='PlayCtrl.setTrack(track)'>
+                        <div class='list-item' ng-class='{selected: PlayCtrl.isCurrentTrack(track)}' ng-repeat='track in PlayCtrl.tracks()'>
                             <li>
-                                <div class='list-item'><i ng-class="PlayCtrl.isCurrentTrack(track) && PlayCtrl.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'"></i>{{track.trackName}}<span class='pull-right'>{{PlayCtrl.secToMinSec(track.runTime())}}</span></div>
+                                <div><i ng-click='PlayCtrl.isCurrentTrack(track) ? PlayCtrl.playToggle() : PlayCtrl.setTrack(track)' ng-class="PlayCtrl.isCurrentTrack(track) && PlayCtrl.isPlaying ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'"></i><span ng-click='PlayCtrl.isCurrentTrack(track) ? PlayCtrl.playToggle() : angular.noop()' ng-dblclick='PlayCtrl.setTrack(track)'>{{track.trackName}}<span class='pull-right track-length'>{{PlayCtrl.secToMinSec(track.runTime())}}</span></span></div>
                             </li>
                             <li><hr></li>
                         </div>
