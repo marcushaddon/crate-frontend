@@ -5,17 +5,26 @@ angular.module('main-app', [])
 .controller('Player', function($scope){
 	app = this;
 	this.lists = playlists;
-	this.currentList = this.lists[0];
-	this.tracks = function() { return this.currentList.tracks; };
-	this.currentTrack = this.tracks()[0];
+	this.viewList = this.lists[0];
+	this.viewTracks = function() { return this.viewList.tracks; };
+	this.activeList = this.lists[0];
+	this.activeTracks = function() { return this.activeList.tracks; };
+	this.activeTrack = this.activeTracks()[0];
 
-	this.setList = function(list) {
-		this.currentList = list;
+	this.setActiveList = function(list) {
+		this.activeList = list;
+	};
+
+	this.setViewList = function(list) {
+		this.viewList = list;
 	};
 
 	this.setTrack = function(track) {
-		this.currentTrack = track;
-		player.loadVideoById({ videoId: app.currentTrack.videoId, startSeconds: app.currentTrack.begin });
+		this.activeTrack = track;
+		if (this.activeTracks().indexOf(this.activeTrack) == -1) {
+			this.activeList = this.viewList;
+		}
+		player.loadVideoById({ videoId: app.activeTrack.videoId, startSeconds: app.activeTrack.begin });
 		this.isPlaying = true;
 		if (!loop) {
 	      loop = setInterval(this.update, 1000);
@@ -24,16 +33,24 @@ angular.module('main-app', [])
 
 	};
 
-	this.isCurrentList = function(list) {
-		if (app.currentList == list) {
+	this.isActiveList = function(list) {
+		if (app.activeList == list) {
 			return true;
 		} else {
 			return false;
 		}
 	};
 
-	this.isCurrentTrack = function(track) {
-		if (app.currentTrack == track) {
+	this.isViewList = function(list) {
+		if (app.viewList == list) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	this.isActiveTrack = function(track) {
+		if (app.activeTrack == track) {
 			return true;
 		} else {
 			return false;
@@ -66,24 +83,24 @@ angular.module('main-app', [])
 	};
 
 	this.back = function() {
-		player.seekTo(app.currentTrack.begin);
+		player.seekTo(app.activeTrack.begin);
 	};
 
 	this.backBack = function() {
 		//these are both awful and need to be re written
-		app.currentTrack = app.tracks()[app.tracks().indexOf(app.currentTrack) - 1];
-		app.setTrack(app.currentTrack);
+		app.activeTrack = app.activeTracks()[app.activeTracks().indexOf(app.activeTrack) - 1];
+		app.setTrack(app.activeTrack);
 	};
 
 	this.next = function() {
 		//wow thats ugly
-		app.currentTrack = app.tracks()[app.tracks().indexOf(app.currentTrack) + 1];
-		app.setTrack(app.currentTrack);
+		app.activeTrack = app.activeTracks()[app.activeTracks().indexOf(app.activeTrack) + 1];
+		app.setTrack(app.activeTrack);
 	};
 
 	this.update = function() {
-		app.progress = player.getCurrentTime() - app.currentTrack.begin;
-		if (player.getCurrentTime() >= app.currentTrack.stop) {
+		app.progress = player.getCurrentTime() - app.activeTrack.begin;
+		if (player.getCurrentTime() >= app.activeTrack.stop) {
 			console.log("THATS ALL FOLKS");
 			app.next();
 

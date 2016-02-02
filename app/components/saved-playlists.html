@@ -5,7 +5,7 @@
                 <div class='panel-body'>
                     <ul class='list-unstyled tracklist'>
                         
-                            <div ng-click="PlayCtrl.setList(list)" ng-class='{selected: PlayCtrl.isCurrentList(list)}' ng-repeat='list in PlayCtrl.lists' >
+                            <div ng-click="PlayCtrl.setViewList(list)" ng-class='{selected: PlayCtrl.isViewList(list)}' ng-repeat='list in PlayCtrl.lists' >
                                 <li>
                                     <div class='list-item'><i class='glyphicon glyphicon-music'></i>{{list.artistName}} - {{list.albumName}}<span class='pull-right'>{{list.tracks.length || 0}} songs</span></div>
                                 </li>
