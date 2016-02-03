@@ -11,14 +11,14 @@
                 <i class='glyphicon glyphicon-fast-forward' ng-click='PlayCtrl.next()'></i>
                 &nbsp;
                 <span id='playtime'>{{PlayCtrl.secToMinSec(PlayCtrl.progress)}}</span>
-                <span id='totalTime'>/ {{PlayCtrl.secToMinSec(PlayCtrl.activeTrack.runTime())}}</span>
+                <span id='totalTime'>/ {{PlayCtrl.secToMinSec(PlayCtrl.activeTrack.stop - PlayCtrl.activeTrack.begin)}}</span>
                 
                 
                 
             </div>
             
             <div class='col-md-9'>
-            <input type='range' class='navbar-right' id='progress' min='0' max='{{PlayCtrl.activeTrack.runTime()}}' ng-model='PlayCtrl.progress'/>
+            <input type='range' class='navbar-right' id='progress' min='0' max='{{PlayCtrl.activeTrack.stop - PlayCtrl.activeTrack.begin}}' ng-model='PlayCtrl.progress'/>
             </div>
             
         </div>

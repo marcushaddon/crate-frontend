@@ -2,28 +2,38 @@
 
 angular.module('main-app', [])
 
-.controller('Player', function($scope){
+
+.controller('Player', function($scope, $http){
 	app = this;
 	this.lists = playlists;
-	this.viewList = this.lists[0];
-	this.viewTracks = function() { return this.viewList.tracks; };
 	this.activeList = this.lists[0];
-	this.activeTracks = function() { return this.activeList.tracks; };
-	this.activeTrack = this.activeTracks()[0];
+	this.activeTracks = [];
+	this.activeTrack = {};
+	
 
 	this.setActiveList = function(list) {
 		this.activeList = list;
+		$http.get('php/getter.php', {
+		params: {reqType : 'tracksByAlbumId', id : app.activeList.albumId}
+			}).then(function(response){
+				
+				app.activeTracks = response.data;
+				console.log(response.data);
+			});
+
 	};
 
-	this.setViewList = function(list) {
-		this.viewList = list;
-	};
+	// not nessecary till I bring back 'active' vs 'viewed' list
+	// this.setViewList = function(list) {
+	// 	this.viewList = list;
+	// };
 
 	this.setTrack = function(track) {
 		this.activeTrack = track;
-		if (this.activeTracks().indexOf(this.activeTrack) == -1) {
-			this.activeList = this.viewList;
-		}
+		// not nessecary till I bring back 'active' vs 'viewed' list
+		// if (this.activeTracks.indexOf(this.activeTrack) == -1) {
+		// 	this.activeList = this.viewList;
+		// }
 		player.loadVideoById({ videoId: app.activeTrack.videoId, startSeconds: app.activeTrack.begin });
 		this.isPlaying = true;
 		if (!loop) {
@@ -41,13 +51,14 @@ angular.module('main-app', [])
 		}
 	};
 
-	this.isViewList = function(list) {
-		if (app.viewList == list) {
-			return true;
-		} else {
-			return false;
-		}
-	};
+	// not nessecary till I bring back 'active' vs 'viewed' list
+	// this.isViewList = function(list) {
+	// 	if (app.viewList == list) {
+	// 		return true;
+	// 	} else {
+	// 		return false;
+	// 	}
+	// };
 
 	this.isActiveTrack = function(track) {
 		if (app.activeTrack == track) {
@@ -88,13 +99,13 @@ angular.module('main-app', [])
 
 	this.backBack = function() {
 		//these are both awful and need to be re written
-		app.activeTrack = app.activeTracks()[app.activeTracks().indexOf(app.activeTrack) - 1];
+		app.activeTrack = app.activeTracks[app.activeTracks.indexOf(app.activeTrack) - 1];
 		app.setTrack(app.activeTrack);
 	};
 
 	this.next = function() {
 		//wow thats ugly
-		app.activeTrack = app.activeTracks()[app.activeTracks().indexOf(app.activeTrack) + 1];
+		app.activeTrack = app.activeTracks[app.activeTracks.indexOf(app.activeTrack) + 1];
 		app.setTrack(app.activeTrack);
 	};
 
@@ -120,6 +131,16 @@ angular.module('main-app', [])
 					var readOut = minutes + ":" + seconds;
 					return readOut;
 				};
+
+	$http.get('php/getter.php', {
+		params: {reqType : 'tracksByAlbumId', id : app.activeList.albumId}
+			}).then(function(response){
+				
+				app.activeTracks = response.data;
+				app.activeTrack = app.activeTracks[0];
+				console.log(response.data);
+			});
+	
 
 })
 
