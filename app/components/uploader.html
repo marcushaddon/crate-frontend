@@ -1,0 +1,23 @@
+<div class='panel panel-default'>
+<div class='panel-heading'>
+	<h3>Upload Tracks/Albums <i class='glyphicon glyphicon-plus pull-right' ng-click='Uploader.testThing()' ></i></h3>
+</div>
+<div class='panel-body'></div>
+	<ul class='list-unstyled' >
+        <div class='list-item' ng-repeat='track in PlayCtrl.uploader.createdTracks'>
+            <li>
+	                <div class='row'>
+	                	<input type='text' class='input-lg col-md-4' ng-model='track.trackName' placeholder='Track name' />
+	                	<!-- pull-right is reversing these!!! -->
+	                	<input type='text' class='input-lg col-md-1 pull-right' ng-model='track.stop' placeholder='Start time' />
+	                	<input type='text' class='input-lg col-md-1 pull-right' ng-model='track.begin' placeholder='Stop time' />
+	                </div>
+            
+            </li>
+            <li><hr></li>
+        </div>            
+    </ul>
+</div>
+<pre>
+{{currentUpload}}
+</pre> 

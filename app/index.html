@@ -11,6 +11,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="app.js"></script>
+    <script src="classes.js"></script>
 
     
     <link rel='stylesheet' href='css/player.css'>
@@ -32,14 +33,22 @@
 <div class='container' id='content'>
     <div class='row'>
         <div class='col-md-4 hidden-xs'>
-            <saved-playlists></saved-playlists>
+            <saved-playlists ng-show='PlayCtrl.viewController.defaultView'></saved-playlists>
+            <upload-video ng-show='PlayCtrl.viewController.uploaderView'></upload-video>
         </div>
         <div class='col-md-8'>
-            <current-playlist></current-playlist>
+            <current-playlist ng-show='PlayCtrl.viewController.defaultView'></current-playlist>
+            <uploader ng-show='PlayCtrl.viewController.uploaderView'></uploader>
         </div>
     </div>
+
+    
 </div>
+
 <!--END PLAYLISTS AND RESULTS-->
+
+<!--UPLOADER-->
+
 
 <player></player>
 </div>

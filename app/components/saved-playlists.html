@@ -7,7 +7,7 @@
                         
                             <div ng-click="PlayCtrl.setActiveList(list)" ng-class='{selected: PlayCtrl.isActiveList(list)}' ng-repeat='list in PlayCtrl.lists' >
                                 <li>
-                                    <div class='list-item'><i class='glyphicon glyphicon-music'></i>{{list.artistName}} - {{list.albumName}}<span class='pull-right'>{{list.tracks.length || 0}} songs</span></div>
+                                    <div class='list-item'><i class='glyphicon glyphicon-music'></i>{{list.artistName}} - {{list.albumName}}<span class='pull-right'>{{list.noTracks || 0}} songs</span></div>
                                 </li>
                                 <li><hr></li>
                             </div>
@@ -16,4 +16,4 @@
                         
                     </ul>
                 </div>
-            </div>
+            </div>`

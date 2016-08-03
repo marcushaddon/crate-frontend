@@ -5,7 +5,7 @@ angular.module('main-app', [])
 
 .controller('Player', function($scope, $http){
 	app = this;
-	this.lists = playlists;
+	this.lists = []; // playlists;
 	this.activeList = this.lists[0];
 	this.activeTracks = [];
 	this.activeTrack = {};
@@ -13,10 +13,8 @@ angular.module('main-app', [])
 
 	this.setActiveList = function(list) {
 		this.activeList = list;
-		$http.get('php/getter.php', {
-		params: {reqType : 'tracksByAlbumId', id : app.activeList.albumId}
-			}).then(function(response){
-				
+		$http.get('/api/tracks/albumId/' + list._id)
+			.then(function(response){
 				app.activeTracks = response.data;
 				console.log(response.data);
 			});
@@ -118,6 +116,17 @@ angular.module('main-app', [])
 		}
 		$scope.$apply();
 	}
+
+	
+
+	this.viewController = {
+		defaultView: true,
+		uploaderView: false,
+		uploaderToggle: function(showUploader) {
+			this.defaultView = !showUploader;
+			this.uploaderView = showUploader;
+		}
+	};
 	
 
 
@@ -132,16 +141,42 @@ angular.module('main-app', [])
 					return readOut;
 				};
 
-	$http.get('php/getter.php', {
-		params: {reqType : 'tracksByAlbumId', id : app.activeList.albumId}
-			}).then(function(response){
-				
-				app.activeTracks = response.data;
-				app.activeTrack = app.activeTracks[0];
-				console.log(response.data);
-			});
+	$http.get('/api/playlists')
+		.then(function(response){
+			app.lists = response.data;
+			app.activeList = app.lists[0];
+			// callback hell!!
+			$http.get('/api/tracks/albumId/' + app.activeList._id)
+				.then(function(response){
+					app.activeTracks = response.data;
+					app.activeTrack = app.activeTracks[0];
+					console.log(response.data);
+				});
+		});
+
+	
 	
 
+})
+
+.controller('Uploader', function($scope, $http){
+	$scope.testMessage = 'IS THIS THING ON?';
+	$scope.testThing = function() { console.log("TEST FUNCTION"); };
+	this.currentUpload = {
+		artist: '',
+		albumName: '',
+		videoId: '',
+		createdTracks: [],
+		addTrack: function() {
+			console.log("YOU RANG");
+			var nextTrackNum = this.createdTracks.length + 1;
+			this.createdTracks.push( new Track(nextTrackNum, '', '', '', this.videoId) );
+			console.log($this.createdTracks);
+		}
+	};
+		
+		
+	
 })
 
 .directive('savedPlaylists', function(){
@@ -174,6 +209,22 @@ angular.module('main-app', [])
 		restrict: 'E',
 		templateUrl: 'components/player.html'
 	};
+})
+
+.directive('uploader', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'components/uploader.html',
+		controller: 'Uploader'
+	}
+})
+
+.directive('uploadVideo', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'components/upload-video.html',
+		controller: 'Uploader'
+	}
 });
 
 
