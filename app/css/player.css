@@ -11,7 +11,7 @@ body {
 }
 
 
-#playlists, #results {
+#playlists, #results, #uploader, #upload-video {
     height: 490px;
 }
 

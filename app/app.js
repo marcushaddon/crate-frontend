@@ -102,7 +102,7 @@ angular.module('main-app', [])
 	};
 
 	this.next = function() {
-		//wow thats ugly
+		// wow thats ugly
 		app.activeTrack = app.activeTracks[app.activeTracks.indexOf(app.activeTrack) + 1];
 		app.setTrack(app.activeTrack);
 	};
@@ -160,9 +160,19 @@ angular.module('main-app', [])
 })
 
 .controller('Uploader', function($scope, $http){
-	$scope.testMessage = 'IS THIS THING ON?';
-	$scope.testThing = function() { console.log("TEST FUNCTION"); };
-	this.currentUpload = {
+	$scope.uploadStep = 0;
+	$scope.instructions = ["Enter the Youtube Video Id... (<a href='https://www.google.com/?ion=1&espv=2#q=find%20youtube%20video%20id' target=''>help</a>)",
+						    "Now enter the name of the artist and the album...",
+						    "Great! The audio should begin playing in a couple seconds. When you hear the end of one song, hit the + button to create a cut between two tracks, then enter the name of the track that just ended."];
+	$scope.nextStep = function() {
+		if ($scope.uploadStep < $scope.instructions.length - 1) {
+			$scope.uploadStep++;
+		}
+	}
+	$scope.resetUpload = function() {
+		// reset everything
+	}
+	$scope.currentUpload = {
 		artist: '',
 		albumName: '',
 		videoId: '',
@@ -170,8 +180,8 @@ angular.module('main-app', [])
 		addTrack: function() {
 			console.log("YOU RANG");
 			var nextTrackNum = this.createdTracks.length + 1;
-			this.createdTracks.push( new Track(nextTrackNum, '', '', '', this.videoId) );
-			console.log($this.createdTracks);
+			this.createdTracks.push( new Track(nextTrackNum, '', this.albumName, this.artist, this.videoId) );
+			console.log(JSON.stringify(this));
 		}
 	};
 		
@@ -215,7 +225,8 @@ angular.module('main-app', [])
 	return {
 		restrict: 'E',
 		templateUrl: 'components/uploader.html',
-		controller: 'Uploader'
+		controller: 'Uploader',
+		controllerAs: 'UploadCtrl'
 	}
 })
 
@@ -223,7 +234,8 @@ angular.module('main-app', [])
 	return {
 		restrict: 'E',
 		templateUrl: 'components/upload-video.html',
-		controller: 'Uploader'
+		controller: 'Uploader',
+		contollerAs: 'UploadCtrl'
 	}
 });
 
