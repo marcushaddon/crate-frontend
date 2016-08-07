@@ -166,11 +166,25 @@ angular.module('main-app', [])
 						    "Great! The audio should begin playing in a couple seconds. When you hear the end of one song, hit the + button to create a cut between two tracks, then enter the name of the track that just ended."];
 	$scope.nextStep = function() {
 		if ($scope.uploadStep < $scope.instructions.length - 1) {
-			$scope.uploadStep++;
+			if ($scope.currentUpload.artist != '' && $scope.currentUpload.albumName != '') {
+				$scope.uploadStep = 2;
+				player.loadVideoById($scope.currentUpload.videoId);
+				console.log("I should play maybe?");
+			} else if ($scope.currentUpload.videoId != '') {
+				$scope.uploadStep = 1;
+			} else {
+				$scope.uploadStep = 0;
+			}
+			
 		}
 	}
 	$scope.resetUpload = function() {
-		// reset everything
+		var current = $scope.currentUpload;
+		current.artist        = '';
+		current.albumName     = '';
+		current.videoId       = '';
+		current.createdTracks = [];
+		$scope.uploadStep = 0;
 	}
 	$scope.currentUpload = {
 		artist: '',
@@ -178,7 +192,6 @@ angular.module('main-app', [])
 		videoId: '',
 		createdTracks: [],
 		addTrack: function() {
-			console.log("YOU RANG");
 			var nextTrackNum = this.createdTracks.length + 1;
 			this.createdTracks.push( new Track(nextTrackNum, '', this.albumName, this.artist, this.videoId) );
 			console.log(JSON.stringify(this));
