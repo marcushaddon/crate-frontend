@@ -6,20 +6,17 @@
         <ul class='list-unstyled'>
             <li>
         <div class='form-horizontal'>
-        <input id='videoId' type='text' class='input-lg' placeholder='Youtube Video Id' ng-model='currentUpload.videoId' ng-show='uploadStep == 0' />
-        <input id='artistName' type='text' class='input-lg' placeholder='Artist Name' ng-model='currentUpload.artist' ng-show='uploadStep == 1' />
-        <input id='albumName' type='text' class='input-lg' placeholder='Album Name' ng-model='currentUpload.albumName' ng-show='uploadStep == 1' />
+            <input id='videoId' type='text' class='input-lg' placeholder='Youtube Video Id' ng-model='currentUpload.videoId' ng-show='uploadStep == 0' />
+            <input id='artistName' type='text' class='input-lg' placeholder='Artist Name' ng-model='currentUpload.artist' ng-show='uploadStep == 1' />
+            <input id='albumName' type='text' class='input-lg' placeholder='Album Name' ng-model='currentUpload.albumName' ng-show='uploadStep == 1' />
         
     </div>
 </li>
     <li><hr></li>
 </ul>
-<input type='button' class='btn btn-success' value='Next Step' ng-click='nextStep()'></input>
+<input type='button' class='btn btn-success' ng-value='uploadStep == 2 ? "Upload!" : "Next Step"' ng-click='uploadStep == 2 ? uploadAlbum() : nextStep()'></input>
 <input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
 <hr>
 {{instructions[uploadStep]}}
-<pre>
-{{currentUpload.createdTracks}}
-</pre>
     </div>
 </div>

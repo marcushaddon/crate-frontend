@@ -34,6 +34,7 @@ loop = false;
       
       function onPlayerStateChange(event) {
        console.log(player.getPlayerState());
+       app.toggleUpdate(player.getPlayerState());
       }
       function stopVideo() {
         player.stopVideo();

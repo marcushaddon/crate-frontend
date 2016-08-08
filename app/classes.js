@@ -1,10 +1,10 @@
 function Track(trackNum, trackName, albumName, artistName, videoId, begin, stop){
-	this.trackNum = trackNum || null;
+	this.trackNum = trackNum;
 	this.trackName = trackName || null;
-	this.albumName = albumName || null;
-	this.artistName = artistName || null;
-	this.videoId = videoId || null;
-	this.begin = begin || null;
+	this.albumName = albumName;
+	this.artist = artistName;
+	this.videoId = videoId;
+	this.begin = begin;
 	this.stop = stop || null;
 }
 

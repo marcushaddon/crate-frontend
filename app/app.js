@@ -2,13 +2,47 @@
 
 angular.module('main-app', [])
 
+.factory('stereo', function(){
+	return {
+		activeTrack: {},
+		progress: 0,
+		isPlaying: false,
+		getProgress: function() {
+			return player.getCurrentTime() - this.activeTrack.begin;
+		},
+		setTrack: function(track) {
+			this.activeTrack = track;
+			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
+			this.isPlaying   = true;
+		},
+		playToggle: function() {
+			switch(player.getPlayerState()) {
+	      	  case -1:
+		      case 0:
+		      case 2:
+		      case 3:
+		      case 5:
+		        player.playVideo();
+		        this.isPlaying = true;
+		        break;
+		      default:
+		        player.pauseVideo();
+		        this.isPlaying = false;
+		      }
+		      return player.getPlayerState();
+		}
+	}
+})
 
-.controller('Player', function($scope, $http){
-	app = this;
-	this.lists = []; // playlists;
-	this.activeList = this.lists[0];
-	this.activeTracks = [];
-	this.activeTrack = {};
+.controller('Main', function($scope, $http, stereo){
+	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
+	app                 = this;
+	this.lists          = []; // playlists;
+	this.activeList     = this.lists[0];
+	this.activeTracks   = [];
+	this.getActiveTrack = function() { return stereo.activeTrack; };
+	this.getIsPlaying   = function() { return stereo.isPlaying; };
+	this.progress       = 0;
 	
 
 	this.setActiveList = function(list) {
@@ -18,27 +52,29 @@ angular.module('main-app', [])
 				app.activeTracks = response.data;
 				console.log(response.data);
 			});
-
 	};
 
-	// not nessecary till I bring back 'active' vs 'viewed' list
-	// this.setViewList = function(list) {
-	// 	this.viewList = list;
-	// };
+	this.toggleUpdate = function(playerState) {
+		switch(playerState) {
+	      	  case -1:
+		      case 0:
+		      case 2:
+		      case 3:
+		      case 5:
+		        window.clearInterval(loop);
+	        	loop = false;
+		        break;
+		      default:
+		        loop = window.setInterval(this.update, 1000);
+		      }
+		};
+	
 
 	this.setTrack = function(track) {
-		this.activeTrack = track;
-		// not nessecary till I bring back 'active' vs 'viewed' list
-		// if (this.activeTracks.indexOf(this.activeTrack) == -1) {
-		// 	this.activeList = this.viewList;
-		// }
-		player.loadVideoById({ videoId: app.activeTrack.videoId, startSeconds: app.activeTrack.begin });
-		this.isPlaying = true;
-		if (!loop) {
-	      loop = setInterval(this.update, 1000);
-	    }
-
-
+		stereo.setTrack(track);
+		// if (!loop) {
+	 //      loop = setInterval(this.update, 1000);
+	 //    }
 	};
 
 	this.isActiveList = function(list) {
@@ -49,75 +85,42 @@ angular.module('main-app', [])
 		}
 	};
 
-	// not nessecary till I bring back 'active' vs 'viewed' list
-	// this.isViewList = function(list) {
-	// 	if (app.viewList == list) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// };
-
 	this.isActiveTrack = function(track) {
-		if (app.activeTrack == track) {
+		if (stereo.activeTrack == track) {
 			return true;
 		} else {
 			return false;
 		}
-
-		return player.getPlayerState();
 	};
-
-	this.progress = 0;
-
-	this.isPlaying = false;
 
 	this.playToggle = function() {
-		switch(player.getPlayerState()) {
-      	  case -1:
-	      case 0:
-	      case 2:
-	      case 3:
-	      case 5:
-	        player.playVideo();
-	        this.isPlaying = true;
-	        loop = window.setInterval(this.update, 1000);
-	        break;
-	      default:
-	        player.pauseVideo();
-	        this.isPlaying = false;
-	        window.clearInterval(loop);
-	        loop = false;
-	      }
-	};
+		var state = stereo.playToggle();
+		console.log(stereo.activeTrack);
+	}
 
 	this.back = function() {
-		player.seekTo(app.activeTrack.begin);
+		player.seekTo(stereo.activeTrack.begin);
 	};
 
 	this.backBack = function() {
 		//these are both awful and need to be re written
-		app.activeTrack = app.activeTracks[app.activeTracks.indexOf(app.activeTrack) - 1];
-		app.setTrack(app.activeTrack);
+		stereo.setTrack(app.activeTracks[app.activeTracks.indexOf(app.getActiveTrack()) - 1]);
 	};
 
 	this.next = function() {
 		// wow thats ugly
-		app.activeTrack = app.activeTracks[app.activeTracks.indexOf(app.activeTrack) + 1];
-		app.setTrack(app.activeTrack);
+		stereo.setTrack(app.activeTracks[app.activeTracks.indexOf(app.getActiveTrack()) + 1]);
 	};
 
 	this.update = function() {
-		app.progress = player.getCurrentTime() - app.activeTrack.begin;
-		if (player.getCurrentTime() >= app.activeTrack.stop) {
+		app.progress = stereo.getProgress();
+		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
 			console.log("THATS ALL FOLKS");
 			app.next();
-
 		}
 		$scope.$apply();
+		console.log(app.progress);
 	}
-
-	
 
 	this.viewController = {
 		defaultView: true,
@@ -128,9 +131,6 @@ angular.module('main-app', [])
 		}
 	};
 	
-
-
-
 	//better implemented as a custom filter
 	this.secToMinSec = function(seconds) {
 					var wholeSecs = Math.floor(seconds);
@@ -153,31 +153,42 @@ angular.module('main-app', [])
 					console.log(response.data);
 				});
 		});
-
-	
-	
-
 })
 
-.controller('Uploader', function($scope, $http){
+.controller('Uploader', function($scope, $http, stereo){
 	$scope.uploadStep = 0;
 	$scope.instructions = ["Enter the Youtube Video Id... (<a href='https://www.google.com/?ion=1&espv=2#q=find%20youtube%20video%20id' target=''>help</a>)",
 						    "Now enter the name of the artist and the album...",
 						    "Great! The audio should begin playing in a couple seconds. When you hear the end of one song, hit the + button to create a cut between two tracks, then enter the name of the track that just ended."];
+
 	$scope.nextStep = function() {
 		if ($scope.uploadStep < $scope.instructions.length - 1) {
 			if ($scope.currentUpload.artist != '' && $scope.currentUpload.albumName != '') {
 				$scope.uploadStep = 2;
-				player.loadVideoById($scope.currentUpload.videoId);
+				var preview = new Track(0, 'preview', $scope.currentUpload.albumName, $scope.currentUpload.artist, $scope.currentUpload.videoId, 0, 10000); // arbitrarily large number, but I think theres a way to get the videos length?
+				stereo.setTrack(preview);
+				$scope.currentUpload.addTrack();
 				console.log("I should play maybe?");
 			} else if ($scope.currentUpload.videoId != '') {
 				$scope.uploadStep = 1;
 			} else {
 				$scope.uploadStep = 0;
 			}
-			
 		}
 	}
+
+	$scope.uploadAlbum = function() {
+		// Check to make sure everything is cool
+		// Set the stop param of the last track
+		// Make sure none of the tracks start/stop times overlap
+		// Send the album
+		var upload = JSON.stringify($scope.currentUpload);
+		$http.post('/api/upload', upload)
+		.success(function(data, status, headers, config){
+			console.log(data);
+		});
+	}
+
 	$scope.resetUpload = function() {
 		var current = $scope.currentUpload;
 		current.artist        = '';
@@ -186,14 +197,23 @@ angular.module('main-app', [])
 		current.createdTracks = [];
 		$scope.uploadStep = 0;
 	}
+
 	$scope.currentUpload = {
 		artist: '',
 		albumName: '',
 		videoId: '',
 		createdTracks: [],
 		addTrack: function() {
+			var lastTrack = this.createdTracks[this.createdTracks.length - 1];
 			var nextTrackNum = this.createdTracks.length + 1;
-			this.createdTracks.push( new Track(nextTrackNum, '', this.albumName, this.artist, this.videoId) );
+			if (lastTrack != undefined) {
+				lastTrack.stop = stereo.getProgress();
+			}
+			var startTime = lastTrack == undefined ? 0 : lastTrack.stop;
+			
+			var newTrack = new Track(nextTrackNum, 'Track ' + nextTrackNum, this.albumName, this.artist, this.videoId, startTime);
+			this.createdTracks.push( newTrack );
+			
 			console.log(JSON.stringify(this));
 		}
 	};
