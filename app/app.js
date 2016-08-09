@@ -7,14 +7,17 @@ angular.module('main-app', [])
 		activeTrack: {},
 		progress: 0,
 		isPlaying: false,
+
 		getProgress: function() {
 			return player.getCurrentTime() - this.activeTrack.begin;
 		},
+
 		setTrack: function(track) {
 			this.activeTrack = track;
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
 			this.isPlaying   = true;
 		},
+
 		playToggle: function() {
 			switch(player.getPlayerState()) {
 	      	  case -1:
@@ -30,6 +33,10 @@ angular.module('main-app', [])
 		        this.isPlaying = false;
 		      }
 		      return player.getPlayerState();
+		},
+
+		seekTo: function(time) {
+			player.seekTo(time);
 		}
 	}
 })
@@ -112,6 +119,19 @@ angular.module('main-app', [])
 		stereo.setTrack(app.activeTracks[app.activeTracks.indexOf(app.getActiveTrack()) + 1]);
 	};
 
+	this.seekTo = function(time) {
+		stereo.seekTo(time);
+	};
+
+	// This might break if playing a playlist or an album assembled from multiple youtube videos.
+	this.scrub = function() { 
+		console.log('progress: ' + this.progress);
+		console.log('starting point: ' + this.getActiveTrack().begin);
+		var newTime = parseFloat(this.getActiveTrack().begin) + parseFloat(this.progress);
+		console.log("newtime: " + newTime);
+		this.seekTo(newTime);
+	};
+
 	this.update = function() {
 		app.progress = stereo.getProgress();
 		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
@@ -144,6 +164,7 @@ angular.module('main-app', [])
 	$http.get('/api/playlists')
 		.then(function(response){
 			app.lists = response.data;
+			console.log(response.data)
 			app.activeList = app.lists[0];
 			// callback hell!!
 			$http.get('/api/tracks/albumId/' + app.activeList._id)
@@ -157,7 +178,7 @@ angular.module('main-app', [])
 
 .controller('Uploader', function($scope, $http, stereo){
 	$scope.uploadStep = 0;
-	$scope.instructions = ["Enter the Youtube Video Id... (<a href='https://www.google.com/?ion=1&espv=2#q=find%20youtube%20video%20id' target=''>help</a>)",
+	$scope.instructions = ["Enter the Youtube Video Id...",
 						    "Now enter the name of the artist and the album...",
 						    "Great! The audio should begin playing in a couple seconds. When you hear the end of one song, hit the + button to create a cut between two tracks, then enter the name of the track that just ended."];
 
@@ -190,7 +211,7 @@ angular.module('main-app', [])
 	}
 
 	$scope.resetUpload = function() {
-		var current = $scope.currentUpload;
+		var current           = $scope.currentUpload;
 		current.artist        = '';
 		current.albumName     = '';
 		current.videoId       = '';

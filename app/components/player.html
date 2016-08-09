@@ -18,7 +18,7 @@
             </div>
             
             <div class='col-md-9'>
-            <input type='range' class='navbar-right' id='progress' min='0' max='{{PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin}}' ng-model='PlayCtrl.progress'/>
+            <input type='range' class='navbar-right' id='progress' min='0' max='{{PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin}}' ng-model='PlayCtrl.progress' ng-change='PlayCtrl.scrub()'/>
             </div>
             
         </div>
