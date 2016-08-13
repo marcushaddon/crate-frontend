@@ -31,6 +31,7 @@
 <!--PLAYLISTS AND RESULTS-->
 
 <div class='container' id='content'>
+    <div ng-view></div>
     <div class='row'>
         <div class='col-md-4 hidden-xs'>
             <saved-playlists ng-show='PlayCtrl.viewController.defaultView'></saved-playlists>
@@ -41,7 +42,7 @@
             <uploader ng-show='PlayCtrl.viewController.uploaderView'></uploader>
         </div>
     </div>
-
+<login></login>
     
 </div>
 

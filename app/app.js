@@ -3,27 +3,31 @@
 angular.module('main-app', [])
 
 .service('clerk', function($http){ // This needs to accomodate request body for POST requests
-	this.fetchMe = function(endPoint, method, successCallBack, failureCallBack) {
+	this.fetchMe = function(endPoint, method, data, successCallBack, failureCallBack) {
 		$http({
 			method: method,
 			url: endPoint,
-			headers: { 'api-key': 'MAKEmedyNAMIc'}
+			data: data,
+			headers: { 'api-key': 'abba'} // This will be from probably a user factory
 		})
 		.then(function(response) { successCallBack(response); },
-			  function(response) { failureCallBack(response); });
+			  function(response) { 
+			  	console.log(response.data);
+			  	failureCallBack(response); 
+			  });
 	};
 
 	this.getTracksByAlbumId = function(albumId, successCallBack, failureCallBack) {
-		// $http({
-		// 	method: 'GET',
-		// 	url: '/api/tracks/albumId/' + albumId,
-		// 	headers: { 'api-key' : 'SUPERSECRETKEY'}
-		// })
-		// .then(function(response) { successCallBack(response); },
-		//       function(response) { failureCallBack(response); });
-		// 	// ...really?^
-		this.fetchMe('/api/tracks/albumId/' + albumId, 'GET', successCallBack, failureCallBack);
+		this.fetchMe('/api/tracks/albumId/' + albumId, 'GET', null, successCallBack, failureCallBack);
 	};
+
+	this.getPlayLists = function(successCallBack, failureCallBack) {
+		this.fetchMe('/api/playlists', 'GET', null, successCallBack, failureCallBack)
+	};
+
+	this.uploadAlbum = function(album, successCallBack, failureCallBack) {
+		this.fetchMe('/api/upload', 'POST', album, successCallBack, failureCallBack);
+	}
  }
 )
 
@@ -66,7 +70,7 @@ angular.module('main-app', [])
 	}
 })
 
-.controller('Main', function($scope, $http, stereo, clerk){
+.controller('Main', function($scope, stereo, clerk){
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                 = this;
 	this.lists          = []; // playlists;
@@ -187,15 +191,15 @@ angular.module('main-app', [])
 					return readOut;
 				};
 
-	$http.get('/api/playlists')
-		.then(function(response){
-			app.lists = response.data;
-			console.log(response.data)
-			app.setActiveList(app.lists[0]);
-		});
+	// INIT
+	clerk.getPlayLists(function(response) {
+		app.lists = response.data;
+		app.setActiveList(app.lists[0]);
+	});
+
 })
 
-.controller('Uploader', function($scope, $http, stereo){
+.controller('Uploader', function($scope, stereo, clerk){
 	$scope.uploadStep = 0;
 	$scope.instructions = ["Enter the Youtube Video Id...",
 						    "Now enter the name of the artist and the album...",
@@ -222,11 +226,10 @@ angular.module('main-app', [])
 		// Set the stop param of the last track
 		// Make sure none of the tracks start/stop times overlap
 		// Send the album
-		var upload = JSON.stringify($scope.currentUpload);
-		$http.post('/api/upload', upload)
-		.success(function(data, status, headers, config){
-			console.log(data);
+		clerk.uploadAlbum($scope.currentUpload, function(response){
+			console.log(response.data);
 		});
+		
 	}
 
 	$scope.resetUpload = function() {
