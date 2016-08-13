@@ -2,6 +2,31 @@
 
 angular.module('main-app', [])
 
+.service('clerk', function($http){ // This needs to accomodate request body for POST requests
+	this.fetchMe = function(endPoint, method, successCallBack, failureCallBack) {
+		$http({
+			method: method,
+			url: endPoint,
+			headers: { 'api-key': 'MAKEmedyNAMIc'}
+		})
+		.then(function(response) { successCallBack(response); },
+			  function(response) { failureCallBack(response); });
+	};
+
+	this.getTracksByAlbumId = function(albumId, successCallBack, failureCallBack) {
+		// $http({
+		// 	method: 'GET',
+		// 	url: '/api/tracks/albumId/' + albumId,
+		// 	headers: { 'api-key' : 'SUPERSECRETKEY'}
+		// })
+		// .then(function(response) { successCallBack(response); },
+		//       function(response) { failureCallBack(response); });
+		// 	// ...really?^
+		this.fetchMe('/api/tracks/albumId/' + albumId, 'GET', successCallBack, failureCallBack);
+	};
+ }
+)
+
 .factory('stereo', function(){
 	return {
 		activeTrack: {},
@@ -41,7 +66,7 @@ angular.module('main-app', [])
 	}
 })
 
-.controller('Main', function($scope, $http, stereo){
+.controller('Main', function($scope, $http, stereo, clerk){
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                 = this;
 	this.lists          = []; // playlists;
@@ -54,11 +79,12 @@ angular.module('main-app', [])
 
 	this.setActiveList = function(list) {
 		this.activeList = list;
-		$http.get('/api/tracks/albumId/' + list._id)
-			.then(function(response){
-				app.activeTracks = response.data;
-				console.log(response.data);
-			});
+		clerk.getTracksByAlbumId(list._id, function(response){
+			app.activeTracks = response.data;
+		},
+		function(response){
+			console.log(response);
+		});
 	};
 
 	this.toggleUpdate = function(playerState) {
@@ -123,7 +149,7 @@ angular.module('main-app', [])
 		stereo.seekTo(time);
 	};
 
-	// This might break if playing a playlist or an album assembled from multiple youtube videos.
+	// This might break if playing a playlist or an album assembled from multiple youtube videos?
 	this.scrub = function() { 
 		console.log('progress: ' + this.progress);
 		console.log('starting point: ' + this.getActiveTrack().begin);
@@ -165,14 +191,7 @@ angular.module('main-app', [])
 		.then(function(response){
 			app.lists = response.data;
 			console.log(response.data)
-			app.activeList = app.lists[0];
-			// callback hell!!
-			$http.get('/api/tracks/albumId/' + app.activeList._id)
-				.then(function(response){
-					app.activeTracks = response.data;
-					app.activeTrack = app.activeTracks[0];
-					console.log(response.data);
-				});
+			app.setActiveList(app.lists[0]);
 		});
 })
 
@@ -238,9 +257,6 @@ angular.module('main-app', [])
 			console.log(JSON.stringify(this));
 		}
 	};
-		
-		
-	
 })
 
 .directive('savedPlaylists', function(){
