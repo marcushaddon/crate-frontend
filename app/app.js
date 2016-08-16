@@ -1,18 +1,47 @@
 (function(){
 
-angular.module('main-app', [])
+angular.module('main-app', ['ngRoute'])
 
-.service('clerk', function($http){ // This needs to accomodate request body for POST requests
+.config(function($routeProvider){
+	$routeProvider.when('/login', {
+		templateUrl: 'components/login.html',
+		controller: 'Main',
+		controllerAs: 'LoginCtrl'
+	})
+
+	.when('/home', {
+		templateUrl: 'components/home.html'
+	})
+
+	.when('/upload', {
+		templateUrl: 'components/upload.html',
+		controller: 'Uploader'
+	})
+})
+
+.factory('user', function(){
+	return {
+		userName: '',
+		api_key: 'abba',
+		isLoggedIn: false
+	}
+})
+
+.service('clerk', function($http, user){
 	this.fetchMe = function(endPoint, method, data, successCallBack, failureCallBack) {
+		console.log("Hitting endpoint: " + endPoint + "and my apikey is " + user.api_key);
 		$http({
 			method: method,
 			url: endPoint,
 			data: data,
-			headers: { 'api-key': 'abba'} // This will be from probably a user factory
+			headers: { 'api-key': user.api_key } // This will be from probably a user factory
 		})
-		.then(function(response) { successCallBack(response); },
-			  function(response) { 
-			  	console.log(response.data);
+		.then(function(response) { 
+			console.log(response);
+			successCallBack(response); 
+			},
+			  function(response) {
+			  	console.log(response);
 			  	failureCallBack(response); 
 			  });
 	};
@@ -27,6 +56,10 @@ angular.module('main-app', [])
 
 	this.uploadAlbum = function(album, successCallBack, failureCallBack) {
 		this.fetchMe('/api/upload', 'POST', album, successCallBack, failureCallBack);
+	}
+
+	this.logIn = function(userName, password, successCallBack, failureCallBack) {
+		this.fetchMe('/login', 'POST', { userName : userName, password: password }, successCallBack, failureCallBack);
 	}
  }
 )
@@ -70,7 +103,7 @@ angular.module('main-app', [])
 	}
 })
 
-.controller('Main', function($scope, stereo, clerk){
+.controller('Main', function($scope, $location, stereo, clerk, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                 = this;
 	this.lists          = []; // playlists;
@@ -78,7 +111,21 @@ angular.module('main-app', [])
 	this.activeTracks   = [];
 	this.getActiveTrack = function() { return stereo.activeTrack; };
 	this.getIsPlaying   = function() { return stereo.isPlaying; };
+	this.getIsLoggedIn  = function() { return user.isLoggedIn; };
+	this.loginName      = '';
+	this.loginPassword  = '';
 	this.progress       = 0;
+
+	this.logIn = function() {
+		clerk.logIn(this.loginName, this.loginPassword, function(response) {
+			user.userName = response.data.userName;
+			user.api_key  = response.data.api_key;
+			user.isLoggedIn = true;
+			app.init();
+			$location.path('/home');
+		})
+		// Need failure function
+	};
 	
 
 	this.setActiveList = function(list) {
@@ -87,7 +134,7 @@ angular.module('main-app', [])
 			app.activeTracks = response.data;
 		},
 		function(response){
-			console.log(response);
+			
 		});
 	};
 
@@ -109,9 +156,6 @@ angular.module('main-app', [])
 
 	this.setTrack = function(track) {
 		stereo.setTrack(track);
-		// if (!loop) {
-	 //      loop = setInterval(this.update, 1000);
-	 //    }
 	};
 
 	this.isActiveList = function(list) {
@@ -132,10 +176,10 @@ angular.module('main-app', [])
 
 	this.playToggle = function() {
 		var state = stereo.playToggle();
-		console.log(stereo.activeTrack);
 	}
 
 	this.back = function() {
+		// should call a stereo method
 		player.seekTo(stereo.activeTrack.begin);
 	};
 
@@ -155,31 +199,17 @@ angular.module('main-app', [])
 
 	// This might break if playing a playlist or an album assembled from multiple youtube videos?
 	this.scrub = function() { 
-		console.log('progress: ' + this.progress);
-		console.log('starting point: ' + this.getActiveTrack().begin);
 		var newTime = parseFloat(this.getActiveTrack().begin) + parseFloat(this.progress);
-		console.log("newtime: " + newTime);
 		this.seekTo(newTime);
 	};
 
 	this.update = function() {
 		app.progress = stereo.getProgress();
 		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-			console.log("THATS ALL FOLKS");
 			app.next();
 		}
 		$scope.$apply();
-		console.log(app.progress);
 	}
-
-	this.viewController = {
-		defaultView: true,
-		uploaderView: false,
-		uploaderToggle: function(showUploader) {
-			this.defaultView = !showUploader;
-			this.uploaderView = showUploader;
-		}
-	};
 	
 	//better implemented as a custom filter
 	this.secToMinSec = function(seconds) {
@@ -191,11 +221,15 @@ angular.module('main-app', [])
 					return readOut;
 				};
 
-	// INIT
-	clerk.getPlayLists(function(response) {
-		app.lists = response.data;
-		app.setActiveList(app.lists[0]);
-	});
+	this.init = function() {
+		clerk.getPlayLists(function(response) {
+			console.log(response.data);
+			app.lists = response.data;
+			console.log("our lists are now " + app.lists);
+			app.setActiveList(app.lists[0]);
+		});
+	}
+	
 
 })
 
@@ -212,7 +246,6 @@ angular.module('main-app', [])
 				var preview = new Track(0, 'preview', $scope.currentUpload.albumName, $scope.currentUpload.artist, $scope.currentUpload.videoId, 0, 10000); // arbitrarily large number, but I think theres a way to get the videos length?
 				stereo.setTrack(preview);
 				$scope.currentUpload.addTrack();
-				console.log("I should play maybe?");
 			} else if ($scope.currentUpload.videoId != '') {
 				$scope.uploadStep = 1;
 			} else {
@@ -300,6 +333,14 @@ angular.module('main-app', [])
 		templateUrl: 'components/uploader.html',
 		controller: 'Uploader',
 		controllerAs: 'UploadCtrl'
+	}
+})
+
+.directive('login', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'components/login.html',
+		controller: 'Main'
 	}
 })
 

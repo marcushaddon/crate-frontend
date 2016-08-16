@@ -9,7 +9,8 @@
     <script src='tracklists.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
     <script src="app.js"></script>
     <script src="classes.js"></script>
 
@@ -19,39 +20,18 @@
 
 <body>
 
-<!--NAVIGATION BAR-->
+<div id='main' ng-controller='Main as PlayCtrl' >
 
-<div id='main' ng-controller='Main as PlayCtrl'>
-
-    <nav-bar></nav-bar>
-
-<!--END NAVIGATION BAR-->
-
-<!-- <span>{{PlayCtrl.currentTrack}}</span> -->
-<!--PLAYLISTS AND RESULTS-->
+    <nav-bar ng-show='PlayCtrl.getIsLoggedIn()'></nav-bar>
 
 <div class='container' id='content'>
+
     <div ng-view></div>
-    <div class='row'>
-        <div class='col-md-4 hidden-xs'>
-            <saved-playlists ng-show='PlayCtrl.viewController.defaultView'></saved-playlists>
-            <upload-video ng-show='PlayCtrl.viewController.uploaderView'></upload-video>
-        </div>
-        <div class='col-md-8'>
-            <current-playlist ng-show='PlayCtrl.viewController.defaultView'></current-playlist>
-            <uploader ng-show='PlayCtrl.viewController.uploaderView'></uploader>
-        </div>
-    </div>
-<login></login>
-    
+
 </div>
 
-<!--END PLAYLISTS AND RESULTS-->
 
-<!--UPLOADER-->
-
-
-<player></player>
+<player ng-show='PlayCtrl.getIsLoggedIn()' ></player>
 </div>
 
 </div>
