@@ -7,39 +7,39 @@
 		            </div>
 		            <div class='panel-body'>
 		                <ul class='list-unstyled tracklist'>
-		                    
-		                        <div ng-click="PlayCtrl.setActiveList(list)" ng-class='{selected: PlayCtrl.isActiveList(list)}' ng-repeat='list in PlayCtrl.lists' >
-		                            <li ng-click='PlayCtrl.testThing()'>
+
+		                        <div ng-click="PlayCtrl.setActiveList(list)" ng-class='{selected: PlayCtrl.isActiveList(list)}' ng-repeat='list in PlayCtrl.getLists()' >
+		                            <li>
 		                                <div class='list-item'><i class='glyphicon glyphicon-music'></i>{{list.artistName}} - {{list.albumName}}<span class='pull-right'>{{list.noTracks || 0}} songs</span></div>
 		                            </li>
 		                            <li><hr></li>
 		                        </div>
 
-		                    
-		                    
+
+
 		                </ul>
 		            </div>
 		        </div>`
 		    </div>
-		<!-- END SAVED PLAYLISTS --> 
+		<!-- END SAVED PLAYLISTS -->
 
 		<!-- CURRENT PLAYLIST -->
 	<div class='col-md-8 col-xs-12'>
 		<div id='results' class='panel panel-default'>
 		            <div class='panel-heading'>
-		                <h3>{{PlayCtrl.activeList.artistName}} : {{PlayCtrl.activeList.albumName}}</h3>
+		                <h3>{{PlayCtrl.getActiveList().artistName}} : {{PlayCtrl.getActiveList().albumName}}</h3>
 		            </div>
 		            <div class='panel-body'>
 		                <ul class='list-unstyled tracklist' >
-		                    <div class='list-item' ng-class='{selected: PlayCtrl.isActiveTrack(track)}' ng-repeat='track in PlayCtrl.activeTracks'>
+		                    <div class='list-item' ng-class='{selected: PlayCtrl.isActiveTrack(track)}' ng-repeat='track in PlayCtrl.getActiveTracks()'>
 		                        <li>
 		                            <div><i ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : PlayCtrl.setTrack(track)' ng-class="PlayCtrl.isActiveTrack(track) && PlayCtrl.getIsPlaying() ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'"></i><span ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : angular.noop()' ng-dblclick='PlayCtrl.setTrack(track)'>{{track.trackName}}<span class='pull-right track-length'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span></span></div>
 		                        </li>
 		                        <li><hr></li>
 		                    </div>
-		                    
-		                    
-		                    
+
+
+
 		                </ul>
 		            </div>
 		        </div>

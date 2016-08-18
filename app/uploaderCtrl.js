@@ -1,5 +1,5 @@
-(function(){
-	angular.module('main-app', [])
+
+crate
 
 	.controller('Uploader', function($scope, $http){
 	$scope.uploadStep = 0;
@@ -43,4 +43,3 @@
 		
 	
 })
-})();
