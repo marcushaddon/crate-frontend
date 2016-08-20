@@ -15,7 +15,7 @@ loop = false;
           height: '0',
           width: '0',
           //need to figure this out, obvs
-          videoId: 'IUVmcKcTZ4A',
+          videoId: '',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange

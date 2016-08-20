@@ -9,28 +9,21 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 	this.getActiveTrack  = function() { return stereo.activeTrack; };
 	this.getIsPlaying    = function() { return stereo.isPlaying; };
 	this.getIsLoggedIn   = function() { return user.isLoggedIn; };
-	this.loginName       = '';
-	this.loginPassword   = '';
+	this.loggedIn        = false;
 	this.progress        = 0;
 	this.getProgress     = function() { return stereo.getProgress(); };
-	this.testThing = function() { stereo.progress = 100; };
+	this.testThing = function() { alert("MAIN TEST THING"); };
 
-	$rootScope.$on('stereoUpdate', function(){
-		console.log(stereo.progress);
-		app.update();
-		$scope.$apply();
-	});
-
-	this.logIn = function() {
-		clerk.logIn(this.loginName, this.loginPassword, function(response) {
-			user.userName = response.data.userName;
-			user.api_key  = response.data.api_key;
-			user.isLoggedIn = true;
-			app.init();
-			$location.path('/home');
-		})
-		// Need failure function
-	};
+	// this.logIn = function() {
+	// 	clerk.logIn(this.loginName, this.loginPassword, function(response) {
+	// 		user.userName = response.data.userName;
+	// 		user.api_key  = response.data.api_key;
+	// 		user.isLoggedIn = true;
+	// 		app.init();
+	// 		$location.path('/home');
+	// 	})
+	// 	// Need failure function
+	// };
 
 
 	this.setActiveList = function(list) {
@@ -131,12 +124,24 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 					return readOut;
 				};
 
-	this.init = function() {
+	this.init = function(user) {
+		// console.log(user);
+		clerk.setUser(user);
 		clerk.getPlayLists(function(response) {
 			stereo.lists = response.data;
 			app.setActiveList(stereo.lists[0]);
 		});
+		app.loggedIn = true;
+		$location.path('/home');
 	}
 
+	$rootScope.$on('stereoUpdate', function(){
+		app.update();
+		$scope.$apply();
+	});
+
+	$rootScope.$on('login', function(event, user){
+		app.init(user);
+	})
 
 })

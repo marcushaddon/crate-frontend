@@ -27,7 +27,7 @@ crate.controller('Uploader', function($scope, stereo, clerk){
 		clerk.uploadAlbum($scope.currentUpload, function(response){
 			console.log(response.data);
 		});
-		
+
 	}
 
 	$scope.resetUpload = function() {
@@ -51,10 +51,10 @@ crate.controller('Uploader', function($scope, stereo, clerk){
 				lastTrack.stop = stereo.getProgress();
 			}
 			var startTime = lastTrack == undefined ? 0 : lastTrack.stop;
-			
+
 			var newTrack = new Track(nextTrackNum, 'Track ' + nextTrackNum, this.albumName, this.artist, this.videoId, startTime);
 			this.createdTracks.push( newTrack );
-			
+
 			console.log(JSON.stringify(this));
 		}
 	};

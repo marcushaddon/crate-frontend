@@ -3,8 +3,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 .config(function($routeProvider){
 	$routeProvider.when('/login', {
 		templateUrl: 'components/login.html',
-		controller: 'Main',
-		controllerAs: 'LoginCtrl'
+		controller: 'login'
 	})
 
 	.when('/home', {
@@ -76,7 +75,3 @@ var crate = angular.module('main-app', ['ngRoute'])
 		contollerAs: 'UploadCtrl'
 	}
 });
-
-
-
-

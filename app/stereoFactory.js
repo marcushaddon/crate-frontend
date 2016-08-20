@@ -15,7 +15,6 @@ crate.factory('stereo', function($rootScope){
 
 		// OMG I hate this, but otherwise when the youtube API becomes 'this'
 		update: function() {
-			console.log(app);
 			this.progress = player.getCurrentTime() - app.getActiveTrack.begin;
 			if (player.getCurrentTime() >= app.getActiveTrack.stop) {
 				this.next();

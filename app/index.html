@@ -3,8 +3,8 @@
 <html ng-app='main-app'>
 <head>
     <title>Crate</title>
-    
-    
+
+
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src='tracklists.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -17,9 +17,10 @@
     <script src="stereoFactory.js"></script>
     <script src="mainController.js"></script>
     <script src="uploaderController.js"></script>
+    <script src="loginController.js"></script>
     <script src="classes.js"></script>
 
-    
+
     <link rel='stylesheet' href='css/player.css'>
 </head>
 
@@ -27,7 +28,7 @@
 
 <div id='main' ng-controller='Main as PlayCtrl' >
 
-    <nav-bar ng-show='PlayCtrl.getIsLoggedIn()'></nav-bar>
+    <nav-bar ng-show='true'></nav-bar>
 
 <div class='container' id='content'>
 
@@ -36,7 +37,7 @@
 </div>
 
 
-<player ng-show='PlayCtrl.getIsLoggedIn()' ></player>
+<player ng-show='true'></player>
 </div>
 
 </div>
