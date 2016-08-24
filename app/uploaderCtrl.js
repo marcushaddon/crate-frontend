@@ -11,13 +11,12 @@ crate
 			if ($scope.currentUpload.artist != '' && $scope.currentUpload.albumName != '') {
 				$scope.uploadStep = 2;
 				player.loadVideoById($scope.currentUpload.videoId);
-				console.log("I should play maybe?");
 			} else if ($scope.currentUpload.videoId != '') {
 				$scope.uploadStep = 1;
 			} else {
 				$scope.uploadStep = 0;
 			}
-			
+
 		}
 	}
 	$scope.resetUpload = function() {
@@ -26,7 +25,7 @@ crate
 		current.albumName     = '';
 		current.videoId       = '';
 		current.createdTracks = [];
-		$scope.uploadStep = 0;
+		$scope.uploadStep     = 0;
 	}
 	$scope.currentUpload = {
 		artist: '',
@@ -39,7 +38,7 @@ crate
 			console.log(JSON.stringify(this));
 		}
 	};
-		
-		
-	
+
+
+
 })
