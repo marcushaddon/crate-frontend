@@ -5,14 +5,14 @@ body {
     max-height: 100%;
 }
 
-.panel-body {
+.music-list {
     max-height: 400px;
     overflow: scroll;
 }
 
 
 #playlists, #results, #uploader, #upload-video {
-    height: 490px;
+    /*height: 490px;*/
 }
 
 #main {
@@ -27,19 +27,19 @@ body {
 #progress {
     margin-top: 1em;
     margin-bottom: 1em;
-    
+
 }
 
 #bottom {
     vertical-align: middle;
     clear: both;
-    position: absolute;
+    /*position: absolute;*/
     z-index: 10;
     /*height: 3em;*/
     /*margin-top: -3em;*/
-    background-color: black;
+    /*background-color: black;*/
     width: 100%;
-    bottom: 0;
+    /*bottom: 0;*/
 
 }
 
@@ -47,7 +47,7 @@ body {
     background-color: black;
 }
 
-::selection { 
+::selection {
     background: none;
 }
 
@@ -55,10 +55,10 @@ body {
     margin-right: 7px;
 }
 
-.list-item:hover {
-    position: relative;
+.collection-item:hover {
+    /*position: relative;
     top: -4px;
-    right: -4px;
+    right: -4px;*/
     cursor: pointer;
 }
 
@@ -83,5 +83,3 @@ body {
 #player {
   display: none;
 }
-
-

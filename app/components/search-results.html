@@ -20,17 +20,22 @@
 	<div class='col m8 s12'>
 		<div id='results'>
 
-		                <h3 class='truncate'>{{PlayCtrl.getActiveList().artist}} : {{PlayCtrl.getActiveList().name}}</h3>
+		                <h3 class='truncate'>Search Results for {{searchField}}</h3>
 
-
+                    <h4>Tracks</h4>
 		                <div class='collection music-list' >
-
-		                        <a class='collection-item' ng-class='{active: PlayCtrl.isActiveTrack(track)}' ng-repeat='track in PlayCtrl.getActiveTracks()'>
-		                        	<i class='material-icons' ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : PlayCtrl.setTrack(track)'>{{ PlayCtrl.isActiveTrack(track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i><span ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : angular.noop()' ng-dblclick='PlayCtrl.setTrack(track)'>{{track.trackName}}<span class='right track-length'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span></span>
+		                        <a class='collection-item' ng-repeat='track in results.tracks'>
+		                        	{{track.trackName}} - {{track.artist}} - {{track.album}}
 		                        </a>
+		                </div>
 
+                    <hr>
 
-
+                    <h4>Albums</h4>
+		                <div class='collection music-list' >
+		                        <a class='collection-item' ng-repeat='album in results.albums'>
+		                        	{{album.name}} - {{album.artist}}
+		                        </a>
 		                </div>
 
 		        </div>

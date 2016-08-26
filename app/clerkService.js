@@ -3,7 +3,6 @@ crate.service('clerk', function($http, user){
 	this.user = {};
 	this.setUser = function(user) { this.user = user; console.log(this.user); };
 	this.fetchMe = function(endPoint, method, data, successCallBack, failureCallBack) {
-		console.log("clerk: " + JSON.stringify(clerk));
 		$http({
 			method: method,
 			url: endPoint,
@@ -33,5 +32,9 @@ crate.service('clerk', function($http, user){
 	this.logIn = function(userName, password, successCallBack, failureCallBack) {
 		this.fetchMe('/login', 'POST', { userName : userName, password: password }, successCallBack, failureCallBack);
 	};
+
+	this.search = function(searchField, successCallBack, failureCallBack) {
+		this.fetchMe('/api/search/' + searchField, 'GET', {}, successCallBack, failureCallBack);
+	}
  }
 )

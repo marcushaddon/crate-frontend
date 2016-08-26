@@ -1,0 +1,73 @@
+html, body, #container {
+  height: 100%;
+}
+
+body > #container {
+  height: auto; min-height: 100%;
+}
+
+::selection {
+    background: none;
+}
+
+/*
+body {
+    max-height: 100%;
+}*/
+
+body {
+  height:100%; /* fix height to 100% for IE */
+  max-height:100%; /* fix height for other browsers */
+  overflow:hidden; /*get rid of scroll bars in IE */
+  padding:0; /*remove padding */
+  margin:0; /* remove margins */
+  border:0; /* remove borders */
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  bottom: 0px;
+}
+
+.music-list {
+    max-height: 380px;
+    overflow: scroll;
+}
+
+#main {
+    height: 100%;
+}
+
+#controls {
+    color: white;
+    /*font-size: 32px;*/
+}
+
+.collection-item:hover {
+    cursor: pointer;
+}
+
+.material-icons {
+  margin-right: 7px;
+}
+
+.player-control, #playtime, #totalTime {
+  /*bottom:80px;
+  position:sticky;*/
+}
+
+.artist-name {
+  display: inline;
+  width: 20px;
+}
+
+.detail {
+  float:clear;
+  display:inline;
+}
+
+.edit {
+  width: 20px;
+}

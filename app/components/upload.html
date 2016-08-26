@@ -3,59 +3,56 @@
 <div class='container'>
 	<div class='row'>
 	<!-- GUIDE -->
-	<div class='col-md-4 hidden-xs'>
-		<div id='upload-video' class='panel panel-default'>
-		    <div class='panel-heading'>
+	<div  ng-class='uploadStep == 2 ? "col m4" : "col m12"'>
+		<div id='upload-video music-list'>
 		        <h3>Select Video</h3>
-		    </div>
-		    <div class='panel-body'>
-		        <ul class='list-unstyled'>
-		            <li>
-		        <div class='form-horizontal'>
-		            <input id='videoId' type='text' class='input-lg' placeholder='Youtube Video Id' ng-model='currentUpload.videoId' ng-show='uploadStep == 0' />
-		            <input id='artistName' type='text' class='input-lg' placeholder='Artist Name' ng-model='currentUpload.artist' ng-show='uploadStep == 1' />
-		            <input id='albumName' type='text' class='input-lg' placeholder='Album Name' ng-model='currentUpload.albumName' ng-show='uploadStep == 1' />
 
-		    </div>
-		</li>
-		    <li><hr></li>
+		        <ul class='collection'>
+		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Id' ng-model='currentUpload.videoId' ng-show='uploadStep == 0' /></li>
+		            <li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='currentUpload.artist' ng-show='uploadStep == 1' /></li>
+		            <li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='currentUpload.albumName' ng-show='uploadStep == 1' /></li>
 		</ul>
+		<hr>
 		<input type='button' class='btn btn-success' ng-value='uploadStep == 2 ? "Upload!" : "Next Step"' ng-click='uploadStep == 2 ? uploadAlbum() : nextStep()'></input>
 		<input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
 		<hr>
 		{{instructions[uploadStep]}}
-		    </div>
+
 		</div>
 	</div>
 
 	<!-- END GUIDE -->
 
 	<!-- UPLOAD TRACKS -->
-	<div class='col-md-8'>
-		<div id='uploader' class='panel panel-default'>
-		<div class='panel-heading'>
-			<h3>Tracks <i class='glyphicon glyphicon-plus pull-right' ng-click='currentUpload.addTrack()' ng-show='uploadStep == 2'></i></h3>
-		</div>
-		<div class='panel-body'>
-			<ul class='list-unstyled' >
+	<div class='col m8' ng-class='{hide: uploadStep < 2}'>
+		<div id='uploader music-list' >
 
-		        <div class='list-item' ng-repeat='track in currentUpload.createdTracks'>
-		            <li>
-			                <div class='row'>
-			                	<span class='col-md-1'><h2>{{track.trackNum}}</h2></span>
-			                	<input type='text' class='input-lg col-md-4' ng-model='track.trackName' placeholder='Track name' />
-			                	<!-- pull-right is reversing these!!! -->
-			                	<input type='text' class='input-lg col-md-1 col-md-offset-4' ng-model='track.begin' placeholder='Start time' />
-			                	<input type='text' class='input-lg col-md-1' ng-model='track.stop' placeholder='Stop time' />
+			<h3>Tracks <i class='material-icons right wave-effect' ng-click='currentUpload.addTrack()' ng-show='uploadStep == 2'>queue</i></h3>
+			<ul class='collection'>
+				<li>
+		        <div class='collection-item' ng-repeat='track in currentUpload.createdTracks'>
 
-			                </div>
+									<div class='row'>
+										<div class='col m1 valign-wrapper'>
+			                   	<strong class='valign'>{{track.trackNum}}</strong>
+												</div>
+			                	<div class='col m7'><input type='text' class='edit' ng-model='track.trackName' placeholder='Track name' /></div>
 
-		            </li>
-		            <li><hr></li>
+												<!-- pull-right is reversing these!!! -->
+												<div class='col m1 offset-m2'>
+			                		<input type='text' ng-model='track.begin' placeholder='Start time' />
+												</div>
+												<div class='col m1'>
+													<input type='text' ng-model='track.stop' placeholder='Stop time' />
+												</div>
+
+										</div>
+
+
 		        </div>
-
+						</li>
 		    </ul>
-		    </div>
+
 		</div>
 	</div>
 

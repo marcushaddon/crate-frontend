@@ -14,6 +14,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 		templateUrl: 'components/upload.html',
 		controller: 'Uploader'
 	})
+
+	.when('/search-results', {
+		templateUrl: 'components/search-results.html',
+		controller: 'SearchCtrl'
+	})
 })
 
 
@@ -37,7 +42,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 		restrict: 'E',
 		replace: true,
 		templateUrl: 'components/nav-bar.html',
-		controller: function(){},
+		controller: function($location){},
 		controllerAs: 'navBar'
 	};
 })
@@ -73,5 +78,20 @@ var crate = angular.module('main-app', ['ngRoute'])
 		templateUrl: 'components/upload-video.html',
 		controller: 'Uploader',
 		contollerAs: 'UploadCtrl'
+	}
+})
+
+.directive('search', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'components/search.html',
+		controller: 'SearchCtrl'
+	}
+})
+
+.directive('searchResults', function(){
+	return {
+		templateUrl: 'components/search-results.html',
+		controller: 'SearchCtrl'
 	}
 });

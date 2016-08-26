@@ -1,27 +1,30 @@
-<footer class='footer'>
-<div id='bottom' class='container-fluid'>
-    <div class='container'>
+<footer class='page-footer'>
+<div id='bottom'>
+
     <div class='row'>
-        
-            
-            <div id='controls' class='col-md-3'>
-                
-                <i class='glyphicon glyphicon-fast-backward' ng-click='PlayCtrl.back()' ng-dblclick='PlayCtrl.backBack()'></i>
-                <i ng-class="PlayCtrl.getIsPlaying() ? 'glyphicon glyphicon-pause' : 'glyphicon glyphicon-play'" ng-click='PlayCtrl.playToggle()'></i>
-                <i class='glyphicon glyphicon-fast-forward' ng-click='PlayCtrl.next()'></i>
+
+
+            <div id='controls' class='col m4 '>
+
+              <div class='valign-wrapper'>
+                <i class='medium valign material-icons player-control' ng-click='PlayCtrl.back()' ng-dblclick='PlayCtrl.backBack()'>skip_previous</i>
+                <i class="medium valign material-icons player-control" ng-click='PlayCtrl.playToggle()'>{{PlayCtrl.getIsPlaying() ? "pause_circle_filled" : "play_circle_outline" }}</i>
+                <i class='medium valign material-icons player-control' ng-click='PlayCtrl.next()'>skip_next</i>
                 &nbsp;
-                <span id='playtime'>{{PlayCtrl.secToMinSec(PlayCtrl.progress)}}</span>
-                <span id='totalTime'>/ {{PlayCtrl.secToMinSec(PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin)}}</span>
-                
-                
-                
+                <span id='playtime' class=''>{{PlayCtrl.secToMinSec(PlayCtrl.progress)}}</span>
+                <span id='totalTime' class=''>/ {{PlayCtrl.secToMinSec(PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin)}}</span>
+
+              </div>
+
             </div>
-            
-            <div class='col-md-9'>
-            <input type='range' class='navbar-right' id='progress' min='0' max='{{PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin}}' ng-model='PlayCtrl.progress' ng-change='PlayCtrl.scrub()'/>
+
+            <div class='col m8'>
+              <div class='valign-wrapper'>
+            <input type='range' class='valign' id='progress' min='0' max='{{PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin}}' ng-model='PlayCtrl.progress' ng-change='PlayCtrl.scrub()'/>
+          </div>
             </div>
-            
+
         </div>
-    </div>
+
 
 </footer>
