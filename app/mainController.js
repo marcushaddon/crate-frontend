@@ -13,6 +13,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 	this.progress        = 0;
 	this.getProgress     = function() { return stereo.getProgress(); };
 	this.testThing = function() { alert("MAIN TEST THING"); };
+	this.getUser = function() { return clerk.user; };
 
 	// this.logIn = function() {
 	// 	clerk.logIn(this.loginName, this.loginPassword, function(response) {
@@ -30,6 +31,9 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 		stereo.activeList = list;
 		clerk.getTracksByAlbumId(list._id, function(response){
 			stereo.activeTracks = response.data;
+			if ($location.path() != '/home') {
+				$location.path('/home');
+			}
 		},
 		function(response){
 
@@ -142,6 +146,8 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 
 	$rootScope.$on('login', function(event, user){
 		app.init(user);
-	})
+	});
+
+
 
 })

@@ -4,12 +4,12 @@
     <div class='row'>
 
 
-            <div id='controls' class='col m4 '>
+            <div id='controls' class='col m4 offset-s1 '>
 
               <div class='valign-wrapper'>
-                <i class='medium valign material-icons player-control' ng-click='PlayCtrl.back()' ng-dblclick='PlayCtrl.backBack()'>skip_previous</i>
-                <i class="medium valign material-icons player-control" ng-click='PlayCtrl.playToggle()'>{{PlayCtrl.getIsPlaying() ? "pause_circle_filled" : "play_circle_outline" }}</i>
-                <i class='medium valign material-icons player-control' ng-click='PlayCtrl.next()'>skip_next</i>
+                <i class='medium material-icons player-control' ng-click='PlayCtrl.back()' ng-dblclick='PlayCtrl.backBack()'>skip_previous</i>
+                <i class="medium material-icons player-control" ng-click='PlayCtrl.playToggle()'>{{PlayCtrl.getIsPlaying() ? "pause_circle_filled" : "play_circle_outline" }}</i>
+                <i class='medium material-icons player-control' ng-click='PlayCtrl.next()'>skip_next</i>
                 &nbsp;
                 <span id='playtime' class=''>{{PlayCtrl.secToMinSec(PlayCtrl.progress)}}</span>
                 <span id='totalTime' class=''>/ {{PlayCtrl.secToMinSec(PlayCtrl.getActiveTrack().stop - PlayCtrl.getActiveTrack().begin)}}</span>

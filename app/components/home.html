@@ -7,9 +7,7 @@
 		<div id='playlists'>
 					<h3>Playlists</h3>
 		                <div class='collection music-list'>
-		                            <a href='' class='collection-item' ng-class='{active: PlayCtrl.isActiveList(list)}' ng-click="PlayCtrl.setActiveList(list)" class='collection-item' ng-repeat='list in PlayCtrl.getLists()'>
-		                                <i class='material-icons'>queue_music</i><span class='artist-name truncate'>{{list.artist}} - {{list.name}}</span><span class='right detail'>{{list.noTracks || 0}} songs</span>
-		                            </a>
+		                            <album-item ng-repeat='album in PlayCtrl.getLists()'></album-item>
 		                </div>
 
 		        </div>`
@@ -18,16 +16,14 @@
 
 		<!-- CURRENT PLAYLIST -->
 	<div class='col m8 s12'>
-		<div id='results'>
+		<div class='results'>
 
 		                <h3 class='truncate'>{{PlayCtrl.getActiveList().artist}} : {{PlayCtrl.getActiveList().name}}</h3>
 
 
 		                <div class='collection music-list' >
 
-		                        <a class='collection-item' ng-class='{active: PlayCtrl.isActiveTrack(track)}' ng-repeat='track in PlayCtrl.getActiveTracks()'>
-		                        	<i class='material-icons' ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : PlayCtrl.setTrack(track)'>{{ PlayCtrl.isActiveTrack(track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i><span ng-click='PlayCtrl.isActiveTrack(track) ? PlayCtrl.playToggle() : angular.noop()' ng-dblclick='PlayCtrl.setTrack(track)'>{{track.trackName}}<span class='right track-length'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span></span>
-		                        </a>
+		                        <list-song-item></list-song-item>
 
 
 

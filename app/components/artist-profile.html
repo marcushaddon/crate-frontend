@@ -1,0 +1,26 @@
+<div ng-init='getArtist()'>
+<nav-bar></nav-bar>
+<div class='row'>
+  <div class='col m4 s12'>
+  <h3>{{artist.artist.name}}</h3>
+  <a ng-href="{{artist.artist.link}}" target='#'>Info</a>
+
+  <h4>Bio:</h4>
+  <p>{{artist.artist.bio}}</p>
+</div>
+
+<div class='col m8 s12'>
+  <h5>All songs by {{artist.artist.name}}</h5>
+  <div class='collection music-list'>
+    <song-item ng-repeat='track in artist.tracks'></song-item>
+  </div>
+
+  <h5>All albums by {{artist.artist.name}}</h5>
+
+</div>
+
+</div>
+
+
+<player></player>
+<div>

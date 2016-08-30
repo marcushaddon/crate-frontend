@@ -19,6 +19,12 @@ var crate = angular.module('main-app', ['ngRoute'])
 		templateUrl: 'components/search-results.html',
 		controller: 'SearchCtrl'
 	})
+
+	.when('/artist-profile/:id', {
+		templateUrl: 'components/artist-profile.html',
+		controller: 'ArtistProfileCtrl'
+	});
+
 })
 
 
@@ -42,8 +48,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 		restrict: 'E',
 		replace: true,
 		templateUrl: 'components/nav-bar.html',
-		controller: function($location){},
-		controllerAs: 'navBar'
+		controller: 'Main',
+		controllerAs: 'MainCtrl'
 	};
 })
 
@@ -93,5 +99,35 @@ var crate = angular.module('main-app', ['ngRoute'])
 	return {
 		templateUrl: 'components/search-results.html',
 		controller: 'SearchCtrl'
+	}
+})
+
+.directive('songItem', function(){
+	return {
+		templateUrl: 'components/song-item.html'
+	}
+})
+
+.directive('listSongItem', function(){
+	return {
+		templateUrl: 'components/list-song-item.html'
+	}
+})
+
+.directive('playlistItem', function(){
+	return {
+		templateUrl: 'components/playlist-item.html'
+	}
+})
+
+.directive('albumItem', function(){
+	return {
+		templateUrl: 'components/album-item.html'
+	}
+})
+
+.directive('artistItem', function(){
+	return {
+		templateUrl: 'components/artist-item.html'
 	}
 });
