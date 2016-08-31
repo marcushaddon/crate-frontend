@@ -6,19 +6,24 @@
   <a ng-href="{{artist.artist.link}}" target='#'>Info</a>
 
   <h4>Bio:</h4>
-  <p>{{artist.artist.bio}}</p>
+  <p>{{artist.artist.bio || 'No biography has been provided for this artist'}}</p>
 </div>
 
-<div class='col m8 s12'>
+<div class='col m8'>
+  <h3>Discography</h3>
+<div class='s12 music-list'>
   <h5>All songs by {{artist.artist.name}}</h5>
-  <div class='collection music-list'>
+  <div class='collection'>
     <song-item ng-repeat='track in artist.tracks'></song-item>
   </div>
 
   <h5>All albums by {{artist.artist.name}}</h5>
+  <div class='collection'>
+    <album-item ng-repeat='album in artist.albums'></album-item>
+  </div>
 
 </div>
-
+</div>
 </div>
 
 
