@@ -5,9 +5,9 @@
 <!-- SAVED PLAYLISTS -->
 	<div class='col m4'>
 		<div id='playlists'>
-					<h3>Playlists<a href=''><i class='material-icons right'>queue</i></a></h3>
+					<h3>Playlists<a href='' ng-click='PlayCtrl.createList()'><i class='material-icons right'>queue</i></a></h3>
 		                <div class='collection music-list'>
-		                            <album-item ng-repeat='album in PlayCtrl.getLists()'></album-item>
+		                            <playlist-item ng-repeat='list in PlayCtrl.getLists()'></playlist-item>
 		                </div>
 
 		        </div>`
@@ -16,20 +16,8 @@
 
 		<!-- CURRENT PLAYLIST -->
 	<div class='col m8 s12'>
-		<div class='results'>
-
-		                <h3 class='truncate'>{{PlayCtrl.getActiveList().artist}} : {{PlayCtrl.getActiveList().name}}</h3>
-
-
-		                <div class='collection music-list' >
-
-		                        <list-song-item></list-song-item>
-
-
-
-		                </div>
-
-		        </div>
+		<view-album ng-show='!PlayCtrl.viewingPlaylist()'></view-album>
+		<view-playlist ng-show='PlayCtrl.viewingPlaylist()'></view-playlist>
 	</div>
 <!-- END CURRENT PLAYLIST -->
 </div>

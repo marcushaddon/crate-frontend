@@ -5,6 +5,14 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 	stereoFace           = stereo;
 	this.getLists        = function() { return stereo.lists; };
 	this.getActiveList   = function() { return stereo.activeList; };
+	this.viewingPlaylist = function() {
+		var current = this.getActiveList();
+		if (current != undefined && current.listType == 'playlist') {
+			return true;
+		}	else {
+			return false;
+		}
+	};
 	this.getActiveTracks = function() { return stereo.activeTracks; };
 	this.getActiveTrack  = function() { return stereo.activeTrack; };
 	this.getIsPlaying    = function() { return stereo.isPlaying; };
@@ -14,6 +22,38 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 	this.getProgress     = function() { return stereo.getProgress(); };
 	this.testThing = function() { alert("MAIN TEST THING"); };
 	this.getUser = function() { return clerk.user; };
+	this.createList = function(album) {
+		// THIS WILL NEED TO INVOLVE HITTING THE API TO CREATE AND UPDATE PLAYLISTS AND THEN REFLECT THOSE CHANGES
+		if (!album) {
+			clerk.createList({}, function(response){
+				console.log(response);
+				stereo.lists.unshift( response.data );
+			});
+
+			// setActiveList needs to accept both albums and playlists first
+			// this.setActiveList(stereo.lists[0]);
+			console.log(app.getLists());
+		}
+
+	};
+
+	this.editList = function(list, field, value, event) {
+		value = value || event.target.innerHTML.replace(/<(?:.|\n)*?>/gm, '');
+		var index = stereo.lists.indexOf(list);
+
+
+		clerk.editList(list, field, value, function(response){
+			console.log(response);
+			stereo.lists.splice(index, 1, response.data);
+
+		});
+	};
+
+	this.saveAlbum = function(album) {
+		clerk.saveAlbum(album, function(response){
+			stereo.lists.unshift(response.data);
+		});
+	};
 
 	// this.logIn = function() {
 	// 	clerk.logIn(this.loginName, this.loginPassword, function(response) {
@@ -29,15 +69,20 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 
 	this.setActiveList = function(list) {
 		stereo.activeList = list;
-		clerk.getTracksByAlbumId(list._id, function(response){
-			stereo.activeTracks = response.data;
-			if ($location.path() != '/home') {
-				$location.path('/home');
-			}
-		},
-		function(response){
+		if (list.listType === 'playlist') {
+			stereo.activeTracks = list.tracks;
+		} else {
+			clerk.getTracksByAlbumId(list._id, function(response){
+				stereo.activeTracks = response.data;
+			},
+			function(response){
 
-		});
+			});
+		}
+
+		if ($location.path() != '/home') {
+			$location.path('/home');
+		}
 	};
 
 	this.toggleUpdate = function(playerState) {
@@ -133,7 +178,10 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 		clerk.setUser(user);
 		clerk.getPlayLists(function(response) {
 			stereo.lists = response.data;
-			app.setActiveList(stereo.lists[0]);
+			if (stereo.lists[0]) {
+				app.setActiveList(stereo.lists[0]);
+			}
+
 		});
 		app.loggedIn = true;
 		$location.path('/home');

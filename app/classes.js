@@ -13,3 +13,10 @@ function Album(artistName, albumName, noTracks) {
 	this.albumName  = albumName;
 	this.noTracks   = noTracks;
 }
+
+function Playlist(name, description, createdBy, tracks) {
+	this.name = name;
+	this.description = description || "";
+	this.createdBy = createdBy;
+	this.tracks = tracks || [];
+}

@@ -27,6 +27,23 @@ crate.service('clerk', function($http, $rootScope, user){
 		this.fetchMe('/api/playlists', 'GET', null, successCallBack, failureCallBack)
 	};
 
+	this.createList = function(album, successCallBack, failureCallBack) {
+		this.fetchMe('/api/playlists/new', 'POST', album, successCallBack, failureCallBack);
+	};
+
+	this.editList = function(list, field, value, successCallBack, failureCallBack) {
+		var data = {
+			playlistId: list._id,
+			editField: field,
+			newValue: value
+		};
+		this.fetchMe('/api/playlists/edit', 'PUT', data, successCallBack, failureCallBack);
+	};
+
+	this.saveAlbum = function(album, successCallBack, failureCallBack) {
+		this.fetchMe('/api/playlists/saveAlbum', 'POST', album, successCallBack, failureCallBack);
+	};
+
 	this.uploadAlbum = function(album, successCallBack, failureCallBack) {
 		this.fetchMe('/api/upload', 'POST', album, successCallBack, failureCallBack);
 	};
@@ -42,6 +59,6 @@ crate.service('clerk', function($http, $rootScope, user){
 
 	this.getArtist = function(artistId, successCallBack, failureCallBack) {
 		this.fetchMe('/api/artist/artistId/' + artistId, 'GET', {}, successCallBack, failureCallBack);
-	}
+	};
  }
 )
