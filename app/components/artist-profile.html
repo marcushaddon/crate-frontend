@@ -1,3 +1,4 @@
+
 <div ng-init='getArtist()'>
 <nav-bar></nav-bar>
 <div class='row'>
@@ -14,7 +15,7 @@
 <div class='s12 music-list'>
   <h5>All songs by {{artist.artist.name}}</h5>
   <div class='collection'>
-    <song-item ng-repeat='track in artist.tracks'></song-item>
+    <list-song-item ng-repeat='track in artist.tracks'></list-song-item>
   </div>
 
   <h5>All albums by {{artist.artist.name}}</h5>

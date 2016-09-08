@@ -47,7 +47,7 @@
                     <div ng-show='results.playlists.length > 0'>
                     <h4>Playlists</h4>
                     <div class='collection music-list'>
-                      <playlist-item ng-repeat='list in results.playlists'></playlist-item>
+                      <playlist-item ng-repeat='list in results.playlists' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
                     </div>
                   </div>
                   </div>

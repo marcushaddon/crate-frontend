@@ -1,4 +1,4 @@
-crate.factory('stereo', function($rootScope){
+crate.factory('stereo', function($rootScope, clerk, messenger){
 	return {
 		stereo: this,
 		lists: [],
@@ -7,6 +7,50 @@ crate.factory('stereo', function($rootScope){
 		activeTrack: {},
 		progress: 0,
 		isPlaying: false,
+		getVideoLength: function() {
+			return player.getDuration();
+		},
+
+		capturedTrack: {},
+
+		addCapturedTrack: function(listIndex) {
+			var list = this.lists[listIndex];
+			var updatedTracks = list.tracks;
+			updatedTracks.push(this.capturedTrack);
+			clerk.editList(list, 'tracks', updatedTracks, function(response){
+				// I have no idea why I cant access this.lists from here to add the updated list, but i guess i dont need to
+				messenger.show("Track added!");
+				angular.element('#bottomModal').closeModal();
+			});
+		},
+
+		removeTrack: function(track) {
+			// Would be better to verify which playlist we are removing it from instead of assuming its the current list
+			var list = this.activeList;
+			if (list.listType != 'playlist') {
+				messenger.show("Can't remove tracks from albums!");
+				return;
+			}
+			var newTracks = list.tracks;
+			var index = newTracks.indexOf(track);
+			// Hmm this is affecting the model in the browser before we've recieved confirmation that its been affected on teh server...
+			newTracks.splice(index, 1);
+			clerk.editList(list, 'tracks', newTracks, function(response){
+				messenger.show(track.trackName + ' removed from ' + list.name);
+			});
+		},
+
+		moveTrack: function(track, direction) {
+			var tracks = this.activeList.tracks;
+			var currentPosition = tracks.indexOf(track);
+			var newPosition = ( direction == 'up' ) ? currentPosition - 1 : currentPosition + 1
+			if (newPosition < 0 || newPosition >= tracks.length) return;
+			tracks[currentPosition] = tracks[newPosition];
+			tracks[newPosition] = track;
+			clerk.editList(this.activeList, 'tracks', tracks, function(response){
+				console.log(response.data);
+			});
+		},
 
 		testThing: function() {
 			console.log("STERESO TEST THING");

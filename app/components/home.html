@@ -5,9 +5,9 @@
 <!-- SAVED PLAYLISTS -->
 	<div class='col m4'>
 		<div id='playlists'>
-					<h3>Playlists<a href='' ng-click='PlayCtrl.createList()'><i class='material-icons right'>queue</i></a></h3>
+					<h3>Playlists<a href='' ng-click='PlayCtrl.createList()'><i class='material-icons right'>add</i></a></h3>
 		                <div class='collection music-list'>
-		                            <playlist-item ng-repeat='list in PlayCtrl.getLists()'></playlist-item>
+		                            <playlist-item ng-repeat='list in PlayCtrl.getLists()' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
 		                </div>
 
 		        </div>`

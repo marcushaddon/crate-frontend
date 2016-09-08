@@ -49,6 +49,13 @@ footer {
     cursor: pointer;
 }
 
+.hidden-controls {
+  display: none;
+}
+
+.collection-item:hover .hidden-controls { display:inline; }
+.collection-item:hover .detail { display:none; }
+
 .material-icons {
   margin-right: 7px;
 }
@@ -70,4 +77,8 @@ footer {
 
 .edit {
   width: 20px;
+}
+
+.fa {
+  margin: 3px;
 }

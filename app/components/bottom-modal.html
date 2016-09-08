@@ -1,0 +1,12 @@
+<div id="bottomModal" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Which playlist would you like to add <i>"{{PlayCtrl.getCapturedTrack().trackName}}"</i> to?</h4>
+      <div class='collection music-list'>
+                  <playlist-item ng-click='PlayCtrl.addCapturedTrack(list, $index)' ng-repeat='list in PlayCtrl.getLists()'></playlist-item>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>

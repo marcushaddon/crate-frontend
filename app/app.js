@@ -114,6 +114,19 @@ var crate = angular.module('main-app', ['ngRoute'])
 	}
 })
 
+.directive('bottomModal', function(){
+	return {
+		templateUrl: 'components/bottom-modal.html',
+		controller: 'Main'
+	}
+})
+
+.directive('centermModal', function(){
+	return {
+		templateUrl: 'components/center-modal.html'
+	}
+})
+
 .directive('songItem', function(){
 	return {
 		templateUrl: 'components/song-item.html'
@@ -129,6 +142,12 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('playlistItem', function(){
 	return {
 		templateUrl: 'components/playlist-item.html'
+	}
+})
+
+.directive('playlistSongItem', function(){
+	return {
+		templateUrl: 'components/playlist-song-item.html'
 	}
 })
 

@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, user) {
+crate.controller('Main', function($scope, $location, $rootScope, stereo, messenger, clerk, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;
@@ -20,10 +20,9 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 	this.loggedIn        = false;
 	this.progress        = 0;
 	this.getProgress     = function() { return stereo.getProgress(); };
-	this.testThing = function() { alert("MAIN TEST THING"); };
+	this.testThing = "THE TEST THING";
 	this.getUser = function() { return clerk.user; };
 	this.createList = function(album) {
-		// THIS WILL NEED TO INVOLVE HITTING THE API TO CREATE AND UPDATE PLAYLISTS AND THEN REFLECT THOSE CHANGES
 		if (!album) {
 			clerk.createList({}, function(response){
 				console.log(response);
@@ -35,6 +34,36 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, clerk, 
 			console.log(app.getLists());
 		}
 
+	};
+
+	this.deleteList = function(list) {
+		clerk.deleteList(list, function(response){
+			stereo.lists.splice(stereo.lists.indexOf(list), 1);
+			messenger.show(response.data);
+		});
+	};
+
+	this.captureTrack = function(track) {
+		stereo.capturedTrack = track;
+
+		angular.element('#bottomModal').openModal();
+	};
+
+	this.getCapturedTrack = function() {
+		return stereo.capturedTrack;
+	};
+
+	this.addCapturedTrack = function(list, index) {
+		console.log("YYOU CLICKED " + index);
+		stereo.addCapturedTrack(index);
+	};
+
+	this.removeTrack = function (track) {
+		stereo.removeTrack(track);
+	};
+
+	this.moveTrack = function(track, direction) {
+		stereo.moveTrack(track, direction);
 	};
 
 	this.editList = function(list, field, value, event) {

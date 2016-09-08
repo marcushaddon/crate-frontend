@@ -31,6 +31,12 @@ crate.service('clerk', function($http, $rootScope, user){
 		this.fetchMe('/api/playlists/new', 'POST', album, successCallBack, failureCallBack);
 	};
 
+	this.deleteList = function(list, successCallBack, failureCallBack) {
+		console.log(list);
+		var payload = { testThing: "fuckValue" };
+		this.fetchMe('/api/playlists/' + list._id, 'DELETE', null, successCallBack, failureCallBack);
+	};
+
 	this.editList = function(list, field, value, successCallBack, failureCallBack) {
 		var data = {
 			playlistId: list._id,
