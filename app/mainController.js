@@ -203,6 +203,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 				};
 
 	this.init = function(user) {
+		console.log("A main controller is initiing");
 		// console.log(user);
 		clerk.setUser(user);
 		clerk.getPlayLists(function(response) {
