@@ -1,4 +1,4 @@
-crate.controller('login', function($scope, user, authTokenFactory){
+crate.controller('login', function($scope, $location, user, authTokenFactory){
   $scope.loginName     = '';
   $scope.loginPassword = '';
   $scope.errorMessage  = '';
@@ -6,14 +6,19 @@ crate.controller('login', function($scope, user, authTokenFactory){
   $scope.init = function() {
     var token = authTokenFactory.getToken();
     if (token) {
-      console.log(token);
+      window.alert(token);
+      $location.path('/home');
+    } else {
+      window.alert("not logged in!");
     }
   };
 
   $scope.submit = function() {
-    user.logIn($scope.loginName, $scope.loginPassword).failure(function(response){
+    user.logIn($scope.loginName, $scope.loginPassword).then(function(response){
       console.log(response.data);
-      $scope.errorMessage = response.data;
+      user.info = { userName: response.data.userName };
+      authTokenFactory.setToken(response.data.token);
+      $location.path('/home');
     });
   };
 });

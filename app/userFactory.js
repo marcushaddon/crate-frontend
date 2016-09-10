@@ -1,7 +1,15 @@
 crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 	return {
+		user: this,
 		info: {},
 		isLoggedIn: false,
+
+		setUser: function(userData) {
+			this.info = {
+				userName: response.data.userName
+			};
+			this.loggedIn = true;
+		},
 
 		logIn: function(userName, password) {
 			return $http({
@@ -11,23 +19,13 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 					userName: userName,
 					password: password
 				}
-			})
-			.then(function(response) {
-				authTokenFactory.setToken(response.data.token);
-				this.isLoggedIn = true;
-				// Wanna maybe move away from this
-				// $rootScope.$broadcast('login');
-				$location.path('/home');
-				this.info = {
-					userName: response.data.userName
-				};
-				return response;
 			});
 			// Need failure function
 		},
 
 		logOut: function() {
 			authTokenFactory.setToken();
+			$location.path('login');
 
 		}
 	}
