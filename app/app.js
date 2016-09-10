@@ -1,6 +1,8 @@
 var crate = angular.module('main-app', ['ngRoute'])
 
-.config(function($routeProvider){
+.config(function($routeProvider, $httpProvider){
+	$httpProvider.interceptors.push('authInterceptor')
+
 	$routeProvider.when('/login', {
 		templateUrl: 'components/login.html',
 		controller: 'login'

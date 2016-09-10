@@ -21,7 +21,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.progress        = 0;
 	this.getProgress     = function() { return stereo.getProgress(); };
 	this.testThing = "THE TEST THING";
-	this.getUser = function() { return clerk.user; };
+	this.getUser = function() { console.log(user.info); return user.info; };
 	this.createList = function(album) {
 		if (!album) {
 			clerk.createList({}, function(response){
@@ -34,6 +34,10 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 			console.log(app.getLists());
 		}
 
+	};
+
+	this.logOut = function() {
+		user.logOut();
 	};
 
 	this.deleteList = function(list) {
@@ -202,10 +206,9 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 					return readOut;
 				};
 
-	this.init = function(user) {
+	this.init = function() {
 		console.log("A main controller is initiing");
 		// console.log(user);
-		clerk.setUser(user);
 		clerk.getPlayLists(function(response) {
 			stereo.lists = response.data;
 			if (stereo.lists[0]) {
@@ -215,7 +218,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		});
 		app.loggedIn = true;
 		$location.path('/home');
-	}
+	};
 
 	$rootScope.$on('stereoUpdate', function(){
 		app.update();

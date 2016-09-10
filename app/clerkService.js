@@ -8,8 +8,7 @@ crate.service('clerk', function($http, $rootScope, user){
 		$http({
 			method: method,
 			url: endPoint,
-			data: data,
-			headers: { 'api-key': clerk.user.api_key } // This will be from probably a user factory
+			data: data
 		})
 		.then(function(response) {
 			successCallBack(response);

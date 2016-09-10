@@ -1,13 +1,10 @@
-crate.factory('user', function($rootScope, $http) {
+crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 	return {
-		loginName: '',
-		loginPassword: '',
-		userName: '',
-		api_key: '',
+		info: {},
 		isLoggedIn: false,
 
 		logIn: function(userName, password) {
-			$http({
+			return $http({
 				method: 'POST',
 				url: '/login',
 				data: {
@@ -16,18 +13,22 @@ crate.factory('user', function($rootScope, $http) {
 				}
 			})
 			.then(function(response) {
-				this.userName   = response.data.userName;
-				this.api_key    = response.data.api_key;
+				authTokenFactory.setToken(response.data.token);
 				this.isLoggedIn = true;
-
-
-				$rootScope.$broadcast('login', {
-					userName: this.userName,
-					api_key: this.api_key
-				}
-				);
+				// Wanna maybe move away from this
+				// $rootScope.$broadcast('login');
+				$location.path('/home');
+				this.info = {
+					userName: response.data.userName
+				};
+				return response;
 			});
 			// Need failure function
+		},
+
+		logOut: function() {
+			authTokenFactory.setToken();
+
 		}
 	}
 });
