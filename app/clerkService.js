@@ -3,7 +3,6 @@ crate.service('clerk', function($http, $rootScope, user){
 	this.user = {};
 	this.searchResults = [];
 	this.getSearchResults = function() { console.log("I AM THE CLERK AND I HAVE " + this.searchResults); return this.searchResults;  };
-	this.setUser = function(user) { this.user = user; };
 	this.fetchMe = function(endPoint, method, data, successCallBack, failureCallBack) {
 		$http({
 			method: method,
@@ -65,5 +64,9 @@ crate.service('clerk', function($http, $rootScope, user){
 	this.getArtist = function(artistId, successCallBack, failureCallBack) {
 		this.fetchMe('/api/artist/artistId/' + artistId, 'GET', {}, successCallBack, failureCallBack);
 	};
+
+	this.getAlbum = function(albumId, successCallBack, failureCallBack) {
+		this.fetchMe('/api/album/id/' + albumId, 'GET', {}, successCallBack, failureCallBack);
+	}
  }
 )

@@ -22,6 +22,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'SearchCtrl'
 	})
 
+	.when('/album/:id', {
+		templateUrl: 'components/view-album-full.html',
+		controller: 'AlbumCtrl'
+	})
+
 	.when('/artist-profile/:id', {
 		templateUrl: 'components/artist-profile.html',
 		controller: 'ArtistProfileCtrl'

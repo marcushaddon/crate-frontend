@@ -1,0 +1,16 @@
+<div ng-init='init()'>
+  <nav-bar></nav-bar>
+  <main>
+    <div class='row'>
+      <div class='col s12 m8 offset-m2'>
+    <h3>{{ album.name }} <small> by {{ album.artist }}</small></h3>
+
+    <div class='collection music-list' >
+            <list-song-item ng-repeat='track in tracks'></list-song-item>
+    </div>
+  </div>
+</div>
+</main>
+
+  <player></player>
+</div>

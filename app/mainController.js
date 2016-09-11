@@ -208,7 +208,10 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 
 	this.init = function() {
 
-		console.log(user.info);
+		if (!this.getIsLoggedIn()) {
+			$location.path('/login');
+			return;
+		}
 		// console.log(user);
 		clerk.getPlayLists(function(response) {
 			stereo.lists = response.data;
