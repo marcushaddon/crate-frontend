@@ -32,7 +32,7 @@ crate.controller('Uploader', function($scope, stereo, clerk, messenger){
 		$scope.currentUpload.createdTracks[$scope.currentUpload.createdTracks.length - 1].stop = stereo.getVideoLength();
 		// Make sure none of the tracks start/stop times overlap
 		// Send the album
-		clerk.uploadAlbum($scope.currentUpload, function(response){
+		clerk.uploadAlbum($scope.currentUpload).then(function(response){
 			messenger.show(response.data);
 		});
 

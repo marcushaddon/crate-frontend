@@ -3,7 +3,8 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, clerk){
 
     var albumId = $routeParams.id;
     console.log(albumId);
-    clerk.getAlbum(albumId, function(response){
+    clerk.getAlbum(albumId)
+    .then(function(response){
       $scope.album = response.data.album;
       $scope.tracks = response.data.tracks;
     });

@@ -24,8 +24,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.getUser = function() { console.log(user.info); return user.info; };
 	this.createList = function(album) {
 		if (!album) {
-			clerk.createList({}, function(response){
-				console.log(response);
+			clerk.createList({}).then(function(response){
 				stereo.lists.unshift( response.data );
 			});
 
@@ -41,7 +40,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	};
 
 	this.deleteList = function(list) {
-		clerk.deleteList(list, function(response){
+		clerk.deleteList(list).then(function(response){
 			stereo.lists.splice(stereo.lists.indexOf(list), 1);
 			messenger.show(response.data);
 		});
@@ -49,7 +48,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 
 	this.captureTrack = function(track) {
 		stereo.capturedTrack = track;
-
 		angular.element('#bottomModal').openModal();
 	};
 
@@ -58,7 +56,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	};
 
 	this.addCapturedTrack = function(list, index) {
-		console.log("YYOU CLICKED " + index);
 		stereo.addCapturedTrack(index);
 	};
 
@@ -74,30 +71,16 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		value = value || event.target.innerHTML.replace(/<(?:.|\n)*?>/gm, '');
 		var index = stereo.lists.indexOf(list);
 
-
-		clerk.editList(list, field, value, function(response){
-			console.log(response);
+		clerk.editList(list, field, value).then(function(response){
 			stereo.lists.splice(index, 1, response.data);
-
 		});
 	};
 
 	this.saveAlbum = function(album) {
-		clerk.saveAlbum(album, function(response){
+		clerk.saveAlbum(album).then(function(response){
 			stereo.lists.unshift(response.data);
 		});
 	};
-
-	// this.logIn = function() {
-	// 	clerk.logIn(this.loginName, this.loginPassword, function(response) {
-	// 		user.userName = response.data.userName;
-	// 		user.api_key  = response.data.api_key;
-	// 		user.isLoggedIn = true;
-	// 		app.init();
-	// 		$location.path('/home');
-	// 	})
-	// 	// Need failure function
-	// };
 
 
 	this.setActiveList = function(list) {
@@ -105,14 +88,12 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		if (list.listType === 'playlist') {
 			stereo.activeTracks = list.tracks;
 		} else {
-			clerk.getTracksByAlbumId(list._id, function(response){
+			clerk.getTracksByAlbumId(list._id).then(function(response){
 				stereo.activeTracks = response.data;
-			},
-			function(response){
-
 			});
 		}
 
+		// We will move away from this soon
 		if ($location.path() != '/home') {
 			$location.path('/home');
 		}
@@ -213,7 +194,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 			return;
 		}
 		// console.log(user);
-		clerk.getPlayLists(function(response) {
+		clerk.getPlayLists().then(function(response) {
 			stereo.lists = response.data;
 			if (stereo.lists[0]) {
 				app.setActiveList(stereo.lists[0]);
@@ -229,6 +210,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		$scope.$apply();
 	});
 
+	// Dont think we are using this anymore
 	$rootScope.$on('login', function(event, user){
 		app.init(user);
 	});

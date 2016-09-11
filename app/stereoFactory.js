@@ -17,7 +17,7 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			var list = this.lists[listIndex];
 			var updatedTracks = list.tracks;
 			updatedTracks.push(this.capturedTrack);
-			clerk.editList(list, 'tracks', updatedTracks, function(response){
+			clerk.editList(list, 'tracks', updatedTracks).then(function(response){
 				// I have no idea why I cant access this.lists from here to add the updated list, but i guess i dont need to
 				messenger.show("Track added!");
 				angular.element('#bottomModal').closeModal();
@@ -35,7 +35,7 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			var index = newTracks.indexOf(track);
 			// Hmm this is affecting the model in the browser before we've recieved confirmation that its been affected on teh server...
 			newTracks.splice(index, 1);
-			clerk.editList(list, 'tracks', newTracks, function(response){
+			clerk.editList(list, 'tracks', newTracks).then(function(response){
 				messenger.show(track.trackName + ' removed from ' + list.name);
 			});
 		},
@@ -47,7 +47,7 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			if (newPosition < 0 || newPosition >= tracks.length) return;
 			tracks[currentPosition] = tracks[newPosition];
 			tracks[newPosition] = track;
-			clerk.editList(this.activeList, 'tracks', tracks, function(response){
+			clerk.editList(this.activeList, 'tracks', tracks).then(function(response){
 				console.log(response.data);
 			});
 		},
