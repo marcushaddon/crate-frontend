@@ -1,0 +1,17 @@
+<div class="card col m3">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" ng-src="{{album.imgUrl}}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{album.name}}<i class="material-icons right">more_vert</i></span>
+      <p><a ng-href='/#/album/{{album._id}}'>Listen</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{album.name}}<i class="material-icons right">close</i></span>
+      <small>by</small> {{album.artist}}<br>
+      <i>Found</i> {{album.foundOn}}<br>
+      <i>by</i> {{album.foundBy.userName}}<br>
+      <i>{{album.noTracks}} tracks</i>
+
+    </div>
+  </div>

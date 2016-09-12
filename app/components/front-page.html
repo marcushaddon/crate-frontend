@@ -1,0 +1,10 @@
+<nav-bar></nav-bar>
+
+<div class='container' ng-init='init()'>
+  <h1>Welcome to crate</h1>
+  <div class='row'>
+    <album-tile ng-repeat='album in latestAlbums'></album-tile>
+</div>
+</div>
+
+<player></player>

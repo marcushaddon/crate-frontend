@@ -12,6 +12,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 		templateUrl: 'components/home.html'
 	})
 
+	.when('/front-page', {
+		templateUrl: 'components/front-page.html',
+		controller: 'FrontPageCtrl'
+	})
+
 	.when('/upload', {
 		templateUrl: 'components/upload.html',
 		controller: 'Uploader'
@@ -161,6 +166,12 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('albumItem', function(){
 	return {
 		templateUrl: 'components/album-item.html'
+	}
+})
+
+.directive('albumTile', function(){
+	return {
+		templateUrl: 'components/album-tile.html'
 	}
 })
 
