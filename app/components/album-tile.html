@@ -1,17 +1,22 @@
-<div class="card col m3">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" ng-src="{{album.imgUrl}}">
-    </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{album.name}}<i class="material-icons right">more_vert</i></span>
-      <p><a ng-href='/#/album/{{album._id}}'>Listen</a></p>
+<div class="col s12 m3">
+  <div class="card">
+    <div class="card-image">
+      <img ng-src="{{album.imgUrl || playlist.imgUrl || 'https://d13yacurqjgara.cloudfront.net/users/231299/screenshots/1739646/crate.png'}}">
+      <span class="card-title activator">{{album.name || playlist.name}}</span><i class="material-icons right">more_vert</i>
     </div>
     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">{{album.name}}<i class="material-icons right">close</i></span>
-      <small>by</small> {{album.artist}}<br>
-      <i>Found</i> {{album.foundOn}}<br>
-      <i>by</i> {{album.foundBy.userName}}<br>
-      <i>{{album.noTracks}} tracks</i>
+      <span class="card-title grey-text text-darken-4 truncate">{{album.name || playlist.name}}<i class="material-icons right">close</i></span>
+      <small>by</small> {{album.artist || playlist.createdBy.userName}}<br>
+      <hr>
+      {{album.noTracks || playlist.tracks.length}} tracks<br>
+      <small>{{album ? 'Found' : 'Created'}}</small> {{album.foundOn || playlist.dateCreated | date}}<br>
+      <span ng-show='album'><small>by</small> {{album.foundBy.userName}}<br></span>
+      <a ng-href='/#/album/{{album._id}}'>Listen</a>
+
 
     </div>
+    <div class="card-action">
+      <a ng-href='/#/album/{{album._id}}'>Listen</a>
+    </div>
   </div>
+</div>

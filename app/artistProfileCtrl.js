@@ -2,21 +2,19 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
   $scope.artist = {
     artist: { name: "NEW GUY" }
   };
-  $scope.testThing = function() { alert("HEY YOU FUCK"); };
 
-  $scope.getArtist = function() {
+  $scope.init = function() {
     var artistId = $routeParams.id;
-    console.log(artistId);
-		clerk.getArtist(artistId, function(response){
+		clerk.getArtist(artistId).then(function(response){
 
 
 			$scope.artist = response.data;
       console.log($scope.artist);
 
 
-		}, function(response){
+		}).failure(function(response){
 			console.log(response);
-		})
+		});
 
 	};
 });

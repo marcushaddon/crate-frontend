@@ -40,6 +40,15 @@ footer {
     height: 100%;
 }
 
+.container {
+  max-height: 400px;
+  overflow: scroll;
+}
+
+.tile-rack {
+  overflow: scroll;
+}
+
 #controls {
     color: white;
     /*font-size: 32px;*/
