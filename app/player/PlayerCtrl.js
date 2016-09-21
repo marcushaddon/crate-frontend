@@ -1,0 +1,3 @@
+crate.controller('PlayerCtrl', function(){
+
+});

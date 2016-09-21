@@ -4,36 +4,36 @@ var crate = angular.module('main-app', ['ngRoute'])
 	$httpProvider.interceptors.push('authInterceptor')
 
 	$routeProvider.when('/login', {
-		templateUrl: 'components/login.html',
+		templateUrl: 'login/login.html',
 		controller: 'login'
 	})
 
 	.when('/home', {
-		templateUrl: 'components/home.html'
+		templateUrl: 'home/home.html'
 	})
 
 	.when('/front-page', {
-		templateUrl: 'components/front-page.html',
+		templateUrl: 'front-page/front-page.html',
 		controller: 'FrontPageCtrl'
 	})
 
 	.when('/upload', {
-		templateUrl: 'components/upload.html',
+		templateUrl: 'upload/upload.html',
 		controller: 'Uploader'
 	})
 
 	.when('/search-results', {
-		templateUrl: 'components/search-results.html',
+		templateUrl: 'search/search-results.html',
 		controller: 'SearchCtrl'
 	})
 
 	.when('/album/:id', {
-		templateUrl: 'components/view-album-full.html',
+		templateUrl: 'album/view-album-full.html',
 		controller: 'AlbumCtrl'
 	})
 
 	.when('/artist-profile/:id', {
-		templateUrl: 'components/artist-profile.html',
+		templateUrl: 'artist/artist-profile.html',
 		controller: 'ArtistProfileCtrl'
 	});
 
@@ -59,7 +59,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 	return {
 		restrict: 'E',
 		replace: true,
-		templateUrl: 'components/nav-bar.html',
+		templateUrl: 'nav-bar/nav-bar.html',
 		controller: 'Main',
 		controllerAs: 'MainCtrl'
 	};
@@ -68,7 +68,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('player', function(){
 	return {
 		restrict: 'E',
-		templateUrl: 'components/player.html',
+		templateUrl: 'player/player.html',
 		controller: 'Main'
 	};
 })
@@ -102,7 +102,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('search', function(){
 	return {
 		restrict: 'E',
-		templateUrl: 'components/search.html',
+		templateUrl: 'search/search.html',
 		controller: 'SearchCtrl'
 	}
 })
@@ -116,13 +116,13 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('viewAlbum', function(){
 	return {
-		templateUrl: 'components/view-album.html'
+		templateUrl: 'home/view-album.html'
 	}
 })
 
 .directive('viewPlaylist', function(){
 	return {
-		templateUrl: 'components/view-playlist.html'
+		templateUrl: 'home/view-playlist.html'
 	}
 })
 
@@ -141,7 +141,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('songItem', function(){
 	return {
-		templateUrl: 'components/song-item.html'
+		templateUrl: 'components/album-song-item.html'
 	}
 })
 
