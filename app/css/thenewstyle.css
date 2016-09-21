@@ -49,6 +49,10 @@ footer {
   overflow: scroll;
 }
 
+.card-image {
+  height: 150px;
+}
+
 #controls {
     color: white;
     /*font-size: 32px;*/

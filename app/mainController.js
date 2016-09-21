@@ -211,9 +211,9 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	});
 
 	// Dont think we are using this anymore
-	$rootScope.$on('login', function(event, user){
-		app.init(user);
-	});
+	// $rootScope.$on('login', function(event, user){
+	// 	app.init(user);
+	// });
 
 
 

@@ -7,7 +7,7 @@ crate.controller('login', function($scope, $location, user, authTokenFactory){
     var token = authTokenFactory.getToken();
     if (token) {
       user.isLoggedIn = true;
-      $location.path('/home');
+      $location.path('/front-page');
     }
   };
 
@@ -17,7 +17,7 @@ crate.controller('login', function($scope, $location, user, authTokenFactory){
       user.info = { userName: response.data.userName };
       user.isLoggedIn = true;
       authTokenFactory.setToken(response.data.token);
-      $location.path('/home');
+      $location.path('/front-page');
     });
   };
 });
