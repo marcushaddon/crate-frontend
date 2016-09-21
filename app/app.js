@@ -69,7 +69,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 	return {
 		restrict: 'E',
 		templateUrl: 'player/player.html',
-		controller: 'Main'
+		controller: 'PlayerCtrl'
 	};
 })
 

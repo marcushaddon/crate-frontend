@@ -19,7 +19,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.getIsLoggedIn   = function() { return user.isLoggedIn; };
 	this.loggedIn        = false;
 	this.progress        = 0;
-	this.getProgress     = function() { return stereo.getProgress(); };
 	this.testThing = "THE TEST THING";
 	this.getUser = function() { console.log(user.info); return user.info; };
 	this.createList = function(album) {
@@ -137,31 +136,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 
 	this.playToggle = function() {
 		var state = stereo.playToggle();
-	}
-
-	this.back = function() {
-		// should call a stereo method
-		player.seekTo(stereo.activeTrack.begin);
-	};
-
-	this.backBack = function() {
-		//these are both awful and need to be re written
-		stereo.setTrack(stereo.activeTracks[stereo.activeTracks.indexOf(stereo.activeTrack) - 1]);
-	};
-
-	this.next = function() {
-		// wow thats ugly
-		stereo.setTrack(stereo.activeTracks[stereo.activeTracks.indexOf(stereo.activeTrack) + 1]);
-	};
-
-	this.seekTo = function(time) {
-		stereo.seekTo(time);
-	};
-
-	// This might break if playing a playlist or an album assembled from multiple youtube videos?
-	this.scrub = function() {
-		var newTime = parseFloat(this.getActiveTrack().begin) + parseFloat(this.progress);
-		this.seekTo(newTime);
 	};
 
 	this.update = function() {

@@ -9,4 +9,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, clerk){
       $scope.tracks = response.data.tracks;
     });
   };
+
+  
+
 });
