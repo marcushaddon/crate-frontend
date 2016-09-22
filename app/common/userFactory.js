@@ -5,9 +5,7 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 		isLoggedIn: false,
 
 		setUser: function(userData) {
-			this.info = {
-				userName: response.data.userName
-			};
+			this.info = userData;
 			this.loggedIn = true;
 		},
 

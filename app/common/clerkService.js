@@ -69,8 +69,8 @@ crate.service('clerk', function($http, $rootScope, user){
 		return this.fetchMe('/api/latestPlaylists/' + count + '/' + offset, 'GET', {});
 	};
 
-	this.getAlbum = function(albumId) {
-		return this.fetchMe('/api/album/id/' + albumId, 'GET', {});
-	}
+	// this.getAlbum = function(albumId) {
+	// 	return this.fetchMe('/api/album/id/' + albumId, 'GET', {});
+	// }
  }
 )
