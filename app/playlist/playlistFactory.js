@@ -10,12 +10,19 @@ crate.factory('playlistFactory', function($http){
     },
 
     createPlaylist: function() {
-      console.log("MAKIN LIST THE FACOTRY WAY");
       return $http({
         method: 'POST',
-        url: '/api/playlists/new'
+        url: '/api/playlists/new',
+        data: album
       });
     },
+
+    saveAlbumAsPlaylist: function(album) {
+      return $http({
+        method: 'POST',
+        url: '/api/playlists/saveAlbumAsPlaylist/' + album._id
+      });
+    }
 
     editPlaylist: function(playlist, field, value) {
       return $http({

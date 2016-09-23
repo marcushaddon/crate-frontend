@@ -21,73 +21,73 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.progress        = 0;
 	this.testThing = "THE TEST THING";
 	this.getUser = function() { console.log(user.info); return user.info; };
-	this.createList = function(album) {
-		if (!album) {
-			playlistFactory.createPlaylist()
-			.then(function(response){
-				stereo.lists.unshift( response.data );
-			});
-
-			// setActiveList needs to accept both albums and playlists first
-			// this.setActiveList(stereo.lists[0]);
-			console.log(app.getLists());
-		}
-
-	};
+	// this.createList = function(album) {
+	// 	if (!album) {
+	// 		playlistFactory.createPlaylist()
+	// 		.then(function(response){
+	// 			stereo.lists.unshift( response.data );
+	// 		});
+	//
+	// 		// setActiveList needs to accept both albums and playlists first
+	// 		// this.setActiveList(stereo.lists[0]);
+	// 		console.log(app.getLists());
+	// 	}
+	//
+	// };
 
 	this.logOut = function() {
 		user.logOut();
 	};
 
-	this.deleteList = function(list) {
-		playlistFactory.deletePlaylist(list._id).then(function(response){
-			stereo.lists.splice(stereo.lists.indexOf(list), 1);
-			messenger.show(response.data);
-		});
-	};
+	// this.deleteList = function(list) {
+	// 	playlistFactory.deletePlaylist(list._id).then(function(response){
+	// 		stereo.lists.splice(stereo.lists.indexOf(list), 1);
+	// 		messenger.show(response.data);
+	// 	});
+	// };
 
-	this.captureTrack = function(track) {
-		stereo.capturedTrack = track;
-		angular.element('#bottomModal').openModal();
-	};
+	// this.captureTrack = function(track) {
+	// 	stereo.capturedTrack = track;
+	// 	angular.element('#bottomModal').openModal();
+	// };
 
 	this.getCapturedTrack = function() {
 		return stereo.capturedTrack;
 	};
 
-	this.addCapturedTrack = function(list, index) {
-		stereo.addCapturedTrack(index);
-	};
+	// this.addCapturedTrack = function(list, index) {
+	// 	stereo.addCapturedTrack(index);
+	// };
 
-	this.removeTrack = function (track, list) {
-		var listIndex = stereo.lists.indexOf(list);
-		var tracks = list.tracks;
-		var pos = tracks.indexOf(track);
-		tracks.splice(pos, 1);
-		playlistFactory.editPlaylist(list, 'tracks', tracks)
-		.then(function(response){
-			stereo.lists.splice(listIndex, 1, response.data);
-		});
-	};
+	// this.removeTrack = function (track, list) {
+	// 	var listIndex = stereo.lists.indexOf(list);
+	// 	var tracks = list.tracks;
+	// 	var pos = tracks.indexOf(track);
+	// 	tracks.splice(pos, 1);
+	// 	playlistFactory.editPlaylist(list, 'tracks', tracks)
+	// 	.then(function(response){
+	// 		stereo.lists.splice(listIndex, 1, response.data);
+	// 	});
+	// };
 
-	this.moveTrack = function(track, direction) {
-		stereo.moveTrack(track, direction);
-	};
+	// this.moveTrack = function(track, direction) {
+	// 	stereo.moveTrack(track, direction);
+	// };
 
-	this.editList = function(list, field, value, event) {
-		value = value || event.target.innerHTML.replace(/<(?:.|\n)*?>/gm, '');
-		var index = stereo.lists.indexOf(list);
+	// this.editList = function(list, field, value, event) {
+	// 	value = value || event.target.innerHTML.replace(/<(?:.|\n)*?>/gm, '');
+	// 	var index = stereo.lists.indexOf(list);
+	//
+	// 	playlistFactory.editPlaylist(list, field, value).then(function(response){
+	// 		stereo.lists.splice(index, 1, response.data);
+	// 	});
+	// };
 
-		playlistFactory.editPlaylist(list, field, value).then(function(response){
-			stereo.lists.splice(index, 1, response.data);
-		});
-	};
-
-	this.saveAlbum = function(album) {
-		clerk.saveAlbum(album).then(function(response){
-			stereo.lists.unshift(response.data);
-		});
-	};
+	// this.saveAlbum = function(album) {
+	// 	clerk.saveAlbum(album).then(function(response){
+	// 		stereo.lists.unshift(response.data);
+	// 	});
+	// };
 
 
 	this.setActiveList = function(list) {
