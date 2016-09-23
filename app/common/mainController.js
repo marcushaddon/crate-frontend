@@ -23,7 +23,8 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.getUser = function() { console.log(user.info); return user.info; };
 	this.createList = function(album) {
 		if (!album) {
-			clerk.createList({}).then(function(response){
+			playlistFactory.createPlaylist()
+			.then(function(response){
 				stereo.lists.unshift( response.data );
 			});
 
@@ -39,7 +40,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	};
 
 	this.deleteList = function(list) {
-		clerk.deleteList(list).then(function(response){
+		playlistFactory.deletePlaylist(list._id).then(function(response){
 			stereo.lists.splice(stereo.lists.indexOf(list), 1);
 			messenger.show(response.data);
 		});
@@ -58,8 +59,15 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		stereo.addCapturedTrack(index);
 	};
 
-	this.removeTrack = function (track) {
-		stereo.removeTrack(track);
+	this.removeTrack = function (track, list) {
+		var listIndex = stereo.lists.indexOf(list);
+		var tracks = list.tracks;
+		var pos = tracks.indexOf(track);
+		tracks.splice(pos, 1);
+		playlistFactory.editPlaylist(list, 'tracks', tracks)
+		.then(function(response){
+			stereo.lists.splice(listIndex, 1, response.data);
+		});
 	};
 
 	this.moveTrack = function(track, direction) {
@@ -70,7 +78,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		value = value || event.target.innerHTML.replace(/<(?:.|\n)*?>/gm, '');
 		var index = stereo.lists.indexOf(list);
 
-		clerk.editList(list, field, value).then(function(response){
+		playlistFactory.editPlaylist(list, field, value).then(function(response){
 			stereo.lists.splice(index, 1, response.data);
 		});
 	};

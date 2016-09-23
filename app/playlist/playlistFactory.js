@@ -7,6 +7,33 @@ crate.factory('playlistFactory', function($http){
         method: 'GET',
         url: '/api/user/' + id + '/playlists'
       });
+    },
+
+    createPlaylist: function() {
+      console.log("MAKIN LIST THE FACOTRY WAY");
+      return $http({
+        method: 'POST',
+        url: '/api/playlists/new'
+      });
+    },
+
+    editPlaylist: function(playlist, field, value) {
+      return $http({
+        method: 'PUT',
+        url: '/api/playlists/' + playlist._id,
+        data: {
+          editField: field,
+          newValue: value
+        }
+      });
+    },
+
+    deletePlaylist: function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/playlists/' + id
+      });
     }
+
   };
 });
