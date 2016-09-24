@@ -1,4 +1,4 @@
-crate.factory('stereo', function($rootScope, clerk, messenger){
+crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 	return {
 		stereo: this,
 		lists: [],
@@ -11,32 +11,19 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			return player.getDuration();
 		},
 
-		// addCapturedTrack: function(listIndex) {
-		// 	var list = this.lists[listIndex];
-		// 	var updatedTracks = list.tracks;
-		// 	updatedTracks.push(this.capturedTrack);
-		// 	clerk.editList(list, 'tracks', updatedTracks).then(function(response){
-		// 		// I have no idea why I cant access this.lists from here to add the updated list, but i guess i dont need to
-		// 		messenger.show("Track added!");
-		// 		angular.element('#bottomModal').closeModal();
-		// 	});
-		// },
-
-		// moveTrack: function(track, direction) {
-		// 	var tracks = this.activeList.tracks;
-		// 	var currentPosition = tracks.indexOf(track);
-		// 	var newPosition = ( direction == 'up' ) ? currentPosition - 1 : currentPosition + 1
-		// 	if (newPosition < 0 || newPosition >= tracks.length) return;
-		// 	tracks[currentPosition] = tracks[newPosition];
-		// 	tracks[newPosition] = track;
-		// 	clerk.editList(this.activeList, 'tracks', tracks).then(function(response){
-		// 		console.log(response.data);
-		// 	});
-		// },
+		setActiveList: function(list) {
+			this.activeList = list;
+			if (list.listType === 'playlist') {
+				this.setActiveTracks(list.tracks);
+			} else {
+				// stereo is out of scope when oure success funciton runs! for now this is handled in MainCtrl :'(
+				this.setActiveTracks(albumFactory.getTracksByAlbumId(list._id).$$state.value);
+			}
+		},
 
 		setActiveTracks: function(tracks) {
 			this.activeTracks = tracks;
-			this.setTrack(this.activeTracks[0]);
+			// this.setTrack(this.activeTracks[0]);
 		},
 
 		testThing: function() {
@@ -78,6 +65,10 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			this.activeTrack = track;
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
 			this.isPlaying = true;
+		},
+
+		getActiveTrack: function() {
+			return this.activeTrack;
 		},
 
 		playToggle: function() {

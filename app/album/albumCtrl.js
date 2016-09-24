@@ -24,4 +24,10 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenge
     });
   };
 
+  $scope.$on('trackPlayToggle', function(event){
+
+    $scope.$emit('listPlayToggle', $scope.album);
+    event.stopPropagation();
+  });
+
 });

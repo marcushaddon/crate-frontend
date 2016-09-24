@@ -24,9 +24,9 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
     return $scope.currentPlaylist;
   };
 
-  $scope.isActiveTrack = function(track) {
-    return stereo.activeTrack == track;
-  };
+  // $scope.isActiveTrack = function(track) {
+  //   return stereo.activeTrack == track;
+  // };
 
   // Create a new playlist, either blank or by copying an album
   $scope.createList = function(album) {

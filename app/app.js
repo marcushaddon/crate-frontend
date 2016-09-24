@@ -149,7 +149,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('listSongItem', function(){
 	return {
-		templateUrl: 'components/list-song-item.html'
+		templateUrl: 'components/list-song-item.html',
+		controller: 'trackCtrl'
 	}
 })
 
