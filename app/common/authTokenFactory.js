@@ -13,7 +13,6 @@ crate.factory('authTokenFactory', function($window){
 
   function setToken(token) {
     if (token) {
-      console.log("AUTH IS SETTING " + token);
       store.setItem(key, token);
     } else {
       store.removeItem(key);

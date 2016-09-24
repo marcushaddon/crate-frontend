@@ -1,18 +1,39 @@
-crate.controller('playlistCtrl', function($scope, playlistFactory, messenger){
+crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, playlistFactory, messenger){
   $scope.myPlaylists = [];
   $scope.currentPlaylist = {};
   $scope.capturedTrack = {};
 
   $scope.init = function() {
     // update our model to match the server
+    playlistFactory.getUserPlaylists(user.info.userId)
+    .then(function(response){
+      $scope.myPlaylists = response.data;
+      $scope.currentPlaylist = $scope.myPlaylists[0];
+    });
   };
 
+  $scope.setCurrentPlaylist = function(list) {
+    $scope.currentPlaylist = list;
+  };
+
+  $scope.playToggle = function(track) {
+    $rootScope.$broadcast('playToggle');
+  };
+
+  $scope.getCurrentPlaylist = function() {
+    return $scope.currentPlaylist;
+  };
+
+  $scope.isActiveTrack = function(track) {
+    return stereo.activeTrack == track;
+  };
 
   // Create a new playlist, either blank or by copying an album
   $scope.createList = function(album) {
 		if (!album) {
 			playlistFactory.createPlaylist()
 			.then(function(response){
+        $scope.myPlaylists.unshift(response.data);
 				messenger.show(response.data.name + " created!");
 			});
 		}
@@ -21,20 +42,29 @@ crate.controller('playlistCtrl', function($scope, playlistFactory, messenger){
   $scope.deleteList = function(list) {
     var listName = list.name;
 		playlistFactory.deletePlaylist(list._id)
-    .then(function(response){
-
+    .then(function successCallback(response){
+      // need to update the browser model
+      var indexOfDeletedList = $scope.myPlaylists.indexOf(list);
+      $scope.myPlaylists.splice(indexOfDeletedList, 1);
 			messenger.show(listName + " deleted!");
-		});
+		},
+    function errorCallback(response){
+      messenger.show(response.data);
+    });
 	};
 
   $scope.captureTrack = function(track) {
-		$scope.capturedTrack = track;
+		stereo.capturedTrack = track;
 		angular.element('#bottomModal').openModal();
 	};
 
-  $scope.addTrackToPlaylist = function(track, playlist) {
+  $scope.getCapturedTrack = function() {
+    return playlistFactory.capturedTrack;
+  };
+
+  $scope.addTrackToPlaylist = function(playlist) {
     var newTracks = playlist.tracks;
-    newTracks.push(track);
+    newTracks.push(playlistFactory.capturedTrack);
     playlistFactory.editPlaylist(playlist, 'tracks', newTracks)
     .then(function(response){
       // update our model somehow!
@@ -42,16 +72,20 @@ crate.controller('playlistCtrl', function($scope, playlistFactory, messenger){
     });
   };
 
-  $scope.removeTrack = function (track, list) {
-		var tracks = list.tracks;
+  $scope.removeTrack = function (track) {
+		var tracks = $scope.currentPlaylist.tracks;
 		var pos = tracks.indexOf(track);
 		tracks.splice(pos, 1);
-		playlistFactory.editPlaylist(list, 'tracks', tracks)
+		playlistFactory.editPlaylist($scope.currentPlaylist, 'tracks', tracks)
 		.then(function(response){
 			// update our model somehow!
-      messenger.show(response.data);
+      messenger.show(JSON.stringify(response.data));
 		});
 	};
+
+  $scope.editList = function(list, field, value, event) {
+    messenger.show("That hasn't been built yet!");
+  };
 
   // direction is either -1 (backwards) or 1 (forwards)
   $scope.moveTrack = function(track, direction) {
@@ -87,6 +121,13 @@ crate.controller('playlistCtrl', function($scope, playlistFactory, messenger){
       messenger.show(response.data.name + " created!");
     });
 	};
+
+  $scope.$on('trackPlayToggle', function(event){
+    // send our tracks up the scope chain to be queueueueueed up by MainCtrl
+    $scope.$emit('listPlayToggle', $scope.currentPlaylist);
+    event.stopPropagation();
+
+  });
 
 
 });

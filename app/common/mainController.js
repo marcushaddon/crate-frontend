@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, stereo, messenger, clerk, playlistFactory, user) {
+crate.controller('Main', function($scope, $location, $rootScope, stereo, messenger, clerk, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;
@@ -13,6 +13,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 			return false;
 		}
 	};
+
 	this.getActiveTracks = function() { return stereo.activeTracks; };
 	this.getActiveTrack  = function() { return stereo.activeTrack; };
 	this.getIsPlaying    = function() { return stereo.isPlaying; };
@@ -20,7 +21,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	this.loggedIn        = false;
 	this.progress        = 0;
 	this.testThing = "THE TEST THING";
-	this.getUser = function() { console.log(user.info); return user.info; };
+	this.getUser = function() { return user.info; };
 	// this.createList = function(album) {
 	// 	if (!album) {
 	// 		playlistFactory.createPlaylist()
@@ -46,14 +47,16 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 	// 	});
 	// };
 
+
 	// this.captureTrack = function(track) {
 	// 	stereo.capturedTrack = track;
 	// 	angular.element('#bottomModal').openModal();
 	// };
 
-	this.getCapturedTrack = function() {
-		return stereo.capturedTrack;
-	};
+	// Hmmm... not sure how to offload this, since playlistCtrl isnt active when viewing an album
+	// this.getCapturedTrack = function() {
+	// 	return stereo.capturedTrack;
+	// };
 
 	// this.addCapturedTrack = function(list, index) {
 	// 	stereo.addCapturedTrack(index);
@@ -95,6 +98,7 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		if (list.listType === 'playlist') {
 			stereo.activeTracks = list.tracks;
 		} else {
+			// TODO: replace with albumFactoctory (or trackFactory?) method
 			clerk.getTracksByAlbumId(list._id).then(function(response){
 				stereo.activeTracks = response.data;
 			});
@@ -142,10 +146,26 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 		}
 	};
 
-	this.playToggle = function() {
-		var state = stereo.playToggle();
-	};
+	$scope.$on('trackPlayToggle', function(event, data){
+		event.stopPropagation();
+		if (stereo.activeTrack == data) {
+			stereo.playToggle();
+		} else {
+			stereo.setTrack(data);
+		}
+	});
 
+	// Not sure why this is getting picked up twice
+	$scope.$on('listPlayToggle', function(event, data){
+		event.stopPropagation();
+		app.setActiveList(data);
+	});
+
+	// this.playToggle = function() {
+	// 	var state = stereo.playToggle();
+	// };
+
+	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
 	this.update = function() {
 		angular.element('#playtime').html(
 			app.secToMinSec(stereo.getProgress())
@@ -156,7 +176,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 			app.next();
 		}
 		$scope.$apply();
-		console.log("THE CONTROLLER HAS UPDATED");
 	}
 
 	//better implemented as a custom filter
@@ -175,8 +194,6 @@ crate.controller('Main', function($scope, $location, $rootScope, stereo, messeng
 			$location.path('/login');
 			return;
 		}
-		console.log("BELOW IS USERFACORY");
-		console.log(user);
 		var userId = user.info.userId;
 		playlistFactory.getUserPlaylists(userId).then(function(response) {
 			stereo.lists = response.data;

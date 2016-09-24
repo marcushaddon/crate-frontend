@@ -39,10 +39,9 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
 		angular.element('#progress').val(stereo.getProgress());
 
 		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-			app.next();
+			$scope.next();
 		}
 		$scope.$apply();
-		console.log("THE CONTROLLER HAS UPDATED");
 	}
 
   $scope.secToMinSec = function(seconds) {

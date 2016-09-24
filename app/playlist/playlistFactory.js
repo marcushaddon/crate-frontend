@@ -1,7 +1,8 @@
 crate.factory('playlistFactory', function($http){
   // put clerks playlist methods in here
-  console.log("I AM THE NEXT PLAYLIST FACOTRY");
   return {
+    capturedTrack: {},
+
     getUserPlaylists: function(id) {
       return $http({
         method: 'GET',
@@ -12,8 +13,7 @@ crate.factory('playlistFactory', function($http){
     createPlaylist: function() {
       return $http({
         method: 'POST',
-        url: '/api/playlists/new',
-        data: album
+        url: '/api/playlists/new'
       });
     },
 
@@ -22,7 +22,7 @@ crate.factory('playlistFactory', function($http){
         method: 'POST',
         url: '/api/playlists/saveAlbumAsPlaylist/' + album._id
       });
-    }
+    },
 
     editPlaylist: function(playlist, field, value) {
       return $http({

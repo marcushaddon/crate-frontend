@@ -13,7 +13,6 @@ crate.controller('login', function($scope, $location, user, authTokenFactory){
 
   $scope.submit = function() {
     user.logIn($scope.loginName, $scope.loginPassword).then(function(response){
-      console.log(response.data);
       user.setUser({
         userName: response.data.userName,
         userId: response.data.userId

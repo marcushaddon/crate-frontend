@@ -11,34 +11,35 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 			return player.getDuration();
 		},
 
-		capturedTrack: {},
+		// addCapturedTrack: function(listIndex) {
+		// 	var list = this.lists[listIndex];
+		// 	var updatedTracks = list.tracks;
+		// 	updatedTracks.push(this.capturedTrack);
+		// 	clerk.editList(list, 'tracks', updatedTracks).then(function(response){
+		// 		// I have no idea why I cant access this.lists from here to add the updated list, but i guess i dont need to
+		// 		messenger.show("Track added!");
+		// 		angular.element('#bottomModal').closeModal();
+		// 	});
+		// },
 
-		addCapturedTrack: function(listIndex) {
-			var list = this.lists[listIndex];
-			var updatedTracks = list.tracks;
-			updatedTracks.push(this.capturedTrack);
-			clerk.editList(list, 'tracks', updatedTracks).then(function(response){
-				// I have no idea why I cant access this.lists from here to add the updated list, but i guess i dont need to
-				messenger.show("Track added!");
-				angular.element('#bottomModal').closeModal();
-			});
-		},
+		// moveTrack: function(track, direction) {
+		// 	var tracks = this.activeList.tracks;
+		// 	var currentPosition = tracks.indexOf(track);
+		// 	var newPosition = ( direction == 'up' ) ? currentPosition - 1 : currentPosition + 1
+		// 	if (newPosition < 0 || newPosition >= tracks.length) return;
+		// 	tracks[currentPosition] = tracks[newPosition];
+		// 	tracks[newPosition] = track;
+		// 	clerk.editList(this.activeList, 'tracks', tracks).then(function(response){
+		// 		console.log(response.data);
+		// 	});
+		// },
 
-		moveTrack: function(track, direction) {
-			var tracks = this.activeList.tracks;
-			var currentPosition = tracks.indexOf(track);
-			var newPosition = ( direction == 'up' ) ? currentPosition - 1 : currentPosition + 1
-			if (newPosition < 0 || newPosition >= tracks.length) return;
-			tracks[currentPosition] = tracks[newPosition];
-			tracks[newPosition] = track;
-			clerk.editList(this.activeList, 'tracks', tracks).then(function(response){
-				console.log(response.data);
-			});
+		setActiveTracks: function(tracks) {
+			this.activeTracks = tracks;
+			this.setTrack(this.activeTracks[0]);
 		},
 
 		testThing: function() {
-			console.log("STERESO TEST THING");
-			console.log(this);
 		},
 
 		// OMG I hate this, but otherwise when the youtube API becomes 'this'
@@ -76,7 +77,7 @@ crate.factory('stereo', function($rootScope, clerk, messenger){
 		setTrack: function(track) {
 			this.activeTrack = track;
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
-			this.isPlaying   = true;
+			this.isPlaying = true;
 		},
 
 		playToggle: function() {

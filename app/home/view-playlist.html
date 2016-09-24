@@ -1,12 +1,12 @@
 <div class='results'>
 
-                <h3 class='truncate'><span contenteditable="true" ng-blur='PlayCtrl.editList(PlayCtrl.getActiveList(), "name", null, $event)'>{{PlayCtrl.getActiveList().name}}</span> <small> by {{PlayCtrl.getActiveList().createdBy.userName}}</small></h3>
+                <h3 class='truncate'><span contenteditable="true" ng-blur='editList(PlayCtrl.getActiveList(), "name", null, $event)'>{{getCurrentPlaylist().name}}</span> <small> by {{getCurrentPlaylist().createdBy.userName}}</small></h3>
 
 
 
                 <div class='collection music-list' >
 
-                        <playlist-song-item ng-repeat='track in PlayCtrl.getActiveTracks()'></playlist-song-item>
+                        <playlist-song-item ng-repeat='track in getCurrentPlaylist().tracks'></playlist-song-item>
 
 
 

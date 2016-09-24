@@ -1,13 +1,13 @@
 <nav-bar></nav-bar>
-<main ng-init='PlayCtrl.init()'>
+<main ng-init='init()'>
 
 <div class='row'>
 <!-- SAVED PLAYLISTS -->
 	<div class='col m4'>
 		<div id='playlists'>
-					<h3>Playlists<a href='' ng-click='PlayCtrl.createList()'><i class='material-icons right'>add</i></a></h3>
+					<h3>Playlists<a href='' ng-click='createList()'><i class='material-icons right'>add</i></a></h3>
 		                <div class='collection music-list'>
-		                            <playlist-item ng-repeat='list in PlayCtrl.getLists()' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
+		                            <playlist-item ng-repeat='list in myPlaylists' ng-click="setCurrentPlaylist(list)"></playlist-item>
 		                </div>
 
 		        </div>`
@@ -16,8 +16,7 @@
 
 		<!-- CURRENT PLAYLIST -->
 	<div class='col m8 s12'>
-		<view-album ng-show='!PlayCtrl.viewingPlaylist()'></view-album>
-		<view-playlist ng-show='PlayCtrl.viewingPlaylist()'></view-playlist>
+		<view-playlist></view-playlist>
 	</div>
 <!-- END CURRENT PLAYLIST -->
 </div>

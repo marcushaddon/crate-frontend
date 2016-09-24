@@ -33,7 +33,6 @@ loop = false;
       //    the player should play for six seconds and then stop.
 
       function onPlayerStateChange(event) {
-       console.log(player.getPlayerState());
        app.toggleUpdate(player.getPlayerState());
       }
       function stopVideo() {

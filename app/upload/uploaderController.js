@@ -15,7 +15,6 @@ crate.controller('Uploader', function($scope, stereo, clerk, messenger){
 					angular.element('#progress').attr('max', theEnd);
 					angular.element('#totalTime').html(' / ' + secToMinSec(theEnd));
 					$scope.$apply();
-					console.log("THE LENGTH" + stereo.getVideoLength())
 				}, 3000);
 				$scope.currentUpload.addTrack();
 			} else if ($scope.currentUpload.videoId != '') {
@@ -65,8 +64,6 @@ crate.controller('Uploader', function($scope, stereo, clerk, messenger){
 
 			var newTrack = new Track(nextTrackNum, 'Track ' + nextTrackNum, this.albumName, this.artist, this.videoId, startTime);
 			this.createdTracks.push( newTrack );
-
-			console.log(JSON.stringify(this));
 		}
 	};
 })

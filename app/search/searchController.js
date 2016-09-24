@@ -7,7 +7,6 @@ crate.controller('SearchCtrl', function($scope, $rootScope, $location, SearchFac
   }
 
   $scope.testThing = function(){
-    console.log($scope.searchField);
   };
 
   $rootScope.$on('resultsAreIn', function(event, results){

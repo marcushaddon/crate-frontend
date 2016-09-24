@@ -9,7 +9,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 	})
 
 	.when('/home', {
-		templateUrl: 'home/home.html'
+		templateUrl: 'home/home.html',
+		controller: 'playlistCtrl'
 	})
 
 	.when('/front-page', {
@@ -60,6 +61,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 		restrict: 'E',
 		replace: true,
 		templateUrl: 'nav-bar/nav-bar.html',
+		// Needs its own controller, or... maybe not
 		controller: 'Main',
 		controllerAs: 'MainCtrl'
 	};
@@ -129,7 +131,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('bottomModal', function(){
 	return {
 		templateUrl: 'components/bottom-modal.html',
-		controller: 'Main'
+		controller: 'playlistCtrl'
 	}
 })
 
@@ -159,7 +161,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('playlistSongItem', function(){
 	return {
-		templateUrl: 'components/playlist-song-item.html'
+		templateUrl: 'components/playlist-song-item.html',
+		controller: 'trackCtrl'
 	}
 })
 

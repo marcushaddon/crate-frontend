@@ -2,7 +2,7 @@ crate.service('clerk', function($http, $rootScope, user){
 	clerk = this;
 	this.user = {};
 	this.searchResults = [];
-	this.getSearchResults = function() { console.log("I AM THE CLERK AND I HAVE " + this.searchResults); return this.searchResults;  };
+	this.getSearchResults = function() { return this.searchResults;  };
 	this.fetchMe = function(endPoint, method, data) {
 		return $http({
 							method: method,

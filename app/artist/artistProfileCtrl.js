@@ -9,7 +9,6 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
 
 
 			$scope.artist = response.data;
-      console.log($scope.artist);
 
 
 		});
