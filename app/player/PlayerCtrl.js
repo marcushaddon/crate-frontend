@@ -1,4 +1,4 @@
-crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
+crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger){
   $scope.getActiveTrack  = function() { return stereo.activeTrack; };
   $scope.getProgress     = function() { return stereo.getProgress(); };
   $scope.progress = 0;
@@ -9,6 +9,7 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
 
   $scope.back = function() {
 		// should call a stereo method
+    // TODO: use stereo methods, dont go back if at beginning of list
 		player.seekTo(stereo.activeTrack.begin);
 	};
 
@@ -20,6 +21,10 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
   $scope.next = function() {
 		// wow thats ugly
     var currentIndex = stereo.trackPosition(stereo.activeTrack);
+    if (currentIndex >= stereo.activeTracks.length - 1) {
+      messenger.show("End of qeueued (sp?) tracks.");
+      return;
+    }
     var nextTrack = stereo.activeTracks[currentIndex + 1];
 		stereo.setTrack(nextTrack);
 
@@ -45,7 +50,14 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
 			$scope.next();
 		}
 		$scope.$apply();
-	}
+	};
+
+  $scope.somethingToPlay = function() {
+    if (stereo.getActiveTracks()) {
+      return true;
+    }
+    return false;
+  }
 
   $scope.secToMinSec = function(seconds) {
 					var wholeSecs = Math.floor(seconds);

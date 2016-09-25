@@ -1,10 +1,10 @@
-crate.controller('FrontPageCtrl', function($scope, $location, clerk){
+crate.controller('FrontPageCtrl', function($scope, $location, albumFactory, clerk){
   $scope.latestAlbums    = [];
   $scope.latestPlaylists = [];
   $scope.today = new Date();
 
   $scope.init = function() {
-    clerk.getLatestUploads(4,0).then(function(response){
+    albumFactory.getLatestAlbums(4,0).then(function(response){
       $scope.latestAlbums = response.data;
     });
 

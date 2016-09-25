@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, albumFactory, stereo, messenger, clerk, user) {
+crate.controller('Main', function($scope, $location, $rootScope, albumFactory, stereo, messenger, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;

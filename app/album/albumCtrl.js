@@ -1,12 +1,18 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenger, playlistFactory, albumFactory, clerk){
+crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenger, playlistFactory, albumFactory){
   $scope.init = function() {
 
     var albumId = $routeParams.id;
+
     albumFactory.getAlbum(albumId)
     .then(function(response){
-      $scope.album = response.data.album;
-      $scope.tracks = response.data.tracks;
+      $scope.album = response.data;
     });
+
+    albumFactory.getTracksByAlbumId(albumId)
+    .then(function(response){
+      $scope.tracks = response.data;
+    });
+
   };
 
   $scope.captureTrack = function(track) {

@@ -26,6 +26,13 @@ crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 			// this.setTrack(this.activeTracks[0]);
 		},
 
+		getActiveTracks: function() {
+			if (this.activeTracks == []) {
+				return false;
+			}
+			return true;
+		},
+
 		testThing: function() {
 		},
 
