@@ -90,6 +90,17 @@ crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 
 		seekTo: function(time) {
 			player.seekTo(time);
+		},
+
+		// This is a helper function we will use in multiple places so there is probably a better place to put it
+		trackPosition: function(track, list) {
+			list = list || this.activeTracks;
+			for (var candidate in list) {
+				if (list[candidate]._id === track._id) {
+					return parseInt(candidate);
+				}
+			}
+			return -1;
 		}
 	}
 })

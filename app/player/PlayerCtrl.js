@@ -19,13 +19,10 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo){
 
   $scope.next = function() {
 		// wow thats ugly
-
-
-    var currentIndex = stereo.activeTracks.indexOf(stereo.activeTrack);
-
+    var currentIndex = stereo.trackPosition(stereo.activeTrack);
     var nextTrack = stereo.activeTracks[currentIndex + 1];
-    
 		stereo.setTrack(nextTrack);
+
 	};
 
   $scope.seekTo = function(time) {

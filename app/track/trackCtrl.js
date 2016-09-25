@@ -5,8 +5,7 @@ crate.controller('trackCtrl', function($scope, stereo){
 
   // THIS is what i wanna use
   $scope.isActiveTrack = function(track) {
-    alert(JSON.stringify(track));
-    alert(JSON.stringify(stereo.activeTrack));
-    return stereo.getActiveTrack() == track;
+
+    return stereo.activeTrack._id == track._id;
   };
 });
