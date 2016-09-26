@@ -62,8 +62,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 		replace: true,
 		templateUrl: 'nav-bar/nav-bar.html',
 		// Needs its own controller, or... maybe not
-		controller: 'Main',
-		controllerAs: 'MainCtrl'
+		controller: 'navbarCtrl'
 	};
 })
 

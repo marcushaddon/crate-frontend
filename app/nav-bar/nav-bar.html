@@ -1,9 +1,31 @@
 <header>
 
-<nav>
+<nav ng-show='searchMode'>
+  <div class='nav-wrapper'>
 
-  <div class="nav-wrapper">
-    <div class='row'>
+
+        <form ng-submit='search()'>
+        <div class="input-field">
+            <input id="search" type="search" ng-model='searchField' required>
+            <label for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons" ng-click='searchMode = false'>close</i>
+          </div>
+        </form>
+
+
+  </div>
+
+</nav>
+
+
+
+<nav ng-show='!searchMode'>
+
+  <div class="nav-wrapper" >
+
+
+
+    <div class='row' >
 
       <div class='col m4'>
         <a href="#/front-page" class="brand-logo"><i class='material-icons'>album</i>crate</a>
@@ -13,7 +35,7 @@
 
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href='#/search-results'><i class='material-icons'>search</i></a></li>
+      <li><a ng-click='searchMode = true'><i class='material-icons'>search</i></a></li>
       <li><a href="#/home">Home</a></li>
       <li><a href="#/upload">Upload</a></li>
       <li><a href="#/profile">Profile</a></li>

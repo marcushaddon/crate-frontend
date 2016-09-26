@@ -1,4 +1,4 @@
-crate.controller('FrontPageCtrl', function($scope, $location, albumFactory, playlistFactory){
+crate.controller('FrontPageCtrl', function($scope, $location, albumFactory, playlistFactory) {
   $scope.latestAlbums    = [];
   $scope.latestPlaylists = [];
   $scope.today = new Date();
