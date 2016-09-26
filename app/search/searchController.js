@@ -1,16 +1,14 @@
-crate.controller('SearchCtrl', function($scope, $rootScope, $location, SearchFactory, stereo){
-  $scope.searchField = '';
+crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, stereo){
   $scope.results = {};
 
   $scope.search = function() {
-    SearchFactory.search($scope.searchField);
-  }
 
-  $scope.testThing = function(){
+    $http({
+      method: 'GET',
+      url: '/api/search/' + $routeParams.searchField
+    }).then(function(response){
+      console.log(response.data);
+      $scope.results = JSON.parse(response.data);
+    });
   };
-
-  $rootScope.$on('resultsAreIn', function(event, results){
-    var parsedResults = JSON.parse(results);
-    $scope.results = parsedResults;
-  });
 });

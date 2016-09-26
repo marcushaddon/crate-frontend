@@ -1,16 +1,5 @@
-<nav>
-    <div class="nav-wrapper">
-      <form ng-submit='search()'>
-        <div class="input-field">
-          <input id="search" type="search" ng-model='searchField' required>
-          <a ng-click='search()'><label for="search"><i class="material-icons">search</i></label></a>
-          <i class="material-icons">close</i>
-        </div>
-
-      </form>
-    </div>
-  </nav>
-<main>
+<nav-bar></nav-bar>
+<main ng-init='search()'>
 
 <div class='row'>
 <!-- SAVED PLAYLISTS -->

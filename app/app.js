@@ -23,7 +23,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'Uploader'
 	})
 
-	.when('/search-results', {
+	.when('/search-results/:searchField', {
 		templateUrl: 'search/search-results.html',
 		controller: 'SearchCtrl'
 	})

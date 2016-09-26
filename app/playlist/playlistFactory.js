@@ -1,4 +1,4 @@
-crate.factory('playlistFactory', function($http){
+crate.factory('playlistFactory', function($http, user){
   // put clerks playlist methods in here
   return {
     capturedTrack: {},
@@ -7,6 +7,15 @@ crate.factory('playlistFactory', function($http){
       return $http({
         method: 'GET',
         url: '/api/user/' + id + '/playlists'
+      });
+    },
+
+    getLatestPlaylists: function(count, offset) {
+      var count = count || 0;
+      var offset = offset || 0;
+      return $http({
+        method: 'GET',
+        url: '/api/playlists/latest/' + count + '/' + offset
       });
     },
 
