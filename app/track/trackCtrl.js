@@ -1,6 +1,9 @@
 crate.controller('trackCtrl', function($scope, stereo){
-  $scope.playToggle = function(event) {
-    $scope.$emit('trackPlayToggle', event);
+  $scope.playToggle = function(track) {
+    // $scope.$emit('trackPlayToggle', event);
+    $scope.$parent.cueMyTracks();
+    stereo.setTrack(track);
+
   };
 
   // THIS is what i wanna use

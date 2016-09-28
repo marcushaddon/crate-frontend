@@ -11,4 +11,9 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
       $scope.results = JSON.parse(response.data);
     });
   };
+
+  $scope.cueMyTracks = function() {
+    stereo.setActiveTracks($scope.results.tracks);
+  };
+
 });

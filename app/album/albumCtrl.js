@@ -1,4 +1,4 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenger, playlistFactory, albumFactory){
+crate.controller('AlbumCtrl', function($scope, $location, $routeParams, stereo, messenger, playlistFactory, albumFactory){
   $scope.init = function() {
 
     var albumId = $routeParams.id;
@@ -13,6 +13,10 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenge
       $scope.tracks = response.data;
     });
 
+  };
+
+  $scope.cueMyTracks = function() {
+    stereo.setActiveTracks($scope.tracks);
   };
 
   $scope.captureTrack = function(track) {
@@ -38,9 +42,9 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenge
     });
 	};
 
-  $scope.$on('trackPlayToggle', function(event){
-    $scope.$emit('listPlayToggle', $scope.album);
-    // event.stopPropagation();
-  });
+  // $scope.$on('trackPlayToggle', function(event){
+  //   $scope.$emit('listPlayToggle', $scope.album);
+  //   // event.stopPropagation();
+  // });
 
 });

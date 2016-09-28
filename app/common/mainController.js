@@ -78,25 +78,25 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 	// 	}
 	// };
 
-	$scope.$on('trackPlayToggle', function(event, data){
-		if (stereo.activeTrack == data) {
-			stereo.playToggle();
-		} else {
-			stereo.setTrack(data);
-		}
-		// event.stopPropagation();
-	});
+	// $scope.$on('trackPlayToggle', function(event, data){
+	// 	if (stereo.activeTrack == data) {
+	// 		stereo.playToggle();
+	// 	} else {
+	// 		stereo.setTrack(data);
+	// 	}
+	// 	// event.stopPropagation();
+	// });
 
-	$scope.$on('listPlayToggle', function(event, data){
-		if (data._id == undefined) {
-			return;
-		}
-		if (stereo.activeList._id !== data._id) {
-			app.setActiveList(data);
-		}
-		event.stopPropagation();
-
-	});
+	// $scope.$on('listPlayToggle', function(event, data){
+	// 	if (data._id == undefined) {
+	// 		return;
+	// 	}
+	// 	if (stereo.activeList._id !== data._id) {
+	// 		app.setActiveList(data);
+	// 	}
+	// 	event.stopPropagation();
+	//
+	// });
 
 	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
 	this.update = function() {

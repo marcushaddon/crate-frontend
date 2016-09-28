@@ -15,6 +15,10 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
     }
   };
 
+  $scope.cueMyTracks = function() {
+    stereo.setActiveTracks($scope.currentPlaylist.tracks);
+  };
+
   $scope.getMyPlaylists = function() {
     playlistFactory.getUserPlaylists(user.info.userId)
     .then(function(response){
@@ -144,15 +148,15 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
   //   });
 	// };
 
-  $scope.$on('trackPlayToggle', function(event){
-    if ($scope.currentPlaylist == undefined || $scope.currentPlaylist == {}) {
-      return;
-    }
-    // send our tracks up the scope chain to be queueueueueed up by MainCtrl
-    $scope.$emit('listPlayToggle', $scope.currentPlaylist);
-
-
-  });
+  // $scope.$on('trackPlayToggle', function(event){
+  //   if ($scope.currentPlaylist == undefined || $scope.currentPlaylist == {}) {
+  //     return;
+  //   }
+  //   // send our tracks up the scope chain to be queueueueueed up by MainCtrl
+  //   $scope.$emit('listPlayToggle', $scope.currentPlaylist);
+  //
+  //
+  // });
 
 
 });
