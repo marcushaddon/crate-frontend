@@ -6,6 +6,7 @@ crate.controller('login', function($scope, $location, user, authTokenFactory){
   $scope.init = function() {
     var token = authTokenFactory.getToken();
     if (token) {
+      user.refreshUser();
       user.isLoggedIn = true;
       $location.path('/front-page');
     }

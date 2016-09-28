@@ -3,7 +3,7 @@
       <h4>Which playlist would you like to add <i>"{{getCapturedTrack().trackName}}"</i> to?</h4>
       <button ng-click='init()'>GET PLAYLISTS</button>
       <div class='collection music-list'>
-                  <playlist-item ng-click='addTrackToPlaylist(list)' ng-repeat='list in getMyPlaylists()'></playlist-item>
+                  <playlist-item ng-click='addTrackToPlaylist(list)' ng-repeat='list in myPlaylists'></playlist-item>
       </div>
     </div>
   </div>

@@ -9,6 +9,13 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 			this.loggedIn = true;
 		},
 
+		refreshUser: function() {
+			return $http({
+							method: 'POST',
+							url: '/api/user/whoAmI'
+						});
+		},
+
 		logIn: function(userName, password) {
 			return $http({
 				method: 'POST',

@@ -4,7 +4,18 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
   $scope.capturedTrack = {};
 
   $scope.init = function() {
-    // update our model to match the server
+    if (user.info.userId == undefined) {
+      user.refreshUser()
+      .then(function(response){
+        user.setUser(response.data);
+        $scope.getMyPlaylists();
+      });
+    } else {
+      $scope.getMyPlaylists();
+    }
+  };
+
+  $scope.getMyPlaylists = function() {
     playlistFactory.getUserPlaylists(user.info.userId)
     .then(function(response){
       $scope.myPlaylists = response.data;
@@ -22,6 +33,13 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
 
   $scope.getCurrentPlaylist = function() {
     return $scope.currentPlaylist;
+  };
+
+  $scope.isActiveList = function(list) {
+    if (stereo.activeList._id != undefined && list._id != undefined) {
+      return stereo.activeList._id == list._id;
+    }
+    return false;
   };
 
   // $scope.isActiveTrack = function(track) {
@@ -68,7 +86,7 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
     playlistFactory.editPlaylist(playlist, 'tracks', newTracks)
     .then(function(response){
       // update our model somehow!
-      messenger.show(response.data);
+      messenger.show(playlistFactory.capturedTrack.trackName + " added to " + playlist.name);
     });
   };
 
@@ -84,7 +102,16 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
 	};
 
   $scope.editList = function(list, field, value, event) {
-    messenger.show("That hasn't been built yet!");
+    if (event) {
+      value = event.target.innerHTML;
+    }
+
+    playlistFactory.editPlaylist(list, field, value)
+    .then(function(response){
+      var indexOfEditedList = $scope.myPlaylists.indexOf(list);
+      $scope.myPlaylists.splice(indexOfEditedList, 1, response.data);
+      $scope.currentPlaylist = response.data;
+    })
   };
 
   // direction is either -1 (backwards) or 1 (forwards)
@@ -106,26 +133,24 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
     tracks[targetIndex] = track;
     tracks[current] = temp;
 
-    // Ok now we've swtichted the tracks, lets update the backend
-    playlistFactory.editPlaylist($scope.currentPlaylist, 'tracks', tracks)
-    .then(function(response){
-      //update our model
-      messenger.show(response.data);
-    });
+    $scope.editList($scope.currentPlaylist, 'tracks', tracks);
 	};
 
-  $scope.saveAlbumAsPlaylist = function(album) {
-		playlistFactory.saveAlbumAsPlaylist(album)
-    .then(function(response){
-      $scope.myPlaylists.push(response.data);
-      messenger.show(response.data.name + " created!");
-    });
-	};
+  // $scope.saveAlbumAsPlaylist = function(album) {
+	// 	playlistFactory.saveAlbumAsPlaylist(album)
+  //   .then(function(response){
+  //     $scope.myPlaylists.push(response.data);
+  //     messenger.show(response.data.name + " created!");
+  //   });
+	// };
 
   $scope.$on('trackPlayToggle', function(event){
+    if ($scope.currentPlaylist == undefined || $scope.currentPlaylist == {}) {
+      return;
+    }
     // send our tracks up the scope chain to be queueueueueed up by MainCtrl
     $scope.$emit('listPlayToggle', $scope.currentPlaylist);
-    event.stopPropagation();
+
 
   });
 

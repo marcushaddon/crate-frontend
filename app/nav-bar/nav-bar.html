@@ -2,8 +2,6 @@
 
 <nav ng-show='searchMode'>
   <div class='nav-wrapper'>
-
-
         <form ng-submit='search()'>
         <div class="input-field">
             <input id="search" type="search" ng-model='searchField' required>
@@ -11,27 +9,17 @@
             <i class="material-icons" ng-click='searchMode = false'>close</i>
           </div>
         </form>
-
-
   </div>
-
 </nav>
 
 
 
 <nav ng-show='!searchMode'>
-
   <div class="nav-wrapper" >
-
-
-
     <div class='row' >
-
       <div class='col m4'>
         <a href="#/front-page" class="brand-logo"><i class='material-icons'>album</i>crate</a>
       </div>
-
-
 
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -40,11 +28,7 @@
       <li><a href="#/upload">Upload</a></li>
       <li><a href="#/profile">Profile</a></li>
     </ul>
-
-    <small class='right'>Welcome back, {{MainCtrl.getUser().userName}}!<small> <a href='' ng-click='MainCtrl.logOut()'>(log out)</a></small></small>
-
-
-
+    <small class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
 
 </div>
   </div>

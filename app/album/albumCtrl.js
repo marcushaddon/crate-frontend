@@ -30,10 +30,17 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, messenge
     });
   };
 
-  $scope.$on('trackPlayToggle', function(event){
+  $scope.saveAlbumAsPlaylist = function(album) {
+		playlistFactory.saveAlbumAsPlaylist(album)
+    .then(function(response){
+      $scope.myPlaylists.push(response.data);
+      messenger.show(response.data.name + " created!");
+    });
+	};
 
+  $scope.$on('trackPlayToggle', function(event){
     $scope.$emit('listPlayToggle', $scope.album);
-    event.stopPropagation();
+    // event.stopPropagation();
   });
 
 });

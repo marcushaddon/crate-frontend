@@ -49,7 +49,8 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 	};
 
 	this.setActiveList = function(list) {
-		stereo.activeList = list;
+
+		stereo.setActiveList(list);
 		if (list.listType === 'playlist') {
 			stereo.setActiveTracks(list.tracks);
 		} else {
@@ -78,19 +79,22 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 	// };
 
 	$scope.$on('trackPlayToggle', function(event, data){
-		event.stopPropagation();
 		if (stereo.activeTrack == data) {
 			stereo.playToggle();
 		} else {
 			stereo.setTrack(data);
 		}
+		// event.stopPropagation();
 	});
 
 	$scope.$on('listPlayToggle', function(event, data){
-		event.stopPropagation();
-		if (stereo.activeList != data) {
+		if (data._id == undefined) {
+			return;
+		}
+		if (stereo.activeList._id !== data._id) {
 			app.setActiveList(data);
 		}
+		event.stopPropagation();
 
 	});
 
