@@ -1,18 +1,24 @@
 <nav-bar></nav-bar>
 
-<div class='container' ng-init='init()'>
-  <h1>Welcome to crate</h1>
+<div class='subtle-container'>
+<div ng-init='init()'>
+
+
   <h3>Recent uploads</h3>
-  <div class='row tile-rack'>
+  <div class='row'>
+  <div class='tile-rack'>
     <album-tile ng-repeat='album in latestAlbums'></album-tile>
+</div>
 </div>
 
 <!-- TODO: this needs to link to a playlist view -->
   <h3>Recent playlists</h3>
   <div class='row tile-rack'>
-    <album-tile ng-repeat='playlist in latestPlaylists'></album-tile>
-    <album-tile></album-tile>
+    <playlist-tile ng-repeat='playlist in latestPlaylists'></playlist-tile>
+    <!-- <album-tile></album-tile> -->
   </div>
+
+</div>
 </div>
 
 <player></player>

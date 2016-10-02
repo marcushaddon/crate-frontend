@@ -19,10 +19,10 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, stereo, 
     stereo.setActiveTracks($scope.tracks);
   };
 
-  $scope.captureTrack = function(track) {
-		playlistFactory.capturedTrack = track;
-		angular.element('#bottomModal').openModal();
-	};
+  // $scope.captureTrack = function(track) {
+	// 	playlistFactory.capturedTrack = track;
+	// 	angular.element('#bottomModal').openModal();
+	// };
 
   $scope.addTrackToPlaylist = function(playlist) {
     var newTracks = playlist.tracks;

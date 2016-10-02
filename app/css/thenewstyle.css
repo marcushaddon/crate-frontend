@@ -49,9 +49,9 @@ footer {
   overflow: scroll;
 }
 
-.card-image {
+/*.card-image {
   height: 150px;
-}
+}*/
 
 #controls {
     color: white;
@@ -94,4 +94,27 @@ footer {
 
 .fa {
   margin: 3px;
+}
+
+
+.album-cover {
+  min-height: 300px;
+}
+
+.icon-list {
+  display: block;
+}
+
+.icon-list > li {
+  float: left;
+  margin: 5px;
+}
+
+
+
+.subtle-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  max-height: 550px;
+  overflow-x: scroll;
 }

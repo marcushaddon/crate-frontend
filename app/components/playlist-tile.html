@@ -26,25 +26,20 @@
 <div class="col s12 m6 album-tile">
     <div class="card horizontal">
       <div class="card-image">
-        <a ng-href='#/album/{{album._id}}'>
-          <img class="album-cover" ng-src="{{album.imgUrl || playlist.imgUrl || 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300'}}">
-      </a>
+        <img class="album-cover" ng-src="{{album.imgUrl || playlist.imgUrl || 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300'}}">
       </div>
       <div class="card-stacked">
         <div class="card-content">
-          <h5>{{album.name}}</h5>
-          <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
-          <div class='row'>
+          <h5>{{playlist.name}}</h5>
+          by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{playlist.createdBy.userName}}</a>
           <ul class='icon-list'>
-            <li class='valign-wrapper'><i class='material-icons valign'>play_arrow</i> {{album.plays || 0}}</li>
-            <li class='valign-wrapper'><i class='material-icons valign'>favorite</i> {{album.plays || 0}}</li>
-            <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{album.noTracks || 0}} tracks</li>
-          </ul>
+          <li class='valign-wrapper'><i class='material-icons valign'>play_arrow</i> {{playlist.plays || 0}}</li>
+          <li class='valign-wrapper'><i class='material-icons valign'>favorite</i> {{playlist.plays || 0}}</li>
+          <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{playlist.tracks.length || 0}} tracks</li>
+        </ul>
+        <div class="chip" ng-repeat='tag in album.tags'>
+          {{tag}}
         </div>
-          <div class="chip" ng-repeat='tag in album.tags'>
-            {{tag}}
-          </div>
-
         </div>
         <div class=''>
 

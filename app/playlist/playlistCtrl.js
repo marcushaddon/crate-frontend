@@ -100,7 +100,6 @@ crate.controller('playlistCtrl', function($scope, $rootScope, stereo, user, play
 		tracks.splice(pos, 1);
 		playlistFactory.editPlaylist($scope.currentPlaylist, 'tracks', tracks)
 		.then(function(response){
-			// update our model somehow!
       messenger.show(JSON.stringify(response.data));
 		});
 	};

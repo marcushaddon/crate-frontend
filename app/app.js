@@ -179,6 +179,12 @@ var crate = angular.module('main-app', ['ngRoute'])
 	}
 })
 
+.directive('playlistTile', function(){
+	return {
+		templateUrl: 'components/playlist-tile.html'
+	}
+})
+
 .directive('artistItem', function(){
 	return {
 		templateUrl: 'components/artist-item.html'

@@ -4,7 +4,7 @@ crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 		lists: [],
 		activeList: {},
 		activeTracks: [],
-		activeTrack: {},
+		activeTrack: null,
 		progress: 0,
 		isPlaying: false,
 		getVideoLength: function() {
@@ -72,6 +72,7 @@ crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 			this.activeTrack = track;
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
 			this.isPlaying = true;
+			messenger.show(track.artist + ' - ' + track.trackName);
 		},
 
 		getActiveTrack: function() {

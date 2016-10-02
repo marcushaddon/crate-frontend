@@ -1,10 +1,15 @@
-crate.controller('trackCtrl', function($scope, stereo){
+crate.controller('trackCtrl', function($scope, stereo, playlistFactory){
   $scope.playToggle = function(track) {
     // $scope.$emit('trackPlayToggle', event);
     $scope.$parent.cueMyTracks();
     stereo.setTrack(track);
 
   };
+
+  $scope.captureTrack = function(track) {
+		playlistFactory.capturedTrack = track;
+		angular.element('#bottomModal').openModal();
+	};
 
   // THIS is what i wanna use
   $scope.isActiveTrack = function(track) {
