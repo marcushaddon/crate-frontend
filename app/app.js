@@ -1,5 +1,10 @@
 var crate = angular.module('main-app', ['ngRoute'])
 
+.constant('config', {
+	albumImgPlaceHolder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300',
+	userImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=user&w=350&h=150'
+})
+
 .config(function($routeProvider, $httpProvider){
 	$httpProvider.interceptors.push('authInterceptor')
 
@@ -37,6 +42,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 		templateUrl: 'artist/artist-profile.html',
 		controller: 'ArtistProfileCtrl'
 	});
+
+
 
 })
 

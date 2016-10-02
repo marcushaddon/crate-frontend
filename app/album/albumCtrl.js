@@ -1,4 +1,4 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, stereo, messenger, playlistFactory, albumFactory){
+crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, playlistFactory, albumFactory){
   $scope.init = function() {
 
     var albumId = $routeParams.id;
@@ -18,6 +18,9 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, stereo, 
   $scope.cueMyTracks = function() {
     stereo.setActiveTracks($scope.tracks);
   };
+
+  $scope.albumImgPlaceHolder = config.albumImgPlaceHolder;
+  $scope.userImgPlaceholder = config.userImgPlaceholder;
 
   // $scope.captureTrack = function(track) {
 	// 	playlistFactory.capturedTrack = track;
@@ -41,6 +44,10 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, stereo, 
       messenger.show(response.data.name + " created!");
     });
 	};
+
+  $scope.favoriteToggle = function(album) {
+    messenger.show("Soon you'll be able to like " + album.name + "! Just not yet...");
+  };
 
   // $scope.$on('trackPlayToggle', function(event){
   //   $scope.$emit('listPlayToggle', $scope.album);

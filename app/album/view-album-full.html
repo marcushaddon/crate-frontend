@@ -1,16 +1,34 @@
 <div ng-init='init()'>
   <nav-bar></nav-bar>
   <main>
+    <div class='row list-header cyan'>
+      <div class='col m3 offset-m1'>
+        <img class='' ng-src='{{ album.imgUrl || albumImgPlaceHolder }}'></img>
+      </div>
+      <div class='col m8'>
+        <h3>{{ album.name }} <small><i class='material-icons'>favorite</i> {{album.likes || 0}}<i class='material-icons'>play_arrow</i> {{album.plays || 0}} <i class='material-icons'>list</i> {{album.noTracks}} tracks</small>
+          <small class='right'>
+          <a href='' ng-click='favoriteToggle(album)'><i class='material-icons'>favorite</i></a>
+          <a href='' ng-click='saveAlbumAsPlaylist(album)'><i class='material-icons right'>save</i></a>
+        </small></h3>
+        <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a> 
+
+        <br>
+
+        <p> discovered {{ album.foundOn | date}} by <a ng-href='#/user/{{album.foundBy.userId}}'>{{ album.foundBy.userName}}</a></p>
+        <div class="chip" ng-repeat='tag in album.tags'>
+          {{tag}}
+        </div>
+      </div>
+    </div>
     <div class='row'>
       <div class='col s12 m8 offset-m2'>
-    <h3>{{ album.name }} <small> by {{ album.artist }}</small><i ng-click='saveAlbumAsPlaylist(album)' class='material-icons right'>save</i></h3>
-    <div class="chip" ng-repeat='tag in album.tags'>
-      {{tag}}
-    </div>
+
+
     <!-- Dropdown Trigger -->
 
 
-    <div class='collection music-list' >
+    <div class='collection' >
             <list-song-item ng-repeat='track in tracks'></list-song-item>
     </div>
   </div>
