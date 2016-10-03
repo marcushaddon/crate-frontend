@@ -133,6 +133,11 @@ footer {
 
 .list-header small {
   font-size: 14px;
+  vertical-align: middle;
+}
+
+.list-header small i {
+  vertical-align: middle;
 }
 
 .list-header img {
@@ -140,6 +145,16 @@ footer {
   min-height: 300px;
   max-width: 300px;
   max-height: 300px;
+}
+
+/*this is shitty*/
+.mini-control-panel {
+  display: inline-block;
+  padding: 2px;
+  padding-left: 8px;
+  padding-top: 8px;
+  border-radius: 20px;
+  vertical-align: middle;
 }
 
 .subtle-container {

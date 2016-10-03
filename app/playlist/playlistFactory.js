@@ -3,12 +3,21 @@ crate.factory('playlistFactory', function($http, user){
   return {
     capturedTrack: {},
 
+    getPlaylist: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/playlists/' + id
+      });
+    },
+
     getUserPlaylists: function(id) {
       return $http({
         method: 'GET',
         url: '/api/user/' + id + '/playlists'
       });
     },
+
+
 
     getLatestPlaylists: function(count, offset) {
       var count = count || 0;

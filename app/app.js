@@ -15,7 +15,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 	.when('/home', {
 		templateUrl: 'home/home.html',
-		controller: 'playlistCtrl'
+		controller: 'myMusicCtrl'
 	})
 
 	.when('/front-page', {
@@ -36,6 +36,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 	.when('/album/:id', {
 		templateUrl: 'album/view-album-full.html',
 		controller: 'AlbumCtrl'
+	})
+
+	.when('/playlist/:id', {
+		templateUrl: 'playlist/playlist.html',
+		controller: 'playlistCtrl'
 	})
 
 	.when('/artist-profile/:id', {

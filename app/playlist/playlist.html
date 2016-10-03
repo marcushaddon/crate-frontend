@@ -1,0 +1,44 @@
+<div ng-init='init()'>
+  <nav-bar></nav-bar>
+  <main>
+    <div class='row list-header cyan'>
+      <div class='col m3 offset-m1'>
+        <img class='' ng-src='{{ playlist.imgUrl || albumImgPlaceholder }}'></img>
+      </div>
+      <div class='col m8'>
+        <h3>{{ playlist.name }} <small class=''><i class='material-icons'>favorite</i> {{playlist.likes || 0}}<i class='material-icons'>play_arrow</i> {{playlist.plays || 0}} <i class='material-icons'>list</i> {{playlist.tracks.length}} tracks</small>
+          <small class='right'>
+
+        </small></h3>
+        <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
+        <p> a playlist by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{ playlist.createdBy.userName }}</a></p>
+        <p>
+          {{playlist.description}}
+        </p>
+        <div class="chip" ng-repeat='tag in album.tags'>
+          {{tag}}
+        </div>
+        <p>
+          <div class='mini-control-panel grey lighten-2'>
+        <a href=''  ng-click='favoriteToggle(playlist)'><i class='material-icons'>favorite</i></a>
+        <a href=''  ng-click='copyPlaylist(playlist)'><i class='material-icons'>save</i></a>
+      </div>
+      </p>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col s12 m8 offset-m2'>
+
+
+    <!-- Dropdown Trigger -->
+
+
+    <div class='collection' >
+            <list-song-item ng-repeat='track in playlist.tracks'></list-song-item>
+    </div>
+  </div>
+</div>
+</main>
+
+  <player></player>
+</div>
