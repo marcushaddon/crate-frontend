@@ -1,59 +1,64 @@
-var crate = angular.module('main-app', ['ngRoute'])
+var crate = angular.module('main-app', ['ngRoute', 'ui.router'])
 
 .constant('config', {
 	albumImgPlaceHolder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300',
 	userImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=user&w=350&h=150'
 })
 
-.config(function($routeProvider, $httpProvider){
+.config(function($stateProvider, $httpProvider){
 	$httpProvider.interceptors.push('authInterceptor')
 
-	$routeProvider.when('/login', {
-		templateUrl: 'login/login.html',
-		controller: 'login'
-	})
+	// .state('login', {
+	// 	url: '/login'
+	// })
 
-	.when('/home', {
-		templateUrl: 'home/home.html',
-		controller: 'myMusicCtrl'
-	})
-
-	.when('/front-page', {
+	$stateProvider.state('frontPage', {
+		url: '/front-page',
 		templateUrl: 'front-page/front-page.html',
 		controller: 'FrontPageCtrl'
 	})
 
-	.when('/upload', {
-		templateUrl: 'upload/upload.html',
-		controller: 'Uploader'
+	.state('myMusic', {
+		url: '/home',
+		templateUrl: 'home/home.html',
+		controller: 'myMusicCtrl'
 	})
 
-	.when('/search-results/:searchField', {
+	.state('searchResults', {
+		url: '/search-results/:searchField',
 		templateUrl: 'search/search-results.html',
 		controller: 'SearchCtrl'
 	})
 
-	.when('/album/:id', {
-		templateUrl: 'album/view-album-full.html',
-		controller: 'AlbumCtrl'
+	.state('userProfile', {
+		url: '/user/:id',
+		templateUrl: 'user/user-profile.html',
+		controller: 'userCtrl'
 	})
 
-	.when('/playlist/:id', {
-		templateUrl: 'playlist/playlist.html',
-		controller: 'playlistCtrl'
-	})
-
-	.when('/artist-profile/:id', {
+	.state('artistProfile', {
+		url: '/artist-profile/:id',
 		templateUrl: 'artist/artist-profile.html',
 		controller: 'ArtistProfileCtrl'
 	})
 
-	.when('/user/:id', {
-		templateUrl: 'user/user-profile.html',
-		controller: 'userCtrl'
+	.state('viewAlbum', {
+		url: '/album/:id',
+		templateUrl: 'album/view-album-full.html',
+		controller: 'AlbumCtrl'
+	})
+
+	.state('viewPlaylist', {
+		url: '/playlist/:id',
+		templateUrl: 'playlist/playlist.html',
+		controller: 'playlistCtrl'
+	})
+
+	.state('upload', {
+		url: '/upload',
+		templateUrl: 'upload/upload.html',
+		controller: 'ploader'
 	});
-
-
 
 })
 

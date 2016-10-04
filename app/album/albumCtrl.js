@@ -1,7 +1,7 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, playlistFactory, albumFactory){
+crate.controller('AlbumCtrl', function($scope, $location, $stateParams, config, stereo, messenger, playlistFactory, albumFactory){
   $scope.init = function() {
 
-    var albumId = $routeParams.id;
+    var albumId = $stateParams.id;
 
     albumFactory.getAlbum(albumId)
     .then(function(response){

@@ -1,9 +1,9 @@
-crate.controller('userCtrl', function($scope, $routeParams, config, user, messenger){
+crate.controller('userCtrl', function($scope, $stateParams, config, user, messenger){
   $scope.user = {};
   $scope.playlists = [];
   $scope.albums = [];
   $scope.init = function() {
-    var userId = $routeParams.id;
+    var userId = $stateParams.id;
 
     user.getUser(userId)
     .then(function(response){

@@ -1,7 +1,7 @@
-crate.controller('playlistCtrl', function($scope, $routeParams, $http, playlistFactory, stereo, config, messenger){
+crate.controller('playlistCtrl', function($scope, $stateParams, $http, playlistFactory, stereo, config, messenger){
   $scope.playlist = {};
   $scope.init = function() {
-    var playlistId = $routeParams.id;
+    var playlistId = $stateParams.id;
     if (playlistId) {
       playlistFactory.getPlaylist(playlistId)
       .then(function(response){
