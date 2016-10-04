@@ -46,6 +46,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 	.when('/artist-profile/:id', {
 		templateUrl: 'artist/artist-profile.html',
 		controller: 'ArtistProfileCtrl'
+	})
+
+	.when('/user/:id', {
+		templateUrl: 'user/user-profile.html',
+		controller: 'userCtrl'
 	});
 
 

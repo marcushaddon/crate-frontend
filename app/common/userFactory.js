@@ -16,6 +16,13 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 						});
 		},
 
+		getUser: function(id) {
+			return $http({
+				method: 'GET',
+				url: '/api/user/' + id
+			});
+		},
+
 		logIn: function(userName, password) {
 			return $http({
 				method: 'POST',

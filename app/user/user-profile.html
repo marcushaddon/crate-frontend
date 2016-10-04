@@ -1,0 +1,44 @@
+<div ng-init='init()'>
+  <div ng-init='init()'>
+    <nav-bar></nav-bar>
+    <main>
+      <div class='row list-header cyan'>
+        <div class='col m3 offset-m1'>
+          <img class='' ng-src='{{ user.imgUrl || userImgPlaceholder }}'></img>
+        </div>
+        <div class='col m8'>
+          <h3>{{ user.userName }} <small class=''><i class='material-icons'>favorite</i>{{user.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
+            <small class='right'>
+
+          </small></h3>
+          member since {{ user.joinedOn | date}}
+          <p>
+            {{ user.bio || "Really cool story about user??!?!" }}
+          </p>
+          <ul>
+            <li><i class="fa fa-facebook-official" aria-hidden="true"></i><i>{{ user.facebook || "n/a" }}</i></li>
+            <li><i class="fa fa-instagram" aria-hidden="true"></i><i>{{ '@' + user.instagram || 'n/a' }}</i></li>
+            <li><i class="fa fa-soundcloud" aria-hidden="true"></i><i>{{ user.soundcloud || 'n/a' }}</i></li>
+            <li><i class="fa fa-twitter" aria-hidden="true"></i><i>{{ user.twitter || 'n/a' }}</i></li>
+            <li><i class="fa fa-snapchat-ghost" aria-hidden="true"></i><i>{{ user.snapchat || 'n/a'}}</i></li>
+          </ul>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col s12 m8 offset-m2'>
+
+
+      <!-- Dropdown Trigger -->
+
+
+      <div class='collection' >
+              <list-song-item ng-repeat='track in tracks'></list-song-item>
+      </div>
+    </div>
+  </div>
+  </main>
+
+    <player></player>
+  </div>
+
+</div>
