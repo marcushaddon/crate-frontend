@@ -47,39 +47,58 @@ var crate = angular.module('main-app', ['ngRoute', 'ui.router'])
 		}
 	})
 
-	// .state('userProfile', {
-	// 	url: '',
-	// 	abstract: 'true'
-	// })
-
-	.state('userProfile.userProfile', {
-		url: '/user/:id/playlists',
-		templateUrl: 'user/test.html',
+	.state('crate.userProfile', {
+		url: '/user/:id',
+		views: {
+			'userProfile@': {
+				templateUrl: 'user/user-profile.html',
+				controller: 'userCtrl'
+			}
+		}
 
 	})
 
-	.state('artistProfile', {
+	.state('crate.artistProfile', {
 		url: '/artist-profile/:id',
-		templateUrl: 'artist/artist-profile.html',
-		controller: 'ArtistProfileCtrl'
+		views: {
+			'artistProfile@': {
+				templateUrl: 'artist/artist-profile.html',
+				controller: 'ArtistProfileCtrl'
+			}
+		}
+
 	})
 
-	.state('viewAlbum', {
+	.state('crate.album', {
 		url: '/album/:id',
-		templateUrl: 'album/view-album-full.html',
-		controller: 'AlbumCtrl'
+		views: {
+			'album@': {
+				templateUrl: 'album/view-album-full.html',
+				controller: 'AlbumCtrl'
+			}
+		}
+
 	})
 
-	.state('viewPlaylist', {
+	.state('playlist', {
 		url: '/playlist/:id',
-		templateUrl: 'playlist/playlist.html',
-		controller: 'playlistCtrl'
+		views: {
+			'playlist@': {
+				templateUrl: 'playlist/playlist.html',
+				controller: 'playlistCtrl'
+			}
+		}
+
 	})
 
-	.state('upload', {
+	.state('crate.upload', {
 		url: '/upload',
-		templateUrl: 'upload/upload.html',
-		controller: 'Uploader'
+		views: {
+			'upload@': {
+				templateUrl: 'upload/upload.html',
+				controller: 'Uploader'
+			}
+		}
 	});
 
 	$urlRouterProvider.otherwise('/');

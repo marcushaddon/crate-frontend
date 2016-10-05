@@ -2,13 +2,8 @@ crate.controller('userCtrl', function($scope, $stateParams, config, user, playli
   $scope.user = {};
   $scope.playlists = [];
   $scope.albums = [];
-  $scope.view = 'albums';
-  $scope.getView = function() { return $scope.view; };
-  $scope.setView = function(view) {
-    $scope.view = view;
-  };
-
   $scope.init = function() {
+
     var userId = $stateParams.id;
 
     user.getUser(userId)
