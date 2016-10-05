@@ -24,17 +24,39 @@
           </ul>
         </div>
       </div>
-      <div class='row'>
-        <div class='col s12 m8 offset-m2'>
-
+      <div class='subtle-container'>
+        <div class='row center-align'>
+        <a class='btn'>
+          <i class='material-icons'>favorite</i>
+        </a>
+        <a class='btn'>
+          <i class='material-icons'>remove_red_eye</i>
+        </a>
+        <a class='btn'>
+          <i class='material-icons'>view_list</i>
+        </a>
+      </div>
 
       <!-- Dropdown Trigger -->
 
-
-      <div class='collection' >
-              <list-song-item ng-repeat='track in tracks'></list-song-item>
+      <div ui-view="playlists">
       </div>
-    </div>
+
+      <!-- <div class='row tile-rack'>
+        <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
+      </div> -->
+
+      <div ui-view='albums'></div>
+
+      <!-- <div class='row tile-rack'>
+        ALBUMS
+      </div> -->
+
+      <div class='row tile-rack'>
+        FAVORITES
+      </div>
+
+
   </div>
   </main>
 

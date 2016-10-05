@@ -2,7 +2,6 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $s
   $scope.results = {};
 
   $scope.search = function() {
-    alert($stateParams.searchField);
     $http({
       method: 'GET',
       url: '/api/search/' + $stateParams.searchField

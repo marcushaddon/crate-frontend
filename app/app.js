@@ -5,35 +5,57 @@ var crate = angular.module('main-app', ['ngRoute', 'ui.router'])
 	userImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=user&w=350&h=150'
 })
 
-.config(function($stateProvider, $httpProvider){
+.config(function($stateProvider, $httpProvider, $urlRouterProvider){
 	$httpProvider.interceptors.push('authInterceptor')
 
 	// .state('login', {
 	// 	url: '/login'
 	// })
 
-	$stateProvider.state('frontPage', {
-		url: '/front-page',
-		templateUrl: 'front-page/front-page.html',
-		controller: 'FrontPageCtrl'
+	$stateProvider.state('crate', {
+		url: '',
+		abstract: true
 	})
 
-	.state('myMusic', {
-		url: '/home',
-		templateUrl: 'home/home.html',
-		controller: 'myMusicCtrl'
+	.state('crate.frontPage', {
+		url: '/',
+		views: {
+			'frontPage@' : {
+				templateUrl: 'front-page/front-page.html',
+				controller: 'FrontPageCtrl'
+			}
+		}
 	})
 
-	.state('searchResults', {
+	.state('crate.myMusic', {
+		url: '/my-music',
+		views: {
+			'frontPage@' : {
+				templateUrl: 'home/home.html',
+				controller: 'myMusicCtrl'
+			}
+		}
+	})
+
+	.state('crate.searchResults', {
 		url: '/search-results/:searchField',
-		templateUrl: 'search/search-results.html',
-		controller: 'SearchCtrl'
+		views: {
+			'searchResults@': {
+				templateUrl: 'search/search-results.html',
+				controller: 'SearchCtrl'
+			}
+		}
 	})
 
-	.state('userProfile', {
-		url: '/user/:id',
-		templateUrl: 'user/user-profile.html',
-		controller: 'userCtrl'
+	// .state('userProfile', {
+	// 	url: '',
+	// 	abstract: 'true'
+	// })
+
+	.state('userProfile.userProfile', {
+		url: '/user/:id/playlists',
+		templateUrl: 'user/test.html',
+
 	})
 
 	.state('artistProfile', {
@@ -57,8 +79,10 @@ var crate = angular.module('main-app', ['ngRoute', 'ui.router'])
 	.state('upload', {
 		url: '/upload',
 		templateUrl: 'upload/upload.html',
-		controller: 'ploader'
+		controller: 'Uploader'
 	});
+
+	$urlRouterProvider.otherwise('/');
 
 })
 

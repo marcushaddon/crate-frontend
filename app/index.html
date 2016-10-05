@@ -56,15 +56,17 @@
 <div id='main' ng-controller='Main as PlayCtrl'>
 
     <!-- <nav-bar ng-show='true'></nav-bar> -->
+    <nav-bar></nav-bar>
 
 
-
-    <div ui-view></div>
+    <div ui-view='frontPage'></div>
+    <div ui-view='myMusic'></div>
+    <div ui-view='searchResults'></div>
 
 <center-modal></center-modal>
 <bottom-modal></bottom-modal>
 
-<!-- <player ng-show='true'></player> -->
+<player></player>
 </div>
 
 </div>

@@ -161,5 +161,5 @@ footer {
   padding-left: 20px;
   padding-right: 20px;
   max-height: 550px;
-  overflow-x: scroll;
+  /*overflow-x: scroll;*/
 }
