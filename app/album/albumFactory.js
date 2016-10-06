@@ -22,6 +22,13 @@ crate.factory('albumFactory', function($http, $q){
         method: 'GET',
         url: '/api/album/latest/' + count + '/' + offset
       });
+    },
+
+    getAlbumsByUserId: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/user/' + id + '/albums'
+      });
     }
   };
 });

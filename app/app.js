@@ -8,13 +8,21 @@ var crate = angular.module('main-app', ['ngRoute', 'ui.router'])
 .config(function($stateProvider, $httpProvider, $urlRouterProvider){
 	$httpProvider.interceptors.push('authInterceptor')
 
-	// .state('login', {
-	// 	url: '/login'
-	// })
+
 
 	$stateProvider.state('crate', {
 		url: '',
 		abstract: true
+	})
+
+	.state('crate.login', {
+		url: '/login',
+		views: {
+			'login@': {
+				templateUrl: 'login/login.html',
+				controller: 'login'
+			}
+		}
 	})
 
 	.state('crate.frontPage', {

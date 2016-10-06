@@ -26,30 +26,28 @@
       </div>
       <div class='subtle-container'>
         <div class='row center-align'>
-        <a class='btn'>
+        <a class='btn' ng-click="setView('favorites')">
           <i class='material-icons'>favorite</i>
         </a>
-        <a class='btn'>
+        <a class='btn' ng-click="setView('albums')">
           <i class='material-icons'>remove_red_eye</i>
         </a>
-        <a class='btn'>
+        <a class='btn' ng-click="setView('playlists')">
           <i class='material-icons'>view_list</i>
         </a>
       </div>
 
       <!-- Dropdown Trigger -->
 
+      <div class='row tile-rack' ng-show="viewing == 'playlists'">
+        <playlist-tile ng-repeat='list in playlists'></playlist-tile>
+      </div>
 
+      <div class='row tile-rack' ng-show="viewing == 'albums'">
+      <album-tile ng-repeat='album in albums'></album-tile>
+      </div>
 
-      <!-- <div class='row tile-rack'>
-        <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
-      </div> -->
-
-
-
-      <!-- <div class='row tile-rack'>
-        ALBUMS
-      </div> -->
+      <h1 ng-show="viewing == 'favorites'">favorites</h1>
 
 
 

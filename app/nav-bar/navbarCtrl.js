@@ -9,5 +9,6 @@ crate.controller('navbarCtrl', function($scope, $location, user){
     user.logOut();
   };
 
+  $scope.user = user;
   $scope.getUser = function() { return user.info; };
 });
