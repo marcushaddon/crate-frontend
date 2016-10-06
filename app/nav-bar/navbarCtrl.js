@@ -10,4 +10,5 @@ crate.controller('navbarCtrl', function($scope, $location, user){
   };
 
   $scope.getUser = function() { return user.info; };
+  $scope.user = user;
 });

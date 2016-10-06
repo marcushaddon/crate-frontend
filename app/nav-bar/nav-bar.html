@@ -26,7 +26,7 @@
       <li><a ng-click='searchMode = true'><i class='material-icons'>search</i></a></li>
       <li><a href="#/home">Home</a></li>
       <li><a href="#/upload">Upload</a></li>
-      <li><a href="#/profile">Profile</a></li>
+      <li><a href="#/profile" ng-href='#/user/{{user.info.userId}}'>Profile</a></li>
     </ul>
     <small class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
 

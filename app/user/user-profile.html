@@ -1,6 +1,6 @@
-<div ng-init='init()'>
+<div>
   <div ng-init='init()'>
-    <nav-bar></nav-bar>
+
     <main>
       <div class='row list-header cyan'>
         <div class='col m3 offset-m1'>
@@ -24,21 +24,37 @@
           </ul>
         </div>
       </div>
-      <div class='row'>
-        <div class='col s12 m8 offset-m2'>
-
+      <div class='subtle-container'>
+        <div class='row center-align'>
+        <a class='btn' ng-click="setView('favorites')">
+          <i class='material-icons'>favorite</i>
+        </a>
+        <a class='btn' ng-click="setView('albums')">
+          <i class='material-icons'>remove_red_eye</i>
+        </a>
+        <a class='btn' ng-click="setView('playlists')">
+          <i class='material-icons'>view_list</i>
+        </a>
+      </div>
 
       <!-- Dropdown Trigger -->
 
-
-      <div class='collection' >
-              <list-song-item ng-repeat='track in tracks'></list-song-item>
+      <div class='row tile-rack' ng-show="viewing == 'playlists'">
+        <playlist-tile ng-repeat='list in playlists'></playlist-tile>
       </div>
-    </div>
+
+      <div class='row tile-rack' ng-show="viewing == 'albums'">
+      <album-tile ng-repeat='album in albums'></album-tile>
+      </div>
+
+      <h1 ng-show="viewing == 'favorites'">favorites</h1>
+
+
+
   </div>
   </main>
 
-    <player></player>
+
   </div>
 
 </div>
