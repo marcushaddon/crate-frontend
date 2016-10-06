@@ -51,14 +51,21 @@ crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playl
   // };
 
   // Create a new playlist, either blank or by copying an album
-  $scope.createList = function(album) {
-		if (!album) {
-			playlistFactory.createPlaylist()
-			.then(function(response){
-        $scope.myPlaylists.unshift(response.data);
-				messenger.show(response.data.name + " created!");
-			});
-		}
+  $scope.newPlaylist = function() {
+    var newPlaylist = {
+      listType: "playlist",
+      name: "New playlist",
+      description: "A cool new playlist by " + user.info.userName,
+      imgUrl: null,
+      tracks: []
+    };
+
+		playlistFactory.createPlaylist(newPlaylist)
+		.then(function(response){
+      $scope.myPlaylists.unshift(response.data);
+			messenger.show(response.data.name + " created!");
+		});
+
 	};
 
   $scope.deleteList = function(list) {

@@ -28,10 +28,11 @@ crate.factory('playlistFactory', function($http, user){
       });
     },
 
-    createPlaylist: function() {
+    createPlaylist: function(playlist) {
       return $http({
         method: 'POST',
-        url: '/api/playlists/new'
+        url: '/api/playlists/new',
+        data: playlist
       });
     },
 
