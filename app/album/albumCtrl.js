@@ -1,14 +1,13 @@
 crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, playlistFactory, albumFactory){
+  $scope.albumId = $routeParams.id;
   $scope.init = function() {
 
-    var albumId = $routeParams.id;
-
-    albumFactory.getAlbum(albumId)
+    albumFactory.getAlbum($scope.albumId)
     .then(function(response){
       $scope.album = response.data;
     });
 
-    albumFactory.getTracksByAlbumId(albumId)
+    albumFactory.getTracksByAlbumId($scope.albumId)
     .then(function(response){
       $scope.tracks = response.data;
     });
@@ -17,6 +16,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
 
   $scope.cueMyTracks = function() {
     stereo.setActiveTracks($scope.tracks);
+    albumFactory.incrementListens($scope.albumId);
   };
 
   $scope.albumImgPlaceHolder = config.albumImgPlaceHolder;

@@ -1,9 +1,9 @@
 crate.controller('playlistCtrl', function($scope, $routeParams, $http, playlistFactory, stereo, config, messenger){
   $scope.playlist = {};
+  $scope.playlistId = $routeParams.id;
   $scope.init = function() {
-    var playlistId = $routeParams.id;
-    if (playlistId) {
-      playlistFactory.getPlaylist(playlistId)
+    if ($scope.playlistId) {
+      playlistFactory.getPlaylist($scope.playlistId)
       .then(function(response){
         $scope.playlist = response.data;
       },
@@ -14,6 +14,7 @@ crate.controller('playlistCtrl', function($scope, $routeParams, $http, playlistF
   };
 
   $scope.cueMyTracks = function() {
+    playlistFactory.incrementListens($scope.playlistId);
     stereo.setActiveTracks($scope.playlist.tracks);
   };
 
