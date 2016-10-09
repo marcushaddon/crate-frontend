@@ -1,4 +1,11 @@
-crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
+crate.factory('stereo', function(
+	$rootScope,
+	clerk,
+	albumFactory,
+	artistFactory,
+	trackFactory,
+	messenger
+){
 	return {
 		stereo: this,
 		lists: [],
@@ -70,6 +77,8 @@ crate.factory('stereo', function($rootScope, albumFactory, clerk, messenger){
 
 		setTrack: function(track) {
 			this.activeTrack = track;
+			trackFactory.incrementListens(track._id);
+			artistFactory.incrementListens(track.artistId);
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
 			this.isPlaying = true;
 			messenger.show(track.artist + ' - ' + track.trackName);

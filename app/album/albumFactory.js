@@ -29,6 +29,13 @@ crate.factory('albumFactory', function($http, $q){
         method: 'GET',
         url: '/api/user/' + id + '/albums'
       });
+    },
+
+    incrementListens: function(albumId) {
+      return $http({
+        method: "PUT",
+        url: "api/albums/" + albumId + "/increment-listens"
+      });
     }
   };
 });

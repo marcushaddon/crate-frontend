@@ -59,6 +59,13 @@ crate.factory('playlistFactory', function($http, user){
         method: 'DELETE',
         url: '/api/playlists/' + id
       });
+    },
+
+    incrementListens: function(playlistId) {
+      return $http({
+        method: "PUT",
+        url: "api/playlists/" + playlistId + "/increment-listens"
+      });
     }
 
   };

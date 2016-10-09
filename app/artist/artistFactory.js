@@ -7,6 +7,7 @@ crate.factory('artistFactory', function($http){
       })
     },
 
+
     getArtistByDiscogsId: function(id) {
       return $http({
         method: 'GET',
@@ -21,7 +22,14 @@ crate.factory('artistFactory', function($http){
         url: '/api/artists',
         data: artist
       });
-    }
+    },
 
-  }
+    incrementListens: function(artistId) {
+      return $http({
+        method: "PUT",
+        url: "api/artists/" + artistId + "/increment-listens"
+      });
+    }
+}
+
 });
