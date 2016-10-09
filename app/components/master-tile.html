@@ -1,0 +1,30 @@
+<div class="col s12 album-tile">
+    <div class="card horizontal">
+      <div class="card-image">
+        <a ng-href=''>
+          <img class="album-cover" ng-src="{{master.thumb || albumImgPlaceHolder }}">
+      </a>
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <h5>{{master.title}}</h5>
+          <i>{{master.year}}</i>
+
+          <p>
+          <div class="chip" ng-repeat='genre in master.genre'>
+            {{genre}}
+          </div>
+
+          <div class="chip" ng-repeat='style in master.style'>
+            {{style}}
+          </div>
+        </p>
+
+        </div>
+        <div class=''>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

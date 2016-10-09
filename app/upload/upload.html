@@ -1,64 +1,34 @@
 <nav-bar></nav-bar>
 
-<div class='container'>
+<div class='subtle-container'>
 	<div class='row'>
 	<!-- GUIDE -->
-	<div  ng-class='uploadStep == 2 ? "col m4" : "col m4 offset-m4"'>
+	<div  ng-class="possibleMasters.length ? 'col m4 offset-m2' : 'col m4 offset-m4'">
 		<div id='upload-video'>
 		        <h3>Select Video</h3>
 						<div class=''>
 
 		        <ul class='collection'>
-		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Id' ng-model='currentUpload.videoId' ng-show='uploadStep == 0' /></li>
-		            <li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='currentUpload.artist' ng-show='uploadStep == 1' /></li>
-		            <li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='currentUpload.albumName' ng-show='uploadStep == 1' /></li>
+		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Id' ng-model='videoId' /></li>
+		            <li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' /></li>
+		            <li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='albumName' /></li>
 		</ul>
 	</div>
-		<hr>
-		<input type='button' class='btn btn-success' ng-value='uploadStep == 2 ? "Upload!" : "Next Step"' ng-click='uploadStep == 2 ? uploadAlbum() : nextStep()'></input>
+
+		<input type='button' class='btn btn-success' value='Submit' ng-click='checkDiscogsForUpload()'></input>
 		<input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
-		<hr>
-		{{instructions[uploadStep]}}
 
 		</div>
+	</div>
+	<div class='col m6'>
+		<ul>
+			<li ng-repeat='master in possibleMasters'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
+		</ul>
 	</div>
 
 	<!-- END GUIDE -->
 
-	<!-- UPLOAD TRACKS -->
-	<div class='col m8' ng-class='{hide: uploadStep < 2}'>
-		<div id='uploader' >
 
-			<h3>Tracks <i class='material-icons right wave-effect' ng-click='currentUpload.addTrack()' ng-show='uploadStep == 2'>queue</i></h3>
-			<ul class='collection music-list'>
-				<li>
-		        <div class='collection-item' ng-repeat='track in currentUpload.createdTracks'>
-
-									<div class='row'>
-										<div class='col m1 valign-wrapper'>
-			                   	<strong class='valign'>{{track.trackNum}}</strong>
-												</div>
-			                	<div class='col m7'><span contenteditable="true" ng-blur='currentUpload.update(track, $event)'>{{track.trackName}}</span></div>
-
-												<!-- pull-right is reversing these!!! -->
-												<div class='col m1 offset-m2'>
-			                		<!-- <input type='text' ng-model='track.begin' placeholder='Start time' /> -->
-													<span>{{track.begin}}</span>
-												</div>
-												<div class='col m1'>
-													<!-- <input type='text' ng-model='track.stop' placeholder='Stop time' /> -->
-													<span>{{track.stop}}</span>
-												</div>
-
-										</div>
-
-
-		        </div>
-						</li>
-		    </ul>
-
-		</div>
-	</div>
 
 	<!-- END UPLOAD TRACKS -->
 	</div>
