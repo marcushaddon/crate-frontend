@@ -5,6 +5,13 @@ crate.factory('artistFactory', function($http){
         method: 'GET',
         url: '/api/artist/' + id
       })
+    },
+
+    incrementListens: function(artistId) {
+      return $http({
+        method: "PUT",
+        url: "api/artists/" + artistId + "/increment-listens"
+      });
     }
   }
 });

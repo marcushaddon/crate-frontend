@@ -1,9 +1,9 @@
 crate.factory('trackFactory', function($http){
   return {
-    recordListen: function(track) {
+    incrementListens: function(trackId) {
       return $http({
-        method:"PUT",
-        url: "/api/track/" + track._id + "/increment-count/"
+        method: "PUT",
+        url: "api/tracks/" + trackId + "/increment-listens"
       });
     }
   }
