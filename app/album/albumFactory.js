@@ -8,6 +8,13 @@ crate.factory('albumFactory', function($http, $q){
       });
     },
 
+    getAlbumByDiscogsId: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/discogsAlbum/' + id
+      });
+    },
+
     getTracksByAlbumId: function(id) {
         return $http({
           method: 'GET',

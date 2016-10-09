@@ -12,8 +12,15 @@ crate.factory('discogsFactory', function($http){
         method: 'GET',
         url: 'https://api.discogs.com/masters/' + id
       });
+    },
+
+    getArtist: function(id) {
+      return $http({
+        method: 'GET',
+        url: 'https://api.discogs.com/artists/' + id
+      });
     }
 
-    
+
   };
 });

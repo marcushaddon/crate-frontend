@@ -9,7 +9,6 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 		discogsFactory.searchForRelease($scope.artistName + ' ' + $scope.albumName)
 		.then(function(response){
 			$scope.possibleMasters = response.data.results;
-			console.log(response.data.results);
 
 		})
 	};
