@@ -15,7 +15,7 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
-		uploadFactory.useDiscogsMaster(master)
+		uploadFactory.useDiscogsMaster1(master)
 
 	};
 

@@ -10,14 +10,14 @@ crate.factory('discogsFactory', function($http){
     getMaster: function(id) {
       return $http({
         method: 'GET',
-        url: 'https://api.discogs.com/masters/' + id
+        url: '/api/discogs/master/' + id
       });
     },
 
     getArtist: function(id) {
       return $http({
         method: 'GET',
-        url: 'https://api.discogs.com/artists/' + id
+        url: '/api/discogs/artist/' + id
       });
     }
 

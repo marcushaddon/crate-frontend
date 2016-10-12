@@ -16,6 +16,7 @@ crate.factory('artistFactory', function($http){
     },
 
     createArtist: function(artist) {
+      //WHATS GOIN ON
       // Creating an artist with our forthcoming RESTful artist POST endpoint!
       return $http({
         method: 'POST',
