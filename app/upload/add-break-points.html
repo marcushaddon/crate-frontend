@@ -1,0 +1,51 @@
+<nav-bar></nav-bar>
+<!-- UPLOAD TRACKS -->
+  <div class='subtle-container' ng-init='init()'>
+    <div class='row'>
+
+      <div class='col m4'>
+        <h4>You're almost done!!!</h4>
+        <p>
+          Discogs didn't have track duration data for this album, so we need you to listen to the unbroken audio, or scrub the playhead until you hear the breaks between the tracks, then push the '+' button to create cuts between the tracks.
+        </p>
+        <a class='btn right disabled' id='submitTracks' ng-click='submitTracks()'>Submit</a>
+
+      </div>
+
+      <div class='col m8'>
+        <div id='uploader' >
+
+          <h3>Tracks <i class='material-icons right wave-effect' ng-click='setTime()'>queue</i></h3>
+          <span ng-click='testTracks()'>SHOW ME THE TRACKS</span>
+            <div class='collection'>
+                <div class='collection-item' ng-repeat='track in tracks'>
+
+                      <div class='row'>
+                        <div class='col m1 valign-wrapper'>
+                              <strong class='valign'>{{track.trackNum}}</strong>
+                            </div>
+                            <div class='col m7'><input type='text' ng-model='track.trackName' value='track.trackName'></div>
+
+                            <!-- pull-right is reversing these!!! -->
+                            <div class='col m1 offset-m2'>
+                              <!-- <input type='text' ng-model='track.begin' placeholder='Start time' /> -->
+                              <span ng-click="setEditTarget($index, 'begin')" ng-class="{ 'red' : editTrack.trackNum == track.trackNum && editField == 'begin' }">{{track.begin !== null ? secToMinSec(track.begin) : '?'}}</span>
+                            </div>
+                            <div class='col m1'>
+                              <!-- <input type='text' ng-model='track.stop' placeholder='Stop time' /> -->
+                              <span ng-click="setEditTarget($index, 'stop')" ng-class="{ 'red' : editTrack.trackNum == track.trackNum && editField == 'stop' }">{{track.stop !== null ? secToMinSec(track.stop) : '?'}}</span>
+                            </div>
+
+                        </div>
+
+
+                </div>
+              </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+<player></player>

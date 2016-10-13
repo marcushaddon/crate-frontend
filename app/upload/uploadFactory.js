@@ -105,45 +105,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
 
                 });
               }
-              // HERE IT IS CONTINUING WITHOUT WAITING FOR ARTIST TO BE CREATED, WHICH IS BAD
-              // Now lets see about this master....
-              // messenger.show("Creating album from Discogs info...");
-              //
-              // var tags = master.styles.concat(master.genres);
-              // var album = {
-              //     listType: 'album',
-              //     name: master.title,
-              //     artist: factory.artist.name,
-              //     artistId: factory.artist._id,
-              //     noTracks: master.tracklist.length,
-              //     imgUrl: master.images[0].resource_url,
-              //     // THIS JUST RETURNS THELENGTH OF THE ARRAY, NOT COOL OK
-              //     tags: tags,
-              //     genres: master.genres,
-              //     year: master.year,
-              //     discogsId: master.id,
-              //     discogsUrl: master.resource_url,
-              //     discogsUri: master.uri
-              //   };
-              //
-              //   // AND HERE WE WILL SAVE THE ALBUM...
-              //   albumFactory.createAlbum(album)
-              //   .then(function(response){
-              //     console.log(response);
-              //     factory.album = response.data;
-              //     // Now let's have a look at the tracks!!!
-              //     messenger.show("Converting Discogs master track information...");
-              //     // convert these tracks
-              //     factory.tracks = factory.convertDiscogsTracklist(master.tracklist, factory.album, factory.artist, factory.videoId);
-              //     if (factory.tracks[0].begin !== null) {
-              //       trackFactory.createTracks(factory.tracks)
-              //       .then(function(result){
-              //         messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
-              //         $location.path('/album/' + factory.album._id);
-              //       });
-              //     }
-              //
-              //   });
+
 
             });
 
@@ -182,7 +144,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
         // AND HERE WE WILL SAVE THE ALBUM...
         albumFactory.createAlbum(album)
         .then(function(response){
-          console.log(response);
+
           factory.album = response.data;
           // Now let's have a look at the tracks!!!
           messenger.show("Converting Discogs master track information...");
@@ -194,11 +156,19 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
               messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
               $location.path('/album/' + factory.album._id);
             });
+          } else {
+            $location.path('/upload/add-break-points');
+            messenger.show("We just need a little more info from you!!");
+            console.log(factory.tracks);
           }
 
         });
     },
 
+    createTracks: function(tracks) {
+      return trackFactory.createTracks(tracks);
+
+    },
 
     videoId: '',
     artist: {},

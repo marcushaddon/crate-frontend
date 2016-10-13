@@ -4,6 +4,10 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
 
+	// $scope.getTrackCandidates = function() {
+	// 	return uploadFactory.tracks;
+	// };
+
 	$scope.checkDiscogsForUpload = function() {
 		// There must be a urlStringEncode method or something
 		discogsFactory.searchForRelease($scope.artistName + ' ' + $scope.albumName)

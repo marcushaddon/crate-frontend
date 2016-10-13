@@ -1,4 +1,4 @@
-function Track(trackNum, trackName, albumName, albumId, artistName, videoId, begin, stop){
+function Track(trackNum, trackName, albumName, albumId, artistName, artistId, videoId, begin, stop){
 	this.trackNum  = trackNum;
 	this.trackName = trackName || null;
 	this.albumName = albumName;
