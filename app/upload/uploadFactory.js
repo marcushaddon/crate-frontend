@@ -85,11 +85,13 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
                 .then(function(response){
                   var discArtist = response.data;
                   // Create the new artist
+                  // Just in case the artist doesnt have an images array
+                  var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
                   var crateArtist = new Artist(
                     discArtist.name,
                     discArtist.profile,
                     discArtist.uri,
-                    discArtist.images[0].resource_url,
+                    image,
                     discArtist.id,
                     discArtist.resource_url,
                     discArtist.uri,
