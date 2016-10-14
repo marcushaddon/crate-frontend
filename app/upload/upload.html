@@ -3,7 +3,7 @@
 <div class='subtle-container'>
 	<div class='row'>
 	<!-- GUIDE -->
-	<div  ng-class="possibleMasters.length ? 'col m4 offset-m2' : 'col m4 offset-m4'">
+	<div  ng-class="possibleMasters.length || possibleArtists.length ? 'col m4 offset-m2' : 'col m4 offset-m4'">
 		<div id='upload-video'>
 		        <h3>Select Video</h3>
 						<div class=''>
@@ -22,11 +22,21 @@
 	</div>
 
 	<!-- possible discogs masters -->
-	<div ng-show='possibleMasters.length' class='col m6'>
-		<h4>Is one of the following the correct release?</h4>
-		<ul>
-			<li ng-repeat='master in possibleMasters'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
-		</ul>
+	<div class='col m6'>
+		<div ng-show='possibleMasters.length'>
+			<h4>Is one of the following the correct release?</h4>
+			<a class='btn' ng-click='checkDiscogsForArtist()'>No! Try 'Plan B'!!</a>
+			<ul>
+				<li ng-repeat='master in possibleMasters'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
+			</ul>
+	</div>
+
+		<div ng-show='possibleArtists.length'>
+			<h4>Is one of the following the correct artist?</h4>
+			<ul>
+				<li ng-repeat='artist in possibleArtists'><a href='' ng-click='getArtistReleases(artist)'><artist-chip></artist-chip></a></li>
+			</ul>
+	</div>
 	</div>
 
 	<!-- END GUIDE -->

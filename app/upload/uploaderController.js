@@ -3,6 +3,7 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 	$scope.albumNmae = '';
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
+	$scope.possibleArtists = [];
 
 	// $scope.getTrackCandidates = function() {
 	// 	return uploadFactory.tracks;
@@ -17,10 +18,31 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 		})
 	};
 
+	$scope.checkDiscogsForArtist = function() {
+		$scope.possibleMasters = [];
+		discogsFactory.searchForArtist($scope.artistName)
+		.then(function(response){
+			$scope.possibleArtists = response.data.results;
+		});
+	};
+
+	$scope.getArtistReleases = function(artist) {
+		discogsFactory.getArtistReleases(artist.id)
+		.then(function(response){
+			$scope.possibleArtists = [];
+			$scope.possibleMasters = response.data.releases;
+		});
+	};
+
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
-		uploadFactory.useDiscogsMaster1(master)
+		uploadFactory.useDiscogsEntity(master)
 
+	};
+
+	$scope.useDiscogsRelease = function(release) {
+		uploadFactory.videoId = $scope.videoId;
+		uploadFactory.useDiscogsEntity(release);
 	};
 
 	$scope.artistImgPlaceholder = config.artistImgPlaceholder;

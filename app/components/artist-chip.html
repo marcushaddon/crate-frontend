@@ -1,4 +1,4 @@
 <div class="chip">
-    <img ng-src="{{artist.imgUrl || artistImgPlaceholder}}" alt="Suggested Artist">
-    {{artist.name}}
+    <img ng-src="{{artist.thumb || artistImgPlaceholder}}" alt="Suggested Artist">
+    {{artist.name || artist.title}} <small><a ng-href='https://www.discogs.com{{artist.uri}}' target=''>... see more on Discogs</a></small>
   </div>

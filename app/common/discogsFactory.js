@@ -7,6 +7,13 @@ crate.factory('discogsFactory', function($http){
       });
     },
 
+    searchForArtist: function(query) {
+      return $http({
+        method: 'GET',
+        url: '/api/discogs/search/artist/' + query
+      });
+    },
+
     getMaster: function(id) {
       return $http({
         method: 'GET',
@@ -14,10 +21,24 @@ crate.factory('discogsFactory', function($http){
       });
     },
 
+    getRelease: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/discogs/release/' + id
+      });
+    },
+
     getArtist: function(id) {
       return $http({
         method: 'GET',
         url: '/api/discogs/artist/' + id
+      });
+    },
+
+    getArtistReleases: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/discogs/artist/'+ id + '/releases'
       });
     }
 

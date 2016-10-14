@@ -56,7 +56,10 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
       return crateTracklist;
     },
 
-    useDiscogsMaster1: function(master) {
+    
+
+
+    useDiscogsEntity: function(master) {
       var factory = this;
       messenger.show("Checking Crate for this release...");
       // First check to see if we have imported this master from discogs...
