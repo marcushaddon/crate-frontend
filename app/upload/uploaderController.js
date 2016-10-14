@@ -34,6 +34,7 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 		});
 	};
 
+	// yah redundant i know
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
 		uploadFactory.useDiscogsEntity(master)

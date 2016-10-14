@@ -14,17 +14,24 @@ crate.factory('discogsFactory', function($http){
       });
     },
 
-    getMaster: function(id) {
-      return $http({
-        method: 'GET',
-        url: '/api/discogs/master/' + id
-      });
-    },
+    // getMaster: function(id) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: '/api/discogs/master/' + id
+    //   });
+    // },
+    //
+    // getRelease: function(id) {
+    //   return $http({
+    //     method: 'GET',
+    //     url: '/api/discogs/release/' + id
+    //   });
+    // },
 
-    getRelease: function(id) {
+    getAlbum: function(id, type) {
       return $http({
         method: 'GET',
-        url: '/api/discogs/release/' + id
+        url: '/api/discogs/' + type + '/' + id
       });
     },
 

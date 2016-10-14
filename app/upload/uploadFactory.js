@@ -56,7 +56,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
       return crateTracklist;
     },
 
-    
+
 
 
     useDiscogsEntity: function(master) {
@@ -68,7 +68,8 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
         // If not, then continue....
         if (response.data === null) {
           messenger.show("Getting release information from Discogs...");
-          discogsFactory.getMaster(master.id)
+          // This needs to accept a second argument of album type, master or release,
+          discogsFactory.getAlbum(master.id, master.type)
           .then(function(response){
             var master = response.data;
             var discogsArtistId = master.artists[0].id;
