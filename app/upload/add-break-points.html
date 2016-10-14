@@ -8,7 +8,7 @@
         <p>
           Discogs didn't have track duration data for this album, so we need you to listen to the unbroken audio, or scrub the playhead until you hear the breaks between the tracks, then push the '+' button to create cuts between the tracks.
         </p>
-        <a class='btn right disabled' id='submitTracks' ng-click='submitTracks()'>Submit</a>
+        <a class='btn disabled' id='submitTracks' ng-click='submitTracks()'>Submit</a>
 
       </div>
 
@@ -23,6 +23,7 @@
                       <div class='row'>
                         <div class='col m1 valign-wrapper'>
                               <strong class='valign'>{{track.trackNum}}</strong>
+                              <i class='material-icons' ng-click='reviewMe($index)' ng-show='track.begin !== null'>play_arrow</i>
                             </div>
                             <div class='col m7'><input type='text' ng-model='track.trackName' value='track.trackName'></div>
 

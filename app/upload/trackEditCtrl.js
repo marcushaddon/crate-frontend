@@ -54,7 +54,12 @@ crate.controller('trackEditCtrl', function($scope, $location, uploadFactory, mes
       messenger.show("WHOOHOO");
     }
 
-  }
+  };
+
+  $scope.reviewMe = function(index) {
+    $scope.setEditTarget(index, 'begin');
+    stereo.seekTo($scope.tracks[index].begin);
+  };
 
 
   $scope.testTracks = function() {
