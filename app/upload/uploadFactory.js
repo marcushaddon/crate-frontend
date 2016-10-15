@@ -10,7 +10,17 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
     },
 
     convertDiscogsTracklist: function(tracklist, album, artist, videoId) {
+      console.log("tracks comin in");
+      console.log(tracklist);
+
       var crateTracklist = [];
+      // filter to remove heading entries
+      // we might want to check to see if it has the type_ attribute first...
+      tracklist = tracklist.filter(function(track){
+        return track.type_ == "track";
+      });
+      console.log("tracks goin out");
+      console.log(tracklist);
       var weHaveDurations = true;
       // Make sure every track has a duration
       for (track in tracklist) {
