@@ -153,7 +153,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 .directive('bottomModal', function(){
 	return {
 		templateUrl: 'components/bottom-modal.html',
-		controller: 'playlistCtrl'
+		controller: 'bottomModalCtrl'
 	}
 })
 

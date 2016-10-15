@@ -43,14 +43,11 @@ crate.factory('playlistFactory', function($http, user){
       });
     },
 
-    editPlaylist: function(playlist, field, value) {
+    editPlaylist: function(playlist) {
       return $http({
         method: 'PUT',
         url: '/api/playlists/' + playlist._id,
-        data: {
-          editField: field,
-          newValue: value
-        }
+        data: playlist
       });
     },
 

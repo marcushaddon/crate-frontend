@@ -1,6 +1,8 @@
 crate.controller('playlistCtrl', function($scope, $routeParams, $http, playlistFactory, stereo, config, messenger){
   $scope.playlist = {};
   $scope.playlistId = $routeParams.id;
+
+  
   $scope.init = function() {
     if ($scope.playlistId) {
       playlistFactory.getPlaylist($scope.playlistId)
