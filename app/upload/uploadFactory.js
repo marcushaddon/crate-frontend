@@ -1,5 +1,5 @@
 // FOR WHEN WE GET YOUTUBE DESCRIPTIONS, HERE IS THE REGEX TO FIND TIMES /[0-9]{1,3}:[0-9]{2}/g
-crate.factory('uploadFactory', function($http, $location, discogsFactory, artistFactory, albumFactory, trackFactory, messenger){
+crate.factory('uploadFactory', function($http, $location, discogsFactory, youtubeFactory, artistFactory, albumFactory, trackFactory, messenger){
   return {
 
     checkCrateForArtist: function(artist) {
@@ -66,7 +66,13 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
       return crateTracklist;
     },
 
-
+    getVideoInfo: function() {
+      var factory = this;
+      youtubeFactory.getVideoInfo(factory.videoId)
+      .then(function(response){
+        factory.videoInfo = response.data;
+      })
+    },
 
 
     useDiscogsEntity: function(master) {
@@ -189,6 +195,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, artist
     videoId: '',
     artist: {},
     album: {},
-    tracks: []
+    tracks: [],
+    videoInfo: {}
   }
 });

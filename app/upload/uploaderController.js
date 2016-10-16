@@ -1,4 +1,4 @@
-crate.controller('Uploader', function($scope, config, stereo, discogsFactory, uploadFactory, messenger){
+	crate.controller('Uploader', function($scope, config, stereo, discogsFactory, uploadFactory, messenger){
 	$scope.videoId = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
@@ -37,12 +37,15 @@ crate.controller('Uploader', function($scope, config, stereo, discogsFactory, up
 	// yah redundant i know
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
+		// This should be called from inside of uploadFactoris method so other methods dont come out of order!
+		uploadFactory.getVideoInfo();
 		uploadFactory.useDiscogsEntity(master)
 
 	};
 
 	$scope.useDiscogsRelease = function(release) {
 		uploadFactory.videoId = $scope.videoId;
+		uploadFactory.getVideoInfo();
 		uploadFactory.useDiscogsEntity(release);
 	};
 
