@@ -33,8 +33,8 @@
           <h5>{{playlist.name}}</h5>
           by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{playlist.createdBy.userName}}</a>
           <ul class='icon-list'>
-          <li class='valign-wrapper'><i class='material-icons valign'>play_arrow</i> {{playlist.plays || 0}}</li>
-          <li class='valign-wrapper'><i class='material-icons valign'>favorite</i> {{playlist.plays || 0}}</li>
+          <li class='valign-wrapper'><i class='material-icons valign'>play_arrow</i> {{playlist.listens || 0}}</li>
+          <li class='valign-wrapper'><i class='material-icons valign'>favorite</i> {{playlist.favorites || 0}}</li>
           <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{playlist.tracks.length || 0}} tracks</li>
         </ul>
         <div class="chip" ng-repeat='tag in album.tags'>

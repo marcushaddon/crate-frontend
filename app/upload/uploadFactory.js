@@ -1,4 +1,4 @@
-
+// FOR WHEN WE GET YOUTUBE DESCRIPTIONS, HERE IS THE REGEX TO FIND TIMES /[0-9]{1,3}:[0-9]{2}/g
 crate.factory('uploadFactory', function($http, $location, discogsFactory, artistFactory, albumFactory, trackFactory, messenger){
   return {
 
