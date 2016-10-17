@@ -68,76 +68,123 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
     getVideoInfo: function() {
       var factory = this;
-      youtubeFactory.getVideoInfo(factory.videoId)
+      return youtubeFactory.getVideoInfo(factory.videoId)
       .then(function(response){
-        factory.videoInfo = response.data;
+        factory.videoInfo = response.data.items[0].snippet;
       })
+    },
+
+    getTrackTimesFromVideoInfo: function() {
+      var factory = this;
+      var desc = this.videoInfo.description;
+
+      var timesArray = [];
+      var stringsArray = desc.match(/[0-9]{1,3}:[0-9]{2}/g);
+
+      // Assign converted start times
+      for (string in stringsArray) {
+        var current = stringsArray[string];
+        var intArray = current.split(":").map(function(s){ return parseInt(s); });
+        var isoTime = intArray[0] * 60 + intArray[1];
+        var timeObj = {};
+        timeObj.begin = isoTime;
+        timesArray.push(timeObj);
+      }
+
+      // Assign end times for all but the last track
+      for (var i = 0, length = timesArray.length; i < length -1; i++) {
+        timesArray[i].stop = timesArray[i + 1].begin;
+      }
+      // assign last time
+      return    youtubeFactory.getVideoDuration(factory.videoId)
+          .then(function(response){
+            timesArray[timesArray.length - 1].stop = response.data;
+
+            // NOW HERE CHECK TO SEE IF FIRST OBJ STARTS AT 0
+            if (timesArray[0].begin !== 0) {
+              var firstObj = {
+                begin: 0,
+                stop: timesArray[0].begin
+              };
+              timesArray.unshift(firstObj);
+            }
+            factory.youtubeTimes = timesArray;
+          });
+
+
+
     },
 
 
     useDiscogsEntity: function(master) {
       var factory = this;
-      messenger.show("Checking Crate for this release...");
-      // First check to see if we have imported this master from discogs...
-      albumFactory.getAlbumByDiscogsId(master.id)
-      .then(function(response){
-        // If not, then continue....
-        if (response.data === null) {
-          messenger.show("Getting release information from Discogs...");
-          // This needs to accept a second argument of album type, master or release,
-          discogsFactory.getAlbum(master.id, master.type)
-          .then(function(response){
-            var master = response.data;
-            var discogsArtistId = master.artists[0].id;
-            // See if we already have this artist
-            messenger.show("Getting artist information from Discogs...");
-            artistFactory.getArtistByDiscogsId(discogsArtistId)
+      messenger.show("Getting Youtube video info...");
+      factory.getVideoInfo()
+      .then(function(){
+        console.log(factory.videoInfo);
+        messenger.show("Checking Crate for this release...");
+        // First check to see if we have imported this master from discogs...
+        albumFactory.getAlbumByDiscogsId(master.id)
+        .then(function(response){
+          // If not, then continue....
+          if (response.data === null) {
+            messenger.show("Getting release information from Discogs...");
+            // This needs to accept a second argument of album type, master or release,
+            discogsFactory.getAlbum(master.id, master.type)
             .then(function(response){
-              // We have this artist!
-              if (response.data != null && response.data != []) {
-                factory.artist = response.data;
-                messenger.show("Artist exists in Crate, pulling Crate artist info...");
-                factory.createAlbumFromMaster(master);
-              } else {
-                messenger.show("New artist! Pulling artist info from Discogs to create Crate artist...");
-                // We dont have this artist, so create them and assign the result to our artistCandidate
-                discogsFactory.getArtist(discogsArtistId)
-                .then(function(response){
-                  var discArtist = response.data;
-                  // Create the new artist
-                  // Just in case the artist doesnt have an images array
-                  var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
-                  var crateArtist = new Artist(
-                    discArtist.name,
-                    discArtist.profile,
-                    discArtist.uri,
-                    image,
-                    discArtist.id,
-                    discArtist.resource_url,
-                    discArtist.uri,
-                    discArtist.namevariations
-                  );
-                  // Put this artist into our db and use the result as our artist
-                  artistFactory.createArtist(crateArtist)
+              var master = response.data;
+              var discogsArtistId = master.artists[0].id;
+              // See if we already have this artist
+              messenger.show("Getting artist information from Discogs...");
+              artistFactory.getArtistByDiscogsId(discogsArtistId)
+              .then(function(response){
+                // We have this artist!
+                if (response.data != null && response.data != []) {
+                  factory.artist = response.data;
+                  messenger.show("Artist exists in Crate, pulling Crate artist info...");
+                  factory.createAlbumFromMaster(master);
+                } else {
+                  messenger.show("New artist! Pulling artist info from Discogs to create Crate artist...");
+                  // We dont have this artist, so create them and assign the result to our artistCandidate
+                  discogsFactory.getArtist(discogsArtistId)
                   .then(function(response){
+                    var discArtist = response.data;
+                    // Create the new artist
+                    // Just in case the artist doesnt have an images array
+                    var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
+                    var crateArtist = new Artist(
+                      discArtist.name,
+                      discArtist.profile,
+                      discArtist.uri,
+                      image,
+                      discArtist.id,
+                      discArtist.resource_url,
+                      discArtist.uri,
+                      discArtist.namevariations
+                    );
+                    // Put this artist into our db and use the result as our artist
+                    artistFactory.createArtist(crateArtist)
+                    .then(function(response){
 
-                    factory.artist = response.data;
-                    factory.createAlbumFromMaster(master);
+                      factory.artist = response.data;
+                      factory.createAlbumFromMaster(master);
+                    });
+
                   });
+                }
 
-                });
-              }
+
+              });
 
 
             });
+          } else {
+            messenger.show("Oops! It looks like somone has already found that album!!");
+            $location.path('/album/' + response.data._id);
+          }
+        });
+      })
 
-
-          });
-        } else {
-          messenger.show("Oops! It looks like somone has already found that album!!");
-          $location.path('/album/' + response.data._id);
-        }
-      });
 
     },
 
@@ -179,9 +226,32 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
               $location.path('/album/' + factory.album._id);
             });
           } else {
-            $location.path('/upload/add-break-points');
-            messenger.show("We just need a little more info from you!!");
-            console.log(factory.tracks);
+            // Lets see if the youtube description has track times in it....
+            factory.getTrackTimesFromVideoInfo()
+            .then(function(){
+              console.log("UOUIR ARRAYS");
+              console.log(factory.youtubeTimes);
+              console.log(factory.tracks);
+              if (factory.youtubeTimes.length != factory.tracks.length) {
+                $location.path('/upload/add-break-points');
+                messenger.show("We just need a little more info from you!!");
+              } else {
+                // Assign the times and make the treacks!
+                for (index in factory.youtubeTimes) {
+                  factory.tracks[index].begin = factory.youtubeTimes[index].begin;
+                  factory.tracks[index].stop = factory.youtubeTimes[index].stop;
+                }
+                console.log("LADIES AND GENTLAMEN");
+                console.log(factory.tracks);
+                trackFactory.createTracks(factory.tracks)
+                .then(function(result){
+                  messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
+                  $location.path('/album/' + factory.album._id);
+                });
+              }
+
+            })
+
           }
 
         });
@@ -196,6 +266,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     artist: {},
     album: {},
     tracks: [],
-    videoInfo: {}
+    videoInfo: {},
+    youtubeTimes: {}
   }
 });

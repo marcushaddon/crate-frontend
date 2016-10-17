@@ -38,14 +38,12 @@
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
 		// This should be called from inside of uploadFactoris method so other methods dont come out of order!
-		uploadFactory.getVideoInfo();
 		uploadFactory.useDiscogsEntity(master)
 
 	};
 
 	$scope.useDiscogsRelease = function(release) {
 		uploadFactory.videoId = $scope.videoId;
-		uploadFactory.getVideoInfo();
 		uploadFactory.useDiscogsEntity(release);
 	};
 
