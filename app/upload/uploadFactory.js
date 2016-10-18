@@ -113,7 +113,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
       // NOW CHECK TO SEE IF WEE NEED A FIRST track
       // VERY IMPROTATN
-      if (tracksArray[0].begin !== 0) {
+      if (tracksArray.length > 0 && tracksArray[0].begin !== 0) {
         var trackName = descLines[firstSongLine - 1];
         tracksArray.unshift({
             // We have to calculate this later
@@ -138,21 +138,13 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         tracksArray[index].trackNum = index + 1;
       }
 
-      alert("YOUTUBETRACKIN");
 
       // assign last time
       return    youtubeFactory.getVideoDuration(factory.videoId)
           .then(function(response){
-            tracksArray[tracksArray.length - 1].stop = response.data;
-
-            // NOW HERE CHECK TO SEE IF FIRST OBJ STARTS AT 0
-            // if (timesArray[0].begin !== 0) {
-            //   var firstObj = {
-            //     begin: 0,
-            //     stop: timesArray[0].begin
-            //   };
-            //   timesArray.unshift(firstObj);
-            // }
+            if (tracksArray.length > 0) {
+              tracksArray[tracksArray.length - 1].stop = response.data;
+            }
             factory.youtubeTracks = tracksArray;
           });
 
@@ -237,7 +229,12 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       var factory = this;
       messenger.show("Creating album from Discogs info...");
 
-      var tags = master.styles.concat(master.genres);
+      if (master.styles && master.genres) {
+        var tags = master.styles.concat(master.genres);
+      } else {
+        var tags = [];
+      }
+
       messenger.show(tags.join("/"));
       var album = {
           listType: 'album',
@@ -271,14 +268,19 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
               $location.path('/album/' + factory.album._id);
             });
           } else {
-            // THIS LOGIC NEEDS TO BE DIFFERENT, WE SHOULD PREFER THE YOUTUBE TRACKS
             // Lets see if the youtube description has track times in it....
             factory.makeTracksFromVideoInfo()
             .then(function(){
-              trackFactory.createTracks(factory.youtubeTracks)
-              .then(function(){
-                $location.path('/album/' + factory.album._id);
-              })
+              if (factory.youtubeTracks.length > 0) {
+                trackFactory.createTracks(factory.youtubeTracks)
+                .then(function(){
+                  $location.path('/album/' + factory.album._id);
+                })
+              } else {
+                messenger.show("We just need a few more things from you...");
+                $location.path('/upload/add-break-points');
+              }
+
 
 
 
