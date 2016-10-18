@@ -74,41 +74,86 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       })
     },
 
-    getTrackTimesFromVideoInfo: function() {
+    makeTracksFromVideoInfo: function() {
       var factory = this;
       var desc = this.videoInfo.description;
 
-      var timesArray = [];
-      var stringsArray = desc.match(/[0-9]{1,3}:[0-9]{2}/g);
-
-      // Assign converted start times
-      for (string in stringsArray) {
-        var current = stringsArray[string];
-        var intArray = current.split(":").map(function(s){ return parseInt(s); });
-        var isoTime = intArray[0] * 60 + intArray[1];
-        var timeObj = {};
-        timeObj.begin = isoTime;
-        timesArray.push(timeObj);
+      var tracksArray = [];
+      var descLines = desc.split('\n');
+      var firstSongLine = -1;
+      for (line in descLines) {
+        var timeStringArray = descLines[line].match(/[0-9]{1,3}:[0-9]{2}/g);
+        if (timeStringArray !== undefined && timeStringArray !== null) {
+          // Bookmark the first place we find a time, in case the first song didnt have a time
+          if (firstSongLine === -1) { firstSongLine = line };
+          // Convert that string into an ISO time stamp
+          var intArray = timeStringArray[0].split(":").map(function(s){ return parseInt(s); });
+          var startTime = intArray[0] * 60 + intArray[1];
+          // Now lets go get the track name
+          var trackName = descLines[line].replace(timeStringArray[0], '');
+          var youtubeTrack = {
+            // We have to calculate this later
+            trackNum: null,
+            trackName: trackName,
+            albumName: factory.album.name,
+            albumId: factory.album._id,
+            artist: factory.artist.name,
+            artistId: factory.artist._id,
+            videoId: factory.videoId,
+            begin: startTime,
+            // Also gotta calc this later
+            stop: null,
+            favorites: 0,
+            listens: 0
+          };
+          // Put it in our track collection
+          tracksArray.push(youtubeTrack);
+        }
       }
 
-      // Assign end times for all but the last track
-      for (var i = 0, length = timesArray.length; i < length -1; i++) {
-        timesArray[i].stop = timesArray[i + 1].begin;
+      // NOW CHECK TO SEE IF WEE NEED A FIRST track
+      // VERY IMPROTATN
+      if (tracksArray[0].begin !== 0) {
+        var trackName = descLines[firstSongLine - 1];
+        tracksArray.unshift({
+            // We have to calculate this later
+            trackNum: null,
+            trackName: trackName,
+            albumName: factory.album.name,
+            albumId: factory.album._id,
+            artist: factory.artist.name,
+            artistId: factory.artist._id,
+            videoId: factory.videoId,
+            begin: 0,
+            // Also gotta calc this later
+            stop: null,
+            favorites: 0,
+            listens: 0
+          });
       }
+
+      // Now calc end times (of all but last track) AND ASSIGN TRACK NUMS
+      for (var index = 0, length = tracksArray.length; index < length - 1; index++) {
+        tracksArray[index].stop = tracksArray[index + 1].begin;
+        tracksArray[index].trackNum = index + 1;
+      }
+
+      alert("YOUTUBETRACKIN");
+
       // assign last time
       return    youtubeFactory.getVideoDuration(factory.videoId)
           .then(function(response){
-            timesArray[timesArray.length - 1].stop = response.data;
+            tracksArray[tracksArray.length - 1].stop = response.data;
 
             // NOW HERE CHECK TO SEE IF FIRST OBJ STARTS AT 0
-            if (timesArray[0].begin !== 0) {
-              var firstObj = {
-                begin: 0,
-                stop: timesArray[0].begin
-              };
-              timesArray.unshift(firstObj);
-            }
-            factory.youtubeTimes = timesArray;
+            // if (timesArray[0].begin !== 0) {
+            //   var firstObj = {
+            //     begin: 0,
+            //     stop: timesArray[0].begin
+            //   };
+            //   timesArray.unshift(firstObj);
+            // }
+            factory.youtubeTracks = tracksArray;
           });
 
 
@@ -226,29 +271,17 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
               $location.path('/album/' + factory.album._id);
             });
           } else {
+            // THIS LOGIC NEEDS TO BE DIFFERENT, WE SHOULD PREFER THE YOUTUBE TRACKS
             // Lets see if the youtube description has track times in it....
-            factory.getTrackTimesFromVideoInfo()
+            factory.makeTracksFromVideoInfo()
             .then(function(){
-              console.log("UOUIR ARRAYS");
-              console.log(factory.youtubeTimes);
-              console.log(factory.tracks);
-              if (factory.youtubeTimes.length != factory.tracks.length) {
-                $location.path('/upload/add-break-points');
-                messenger.show("We just need a little more info from you!!");
-              } else {
-                // Assign the times and make the treacks!
-                for (index in factory.youtubeTimes) {
-                  factory.tracks[index].begin = factory.youtubeTimes[index].begin;
-                  factory.tracks[index].stop = factory.youtubeTimes[index].stop;
-                }
-                console.log("LADIES AND GENTLAMEN");
-                console.log(factory.tracks);
-                trackFactory.createTracks(factory.tracks)
-                .then(function(result){
-                  messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
-                  $location.path('/album/' + factory.album._id);
-                });
-              }
+              trackFactory.createTracks(factory.youtubeTracks)
+              .then(function(){
+                $location.path('/album/' + factory.album._id);
+              })
+
+
+
 
             })
 
@@ -267,6 +300,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     album: {},
     tracks: [],
     videoInfo: {},
-    youtubeTimes: {}
+    youtubeTracks: {}
   }
 });
