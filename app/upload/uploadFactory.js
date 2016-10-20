@@ -261,13 +261,8 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
           messenger.show("Converting Discogs master track information...");
           // convert these tracks
           factory.tracks = factory.convertDiscogsTracklist(master.tracklist, factory.album, factory.artist, factory.videoId);
-          if (factory.tracks[0].begin !== null) {
-            trackFactory.createTracks(factory.tracks)
-            .then(function(result){
-              messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
-              $location.path('/album/' + factory.album._id);
-            });
-          } else {
+
+
             // Lets see if the youtube description has track times in it....
             factory.makeTracksFromVideoInfo()
             .then(function(){
@@ -276,21 +271,24 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                 .then(function(){
                   $location.path('/album/' + factory.album._id);
                 })
+
               } else {
-                messenger.show("We just need a few more things from you...");
-                $location.path('/upload/add-break-points');
-              }
-
-
-
-
-
-            })
-
-          }
+                if (factory.tracks[0].begin !== null) {
+                  trackFactory.createTracks(factory.tracks)
+                  .then(function(result){
+                    messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
+                    $location.path('/album/' + factory.album._id);
+                  });
+                } else {
+                  messenger.show("We just need a few more things from you...");
+                  $location.path('/upload/add-break-points');
+                }
+            }
 
         });
-    },
+    })
+
+  },
 
     createTracks: function(tracks) {
       return trackFactory.createTracks(tracks);
