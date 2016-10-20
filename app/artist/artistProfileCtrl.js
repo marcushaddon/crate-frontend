@@ -1,13 +1,23 @@
-crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, artistFactory, stereo){
-  $scope.artist = {
-    artist: { name: "NEW GUY" }
-  };
+crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, artistFactory, albumFactory, trackFactory, stereo){
+  $scope.artist = {};
+  $scope.albums = [];
+  $scope.tracks = [];
 
   $scope.init = function() {
     var artistId = $routeParams.id;
 		artistFactory.getArtist(artistId).then(function(response){
 			$scope.artist = response.data;
 		});
+
+    albumFactory.getAlbumsByArtistId(artistId)
+    .then(function(response){
+      $scope.albums = response.data;
+    });
+
+    trackFactory.getTracksByArtistId(artistId)
+    .then(function(response){
+      $scope.tracks = response.data;
+    })
 	};
 
   $scope.cueMyTracks = function() {

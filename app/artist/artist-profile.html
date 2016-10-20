@@ -2,29 +2,34 @@
 <div ng-init='init()'>
 <nav-bar></nav-bar>
 <div class='row'>
-  <div class='col m4 s12'>
-  <h3>{{artist.artist.name}}</h3>
-  <a ng-href="{{artist.artist.link}}" target='#'>Info</a>
+  <div class='row list-header cyan'>
+    <div class='col m3 offset-m1'>
+      <img class='' ng-src='{{ artist.imgUrl || albumImgPlaceHolder }}'></img>
+      <div class='mini-control-panel grey lighten-2'>
+        <a href='' ng-click='favoriteToggle(album)'><i class='material-icons'>favorite</i></a>
+    </div>
+    </div>
 
-  <h4>Bio:</h4>
-  <p>{{artist.artist.bio || 'No biography has been provided for this artist'}}</p>
-</div>
+    <div class='col m8'>
+      <h3>{{ artist.name }} <small class=''><i class='material-icons'>favorite</i> {{artist.favorites || 0}}<i class='material-icons'>play_arrow</i> {{artist.listens || 0}} <i class='material-icons'>library_music</i> {{ albums.length || 0 }} <i class='fa fa-music'></i>'{{ tracks.length || 0 }}</small></h3>
+      <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
 
-<div class='col m8'>
-  <h3>Discography</h3>
-<div class='s12 music-list'>
-  <h5>All songs by {{artist.artist.name}}</h5>
-  <div class='collection'>
-    <list-song-item ng-repeat='track in artist.tracks'></list-song-item>
+      <br>
+
+      <div class="chip" ng-repeat='tag in artist.tags'>
+        {{tag}}
+      </div>
+      <p>
+    </p>
+    <h3>Bio</h3>
+    {{artist.bio}}
+    </div>
   </div>
-
-  <h5>All albums by {{artist.artist.name}}</h5>
-  <div class='collection'>
-    <album-item ng-repeat='album in artist.albums'></album-item>
+  <div class='col s12 m8 offset-m2'>
+    <div class='collection' >
+            <list-song-item ng-repeat='track in tracks'></list-song-item>
+    </div>
   </div>
-
-</div>
-</div>
 </div>
 
 

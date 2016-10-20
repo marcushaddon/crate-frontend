@@ -38,6 +38,13 @@ crate.factory('albumFactory', function($http, $q){
       });
     },
 
+    getAlbumsByArtistId: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/artist/' + id + '/albums'
+      });
+    },
+
     createAlbum: function(album) {
       return $http({
         method: 'POST',

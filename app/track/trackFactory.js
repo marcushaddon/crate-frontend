@@ -13,6 +13,13 @@ crate.factory('trackFactory', function($http){
         url: '/api/tracks',
         data: tracks
       });
+    },
+
+    getTracksByArtistId: function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/artist/' + id + '/tracks'
+      });
     }
   }
 
