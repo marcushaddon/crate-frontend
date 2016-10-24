@@ -37,6 +37,9 @@ body {
   	height: 100px;
   	clear:both;
 }
+body {
+  margin: 0 0 40px;
+}
 
 footer {
   position: absolute;
@@ -45,7 +48,7 @@ footer {
   bottom: 0px;
 }
 
-.music-list {
+.nested-music-list {
     max-height: 380px;
     overflow: scroll;
 }
@@ -160,6 +163,16 @@ footer {
 .subtle-container {
   padding-left: 20px;
   padding-right: 20px;
-  max-height: 550px;
-  overflow-x: scroll;
+  /*max-height: 550px;
+  overflow-x: scroll;*/
+}
+
+.read-more {
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.thumb {
+  height: 200px;
+  width: 200px;
 }

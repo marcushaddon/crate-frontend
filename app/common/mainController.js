@@ -44,59 +44,33 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 		};
 
 
-	this.setTrack = function(track) {
-		stereo.setTrack(track);
-	};
+	// this.setTrack = function(track) {
+	// 	stereo.setTrack(track);
+	// };
 
-	this.setActiveList = function(list) {
+	// this.setActiveList = function(list) {
+	//
+	// 	stereo.setActiveList(list);
+	// 	if (list.listType === 'playlist') {
+	// 		stereo.setActiveTracks(list.tracks);
+	// 	} else {
+	// 		// stereo is out of scope when oure success funciton runs! for now this is handled in MainCtrl :'(
+	// 		albumFactory.getTracksByAlbumId(list._id)
+	// 		.then(function(response){
+	// 			stereo.activeTracks = response.data;
+	// 		});
+	// 	}
+	// };
 
-		stereo.setActiveList(list);
-		if (list.listType === 'playlist') {
-			stereo.setActiveTracks(list.tracks);
-		} else {
-			// stereo is out of scope when oure success funciton runs! for now this is handled in MainCtrl :'(
-			albumFactory.getTracksByAlbumId(list._id)
-			.then(function(response){
-				stereo.activeTracks = response.data;
-			});
-		}
-	};
-
-	this.isActiveList = function(list) {
-		if (stereo.activeList == list) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	// this.isActiveTrack = function(track) {
-	// 	if (stereo.activeTrack == track) {
+	// this.isActiveList = function(list) {
+	// 	if (stereo.activeList == list) {
 	// 		return true;
 	// 	} else {
 	// 		return false;
 	// 	}
 	// };
 
-	// $scope.$on('trackPlayToggle', function(event, data){
-	// 	if (stereo.activeTrack == data) {
-	// 		stereo.playToggle();
-	// 	} else {
-	// 		stereo.setTrack(data);
-	// 	}
-	// 	// event.stopPropagation();
-	// });
 
-	// $scope.$on('listPlayToggle', function(event, data){
-	// 	if (data._id == undefined) {
-	// 		return;
-	// 	}
-	// 	if (stereo.activeList._id !== data._id) {
-	// 		app.setActiveList(data);
-	// 	}
-	// 	event.stopPropagation();
-	//
-	// });
 
 	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
 	this.update = function() {
@@ -110,6 +84,10 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 		}
 		$scope.$apply();
 	}
+
+	this.showText = function(event) {
+		alert(event);
+	};
 
 	//better implemented as a custom filter
 	this.secToMinSec = function(seconds) {

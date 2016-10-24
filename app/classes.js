@@ -23,11 +23,12 @@ function Playlist(name, description, createdBy, tracks) {
 	this.tracks = tracks || [];
 }
 
-function Artist(name, bio, link, imgUrl, discogsId, discogsUrl, discogsUri, aka) {
+function Artist(name, bio, link, imgUrl, imgs, discogsId, discogsUrl, discogsUri, aka) {
 	this.name = name;
 	this.bio = bio;
 	this.link = link;
 	this.imgUrl = imgUrl;
+	this.imgs = imgs;
 	this.discogsId = discogsId;
 	this.discogsUrl = discogsUrl;
 	this.discogsUri = discogsUri;

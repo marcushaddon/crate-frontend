@@ -80,15 +80,22 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
       var tracksArray = [];
       var descLines = desc.split('\n');
+      console.log(descLines);
       var firstSongLine = -1;
       for (line in descLines) {
-        var timeStringArray = descLines[line].match(/[0-9]{1,3}:[0-9]{2}/g);
+        var timeStringArray = descLines[line].match(/([0-9]{1,2}:)*[0-9]{1,2}:[0-9]{2}/g);
         if (timeStringArray !== undefined && timeStringArray !== null) {
           // Bookmark the first place we find a time, in case the first song didnt have a time
           if (firstSongLine === -1) { firstSongLine = line };
           // Convert that string into an ISO time stamp
           var intArray = timeStringArray[0].split(":").map(function(s){ return parseInt(s); });
-          var startTime = intArray[0] * 60 + intArray[1];
+          // If we have an hours place
+          if (intArray.length === 3) {
+            var startTime = intArray[0] * 60 * 60 + intArray[1] * 60 + intArray[2];
+          } else {
+            var startTime = intArray[0] * 60 + intArray[1];
+          }
+
           // Now lets go get the track name
           var trackName = descLines[line].replace(timeStringArray[0], '');
           var youtubeTrack = {
@@ -140,10 +147,11 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
 
       // assign last time
-      return    youtubeFactory.getVideoDuration(factory.videoId)
+      return youtubeFactory.getVideoDuration(factory.videoId)
           .then(function(response){
             if (tracksArray.length > 0) {
               tracksArray[tracksArray.length - 1].stop = response.data;
+              tracksArray[tracksArray.length - 1].trackNum = tracksArray.length;
             }
             factory.youtubeTracks = tracksArray;
           });
@@ -158,7 +166,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       messenger.show("Getting Youtube video info...");
       factory.getVideoInfo()
       .then(function(){
-        console.log(factory.videoInfo);
         messenger.show("Checking Crate for this release...");
         // First check to see if we have imported this master from discogs...
         albumFactory.getAlbumByDiscogsId(master.id)
@@ -189,16 +196,23 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     // Create the new artist
                     // Just in case the artist doesnt have an images array
                     var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
-                    var crateArtist = new Artist(
-                      discArtist.name,
-                      discArtist.profile,
-                      discArtist.uri,
-                      image,
-                      discArtist.id,
-                      discArtist.resource_url,
-                      discArtist.uri,
-                      discArtist.namevariations
-                    );
+                    var imgs = discArtist.images? discArtist.images : [];
+                    var link = discArtist.urls ? discArtist.urls[0] : discArtist.uri;
+                    var crateArtist = {
+                      name: discArtist.name,
+                      bio: discArtist.profile,
+                      link: link,
+                      imgUrl: image,
+                      imgs: imgs,
+                      discogsId: discArtist.id,
+                      discogsUrl: discArtist.resource_url,
+                      discogsUri: discArtist.resource_uri,
+                      aka: discArtist.namevariations,
+                      tags: [],
+                      favorites: 0,
+                      listens: 0
+                    };
+
                     // Put this artist into our db and use the result as our artist
                     artistFactory.createArtist(crateArtist)
                     .then(function(response){
@@ -266,9 +280,21 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
             // Lets see if the youtube description has track times in it....
             factory.makeTracksFromVideoInfo()
             .then(function(){
-              if (factory.youtubeTracks.length > 0) {
+              console.log(factory.youtubeTracks);
+              if (factory.youtubeTracks.length >= factory.album.noTracks && factory.validateTrackTimes(factory.youtubeTracks)) {
+                // If the num of tracks match, use youtube times, but discogs titles
+
+                alert("NO OF DSGOS TRACKS: " + factory.tracks.length);
+                if (factory.youtubeTracks.length == factory.tracks.length) {
+                  console.log("Using discogs names!");
+                  for (track in factory.youtubeTracks) {
+                    factory.youtubeTracks[track].trackName = factory.tracks[track].trackName;
+                  }
+                }
+                // If not, just use youtubes...
                 trackFactory.createTracks(factory.youtubeTracks)
                 .then(function(){
+
                   $location.path('/album/' + factory.album._id);
                 })
 
@@ -293,6 +319,20 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     createTracks: function(tracks) {
       return trackFactory.createTracks(tracks);
 
+    },
+
+    validateTrackTimes: function(tracks) {
+      for (track in tracks) {
+        if (track > 0) {
+            if (tracks[track].begin < tracks[track - 1].stop) return false;
+        }
+        if (tracks[track].stop < tracks[track].begin) {
+          return false;
+        }
+        console.log("Begin: " + tracks[track].begin + ", Stop: " + tracks[track].stop);
+
+      }
+      return true;
     },
 
     videoId: '',

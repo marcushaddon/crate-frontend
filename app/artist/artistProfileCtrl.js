@@ -2,6 +2,10 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
   $scope.artist = {};
   $scope.albums = [];
   $scope.tracks = [];
+  $scope.viewing = 'tracks';
+  $scope.setView = function(view) {
+    $scope.viewing = view;
+  }
 
   $scope.init = function() {
     var artistId = $routeParams.id;
@@ -21,6 +25,6 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
 	};
 
   $scope.cueMyTracks = function() {
-    stereo.setActiveTracks($scope.artist.tracks);
+    stereo.setActiveTracks($scope.tracks);
   };
 });
