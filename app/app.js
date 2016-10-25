@@ -29,6 +29,11 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'Uploader'
 	})
 
+	.when('/upload/printout', {
+		templateUrl: 'upload/printout.html',
+		controller: 'Uploader'
+	})
+
 	.when('/upload/add-break-points', {
 		templateUrl: 'upload/add-break-points.html',
 		controller: 'trackEditCtrl'

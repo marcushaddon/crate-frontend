@@ -1,6 +1,9 @@
 // FOR WHEN WE GET YOUTUBE DESCRIPTIONS, HERE IS THE REGEX TO FIND TIMES /[0-9]{1,3}:[0-9]{2}/g
 crate.factory('uploadFactory', function($http, $location, discogsFactory, youtubeFactory, artistFactory, albumFactory, trackFactory, messenger){
   return {
+    processingComplete: false,
+    progressUpdates: [],
+    nextStop: null,
 
     checkCrateForArtist: function(artist) {
       return $http({
@@ -163,32 +166,32 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
     useDiscogsEntity: function(master) {
       var factory = this;
-      messenger.show("Getting Youtube video info...");
+      factory.progressUpdates.push("Getting Youtube video info...");
       factory.getVideoInfo()
       .then(function(){
-        messenger.show("Checking Crate for this release...");
+        factory.progressUpdates.push("Checking Crate for this release...");
         // First check to see if we have imported this master from discogs...
         albumFactory.getAlbumByDiscogsId(master.id)
         .then(function(response){
           // If not, then continue....
           if (response.data === null) {
-            messenger.show("Getting release information from Discogs...");
+            factory.progressUpdates.push("Getting release information from Discogs...");
             // This needs to accept a second argument of album type, master or release,
             discogsFactory.getAlbum(master.id, master.type)
             .then(function(response){
               var master = response.data;
               var discogsArtistId = master.artists[0].id;
               // See if we already have this artist
-              messenger.show("Getting artist information from Discogs...");
+              factory.progressUpdates.push("Getting artist information from Discogs...");
               artistFactory.getArtistByDiscogsId(discogsArtistId)
               .then(function(response){
                 // We have this artist!
                 if (response.data != null && response.data != []) {
                   factory.artist = response.data;
-                  messenger.show("Artist exists in Crate, pulling Crate artist info...");
+                  factory.progressUpdates.push("Artist exists in Crate, pulling Crate artist info...");
                   factory.createAlbumFromMaster(master);
                 } else {
-                  messenger.show("New artist! Pulling artist info from Discogs to create Crate artist...");
+                  factory.progressUpdates.push("New artist! Pulling artist info from Discogs to create Crate artist...");
                   // We dont have this artist, so create them and assign the result to our artistCandidate
                   discogsFactory.getArtist(discogsArtistId)
                   .then(function(response){
@@ -241,7 +244,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
     createAlbumFromMaster: function(master) {
       var factory = this;
-      messenger.show("Creating album from Discogs info...");
+      factory.progressUpdates.push("Creating album from Discogs info...");
 
       if (master.styles && master.genres) {
         var tags = master.styles.concat(master.genres);
@@ -249,7 +252,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         var tags = [];
       }
 
-      messenger.show(tags.join("/"));
       var album = {
           listType: 'album',
           name: master.title,
@@ -272,7 +274,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
           factory.album = response.data;
           // Now let's have a look at the tracks!!!
-          messenger.show("Converting Discogs master track information...");
+          factory.progressUpdates.push("Converting Discogs master track information...");
           // convert these tracks
           factory.tracks = factory.convertDiscogsTracklist(master.tracklist, factory.album, factory.artist, factory.videoId);
 
@@ -294,20 +296,23 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                 // If not, just use youtubes...
                 trackFactory.createTracks(factory.youtubeTracks)
                 .then(function(){
-
-                  $location.path('/album/' + factory.album._id);
+                  factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
+                  factory.nextStop = '/album/' + factory.album._id;
+                  factory.processingComplete = true;
                 })
 
               } else {
                 if (factory.tracks[0].begin !== null) {
                   trackFactory.createTracks(factory.tracks)
                   .then(function(result){
-                    messenger.show("We were able to get everything we needed from Discogs! Here's the album!");
-                    $location.path('/album/' + factory.album._id);
+                    factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
+                    factory.nextStop = '/album/' + factory.album._id;
+                    factory.processingComplete = true;
                   });
                 } else {
-                  messenger.show("We just need a few more things from you...");
-                  $location.path('/upload/add-break-points');
+                  factory.progressUpdates.push("We just need a few more things from you...");
+                  factory.processingComplete = true;
+                  factory.nextStop = '/upload/add-break-points';
                 }
             }
 

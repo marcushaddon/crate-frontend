@@ -1,0 +1,10 @@
+<div class='container'>
+
+<h3 class='center-align'><i class='material-icons'>android</i> - Beep beep boop...</h3>
+<ul class='center-align'>
+  <li ng-repeat='update in getUpdates()'><i>{{update}}</i></li>
+</ul>
+<p class='center-align'>
+<a ng-href='{{getNextStop()}}'><input type='button' class='btn btn-success' value="Let's Go!!!" ng-show='getProgressComplete()' ></input></a>
+</p>
+</div>

@@ -1,9 +1,21 @@
-	crate.controller('Uploader', function($scope, config, stereo, discogsFactory, uploadFactory, messenger){
+	crate.controller('Uploader', function($scope, $location, config, stereo, discogsFactory, uploadFactory, messenger){
 	$scope.videoId = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
 	$scope.possibleArtists = [];
+
+	$scope.getUpdates = function() {
+		return uploadFactory.progressUpdates;
+	};
+
+	$scope.getProgressComplete = function() {
+		return uploadFactory.processingComplete;
+	};
+
+	$scope.getNextStop = function() {
+		return uploadFactory.nextStop;
+	};
 
 	// $scope.getTrackCandidates = function() {
 	// 	return uploadFactory.tracks;
@@ -38,12 +50,14 @@
 	$scope.useDiscogsMaster = function(master) {
 		uploadFactory.videoId = $scope.videoId;
 		// This should be called from inside of uploadFactoris method so other methods dont come out of order!
+		$location.path('/upload/printout');
 		uploadFactory.useDiscogsEntity(master)
 
 	};
 
 	$scope.useDiscogsRelease = function(release) {
 		uploadFactory.videoId = $scope.videoId;
+		$location.path('/upload/printout');
 		uploadFactory.useDiscogsEntity(release);
 	};
 
