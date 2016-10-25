@@ -80,7 +80,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
       var tracksArray = [];
       var descLines = desc.split('\n');
-      console.log(descLines);
+
       var firstSongLine = -1;
       for (line in descLines) {
         var timeStringArray = descLines[line].match(/([0-9]{1,2}:)*[0-9]{1,2}:[0-9]{2}/g);
@@ -284,7 +284,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
               if (factory.youtubeTracks.length >= factory.album.noTracks && factory.validateTrackTimes(factory.youtubeTracks)) {
                 // If the num of tracks match, use youtube times, but discogs titles
 
-                alert("NO OF DSGOS TRACKS: " + factory.tracks.length);
+
                 if (factory.youtubeTracks.length == factory.tracks.length) {
                   console.log("Using discogs names!");
                   for (track in factory.youtubeTracks) {
