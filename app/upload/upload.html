@@ -27,7 +27,7 @@
 			<h4>Is one of the following the correct release?</h4>
 			<a class='btn' ng-click='checkDiscogsForArtist()'>No! Try 'Plan B'!!</a>
 			<ul>
-				<li ng-repeat='master in possibleMasters'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
+				<li ng-repeat='master in possibleMasters track by $index'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
 			</ul>
 	</div>
 

@@ -296,8 +296,8 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                 // If not, just use youtubes...
                 trackFactory.createTracks(factory.youtubeTracks)
                 .then(function(){
-                  factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
-                  factory.nextStop = '/album/' + factory.album._id;
+                  factory.progressUpdates.push("We were able to get everything we needed from Youtube! Here's the album!");
+                  factory.nextStop = '#/album/' + factory.album._id;
                   factory.processingComplete = true;
                 })
 
@@ -306,13 +306,13 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                   trackFactory.createTracks(factory.tracks)
                   .then(function(result){
                     factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
-                    factory.nextStop = '/album/' + factory.album._id;
+                    factory.nextStop = '#/album/' + factory.album._id;
                     factory.processingComplete = true;
                   });
                 } else {
                   factory.progressUpdates.push("We just need a few more things from you...");
                   factory.processingComplete = true;
-                  factory.nextStop = '/upload/add-break-points';
+                  factory.nextStop = '#/upload/add-break-points';
                 }
             }
 
@@ -334,7 +334,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         if (tracks[track].stop < tracks[track].begin) {
           return false;
         }
-        console.log("Begin: " + tracks[track].begin + ", Stop: " + tracks[track].stop);
+        
 
       }
       return true;
