@@ -205,7 +205,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     var imgs = discArtist.images? discArtist.images : [];
                     var link = discArtist.urls ? discArtist.urls[0] : discArtist.uri;
                     var crateArtist = {
-                      name: discArtist.name,
+                      name: discArtist.name.replace(/\s\(\d+\)/gi, ''),
                       bio: discArtist.profile,
                       link: link,
                       imgUrl: image,
