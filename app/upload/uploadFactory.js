@@ -166,6 +166,9 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
     useDiscogsEntity: function(master) {
       var factory = this;
+      if (factory.videoId === '') {
+        messenger.show("Woops! Looks like you forgot to enter the Youtube URL!");
+      }
       factory.progressUpdates.push("Getting Youtube video info...");
       factory.getVideoInfo()
       .then(function(){
@@ -252,13 +255,18 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         var tags = [];
       }
 
+      if (master.images) {
+        var albumImg = master.images[0].resource_url;
+      }
+
       var album = {
           listType: 'album',
           name: master.title,
           artist: factory.artist.name,
           artistId: factory.artist._id,
           noTracks: master.tracklist.length,
-          imgUrl: master.images[0].resource_url,
+          // THROWIN ERRORS CHECK TOSEE IF THEY EXIST
+          imgUrl: albumImg,
           // THIS JUST RETURNS THELENGTH OF THE ARRAY, NOT COOL OK
           tags: tags,
           genres: master.genres,
@@ -334,7 +342,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         if (tracks[track].stop < tracks[track].begin) {
           return false;
         }
-        
+
 
       }
       return true;
