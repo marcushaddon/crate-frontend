@@ -3,7 +3,7 @@ crate.factory('discogsFactory', function($http){
     searchForRelease: function(query) {
       return $http({
         method: 'GET',
-        url: '/api/discogs/search/master/' + query
+        url: '/api/discogs/search/release/' + query
       });
     },
 

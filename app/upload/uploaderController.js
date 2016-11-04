@@ -1,5 +1,5 @@
 	crate.controller('Uploader', function($scope, $location, config, stereo, discogsFactory, uploadFactory, messenger){
-	$scope.videoId = '';
+	$scope.videoUrl = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
@@ -72,7 +72,7 @@
 
 	// yah redundant i know
 	$scope.useDiscogsMaster = function(master) {
-		uploadFactory.videoId = $scope.videoId;
+		uploadFactory.videoId = $scope.getVideoId();
 		// This should be called from inside of uploadFactoris method so other methods dont come out of order!
 
 		$location.path('/upload/printout');
@@ -81,7 +81,7 @@
 	};
 
 	$scope.useDiscogsRelease = function(release) {
-		uploadFactory.videoId = $scope.videoId;
+		uploadFactory.videoId = $scope.getVideoId();
 		$location.path('/upload/printout');
 		uploadFactory.useDiscogsEntity(release);
 	};
@@ -99,6 +99,20 @@
 	    }
 	  }
 	  return matchCount / arrayA.length;
+	};
+
+	$scope.getVideoId = function() {
+		var url = $scope.videoUrl;
+		var vIndex = url.indexOf('v=');
+	  if (vIndex > -1) {
+	    var id = url.slice(vIndex + 2);
+	    var query = id.indexOf('&');
+	    if (query > -1) {
+	      id = id.slice(0, query);
+	    }
+	    return id;
+	  }
+		return false;
 	};
 
 	$scope.artistImgPlaceholder = config.artistImgPlaceholder;
