@@ -272,6 +272,24 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         var albumImg = master.images[0].resource_url;
       }
 
+      if (master.notes) {
+        var notes = master.notes;
+      } else {
+        var notes = '';
+      }
+
+      if (master.artists.length > 1) {
+        var contributers = masters.artists;
+      }
+
+      if (master.extraartists) {
+        if (contributers) {
+          contributers = contributres.concat(master.extraartists);
+        } else {
+          var contributers = master.extraartists;
+        }
+      }
+
       var album = {
           listType: 'album',
           name: master.title,
@@ -283,7 +301,9 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
           // THIS JUST RETURNS THELENGTH OF THE ARRAY, NOT COOL OK
           tags: tags,
           genres: master.genres,
+          contributers: contributers || [],
           year: master.year,
+          country: master.country,
           discogsId: master.id,
           discogsUrl: master.resource_url,
           discogsUri: master.uri
