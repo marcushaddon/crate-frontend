@@ -153,7 +153,10 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         tracksArray[index].stop = tracksArray[index + 1].begin;
         tracksArray[index].trackNum = index + 1;
       }
-      tracksArray[tracksArray.length - 1].trackNum = tracksArray.length;
+      if (tracksArray.length > 0) {
+        tracksArray[tracksArray.length - 1].trackNum = tracksArray.length;
+
+      }
 
       if (!dumb) {
         // assign last time
@@ -302,6 +305,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
           tags: tags,
           genres: master.genres,
           contributers: contributers || [],
+          notes: master.notes,
           year: master.year,
           country: master.country,
           discogsId: master.id,
