@@ -1,4 +1,4 @@
-crate.controller('navbarCtrl', function($scope, $location, user){
+crate.controller('navbarCtrl', function($scope, $location, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
   $scope.search = function() {
@@ -11,4 +11,8 @@ crate.controller('navbarCtrl', function($scope, $location, user){
 
   $scope.getUser = function() { return user.info; };
   $scope.user = user;
+
+  $scope.fbLogin = function() {
+    fbAuthFactory.loginRedirect();
+  };
 });

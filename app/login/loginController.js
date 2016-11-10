@@ -1,7 +1,4 @@
-crate.controller('login', function($scope, $location, user, authTokenFactory){
-  $scope.loginName     = '';
-  $scope.loginPassword = '';
-  $scope.errorMessage  = '';
+crate.controller('login', function($scope, $location, fbAuthFactory, user, authTokenFactory){
 
   $scope.init = function() {
     var token = authTokenFactory.getToken();
@@ -10,20 +7,13 @@ crate.controller('login', function($scope, $location, user, authTokenFactory){
       .then(function(response){
         user.info = response.data;
       });
-      user.isLoggedIn = true;
+
       $location.path('/front-page');
     }
   };
 
-  $scope.submit = function() {
-    user.logIn($scope.loginName, $scope.loginPassword).then(function(response){
-      user.setUser({
-        userName: response.data.userName,
-        userId: response.data.userId
-      });
-      user.isLoggedIn = true;
-      authTokenFactory.setToken(response.data.token);
-      $location.path('/front-page');
-    });
-  };
+  $scope.fbLogin = function() {
+    fbAuthFactory.loginRedirect();
+    };
+  
 });

@@ -27,8 +27,9 @@
       <li><a href="#/home">Home</a></li>
       <li><a href="#/upload">Upload</a></li>
       <li><a href="#/user/{{user.info.userId}}">Profile</a></li>
+      <li><a href='#/login'>Log in</a></li>
     </ul>
-    <small class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
+    <small ng-show='user.isLoggedIn()' class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
 
 </div>
   </div>

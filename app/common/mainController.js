@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, albumFactory, stereo, messenger, user) {
+crate.controller('Main', function($scope, $location, $rootScope, authTokenFactory, albumFactory, stereo, messenger, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;
@@ -100,21 +100,14 @@ crate.controller('Main', function($scope, $location, $rootScope, albumFactory, s
 				};
 
 	this.init = function() {
+		var token = authTokenFactory.getToken();
+		alert(token);
+		user.refreshUser().then(function(response){
+			user.refreshUser().then(function(response){
+				user.setUser(response.data);
+			})
+		})
 
-		if (!this.getIsLoggedIn()) {
-			$location.path('/login');
-			return;
-		}
-		var userId = user.info.userId;
-		playlistFactory.getUserPlaylists(userId).then(function(response) {
-			stereo.lists = response.data;
-			if (stereo.lists[0]) {
-				app.setActiveList(stereo.lists[0]);
-			}
-
-		});
-		app.loggedIn = true;
-		$location.path('/home');
 	};
 
 	$rootScope.$on('stereoUpdate', function(){

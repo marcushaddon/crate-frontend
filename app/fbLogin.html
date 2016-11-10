@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login Redirect</title>
+<meta charset="UTF-8">
+<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+</head>
+<body>
+<script>
+  $(document).ready(function(){
+    // Get the access token from the query string
+    var paramIndex =  window.location.href.indexOf('token=');
+    var token =  window.location.href.slice(paramIndex + 6);
+    var end = token.indexOf('&');
+    token = token.slice(0, end);
+    $.post("/auth/facebook/" + token, function(data, status){
+        alert(data);
+        localStorage.setItem("auth-token", data);
+        window.location.replace("http://localhost:3000/");
+     });
+  });
+</script>
+</body>
+</html>

@@ -45,6 +45,7 @@
     <script src='common/discogsFactory.js'></script>
     <script src='common/bottomModalCtrl.js'></script>
     <script src='common/youtubeFactory.js'></script>
+    <script src='common/fbAuthFactory.js'></script>
     <!-- <script src='config.js'></script> -->
 
     <script src="front-page/frontPageCtrl.js"></script>
@@ -57,7 +58,7 @@
 
 <body>
 
-<div id='main' ng-controller='Main as PlayCtrl'>
+<div id='main' ng-controller='Main as PlayCtrl' ng-init='PlayCtrl.init()'>
 
     <!-- <nav-bar ng-show='true'></nav-bar> -->
 
