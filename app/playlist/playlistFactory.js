@@ -36,10 +36,21 @@ crate.factory('playlistFactory', function($http, user){
       });
     },
 
-    saveAlbumAsPlaylist: function(album) {
+    saveAlbumAsPlaylist: function(album, tracks) {
+      var albumPlaylist = {
+        listType: 'playlist',
+        name: album.artist + ' - ' + album.name,
+        description: '',
+        imgUrl: album.imgUrl,
+        tags: album.tags,
+        favorites: 0,
+        listens: 0,
+        tracks: tracks
+      };
       return $http({
         method: 'POST',
-        url: '/api/playlists/saveAlbumAsPlaylist/' + album._id
+        url: '/api/playlists',
+        data: albumPlaylist
       });
     },
 

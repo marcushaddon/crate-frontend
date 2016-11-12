@@ -11,7 +11,7 @@ crate.factory('albumFactory', function($http, $q){
     getAlbumByDiscogsId: function(id) {
       return $http({
         method: 'GET',
-        url: '/api/discogsAlbum/' + id
+        url: '/api/album/discogs/' + id
       });
     },
 
@@ -56,7 +56,7 @@ crate.factory('albumFactory', function($http, $q){
     incrementListens: function(albumId) {
       return $http({
         method: "PUT",
-        url: "api/albums/" + albumId + "/increment-listens"
+        url: "api/album/" + albumId + "/increment-listens"
       });
     }
   };

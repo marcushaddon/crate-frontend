@@ -4,7 +4,21 @@ crate.controller('myMusicCtrl', function($scope, $location, stereo, user, playli
   $scope.capturedTrack = {};
 
   $scope.init = function() {
-    if (!user.isLoggedIn()) $location.path('/');
+    if (!user.isLoggedIn()) {
+      $location.path('/');
+      return;
+    }
+
+    if (user === {}) {
+      user.refreshUser()
+  		.then(function(response){
+  				user.setUser(response.data);
+          $scope.getMyPlaylists();
+  		});
+    } else {
+      $scope.getMyPlaylists();
+    }
+
   };
 
   $scope.cueMyTracks = function() {

@@ -32,7 +32,6 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
   $scope.saveAlbumAsPlaylist = function(album) {
 		playlistFactory.saveAlbumAsPlaylist(album)
     .then(function(response){
-      $scope.myPlaylists.push(response.data);
       messenger.show(response.data.name + " created!");
     });
 	};
