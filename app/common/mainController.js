@@ -101,7 +101,6 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 
 	this.init = function() {
 		var token = authTokenFactory.getToken();
-		alert(token);
 		user.refreshUser().then(function(response){
 			user.refreshUser().then(function(response){
 				user.setUser(response.data);

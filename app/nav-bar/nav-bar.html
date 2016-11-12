@@ -18,18 +18,19 @@
   <div class="nav-wrapper" >
     <div class='row' >
       <div class='col m4'>
-        <a href="#/front-page" class="brand-logo"><i class='material-icons'>album</i>crate</a>
+        <a href="#/" class="brand-logo"><i class='material-icons'>album</i>crate</a>
       </div>
 
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a ng-click='searchMode = true'><i class='material-icons'>search</i></a></li>
-      <li><a href="#/home">Home</a></li>
-      <li><a href="#/upload">Upload</a></li>
-      <li><a href="#/user/{{user.info.userId}}">Profile</a></li>
-      <li><a href='#/login'>Log in</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="#/home">Home</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="#/upload">Upload</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="#/user/{{user.info.userId}}">Profile</a></li>
+      <li></li>
     </ul>
     <small ng-show='user.isLoggedIn()' class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
+    <small ng-show='!user.isLoggedIn()' class='right'><a href='#/login'>Log in</a></small>
 
 </div>
   </div>

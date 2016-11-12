@@ -5,7 +5,7 @@
     <main>
       <div class='row list-header cyan'>
         <div class='col m3 offset-m1'>
-          <img class='' ng-src='{{ user.imgUrl || userImgPlaceholder }}'></img>
+          <img class='' ng-src='{{ user.picUrl || userImgPlaceholder }}'></img>
         </div>
         <div class='col m8'>
           <h3>{{ user.userName }} <small class=''><i class='material-icons'>favorite</i>{{user.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
