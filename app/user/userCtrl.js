@@ -1,4 +1,4 @@
-crate.controller('userCtrl', function($scope, $routeParams, config, user, playlistFactory, albumFactory, messenger){
+crate.controller('userCtrl', function($scope, $routeParams, $location, config, user, playlistFactory, albumFactory, messenger){
   $scope.user = {};
   $scope.playlists = [];
   $scope.albums = [];
@@ -8,22 +8,22 @@ crate.controller('userCtrl', function($scope, $routeParams, config, user, playli
     $scope.viewing = view;
   }
   $scope.init = function() {
-
+    if (!user.isLoggedIn()) $location.path('/');
     var userId = $routeParams.id;
 
     user.getUser(userId)
-    .then(function(response){
+    .then(function(response) {
       $scope.user = response.data;
-    }, function(response){
+    }, function(response) {
       messenger.show(response.data);
     });
 
     // Get playlists by userId
     playlistFactory.getUserPlaylists(userId)
-    .then(function(response){
+    .then(function(response) {
       $scope.playlists = response.data;
     },
-    function(response){
+    function(response) {
       messenger.show(response.data);
     })
 

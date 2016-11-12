@@ -31,7 +31,7 @@ crate.factory('playlistFactory', function($http, user){
     createPlaylist: function(playlist) {
       return $http({
         method: 'POST',
-        url: '/api/playlists/new',
+        url: '/api/playlists',
         data: playlist
       });
     },

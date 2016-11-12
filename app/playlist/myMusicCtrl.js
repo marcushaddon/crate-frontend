@@ -1,18 +1,10 @@
-crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playlistFactory, messenger){
+crate.controller('myMusicCtrl', function($scope, $location, stereo, user, playlistFactory, messenger){
   $scope.myPlaylists = [];
   $scope.currentPlaylist = {};
   $scope.capturedTrack = {};
 
   $scope.init = function() {
-    if (user.info.userId == undefined) {
-      user.refreshUser()
-      .then(function(response){
-        user.setUser(response.data);
-        $scope.getMyPlaylists();
-      });
-    } else {
-      $scope.getMyPlaylists();
-    }
+    if (!user.isLoggedIn()) $location.path('/');
   };
 
   $scope.cueMyTracks = function() {
@@ -50,7 +42,7 @@ crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playl
   //   return stereo.activeTrack == track;
   // };
 
-  // Create a new playlist, either blank or by copying an album
+  // Create a new blank playlist
   $scope.newPlaylist = function() {
     var newPlaylist = {
       listType: "playlist",
@@ -94,7 +86,7 @@ crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playl
   $scope.addTrackToPlaylist = function(playlist) {
     var newTracks = playlist.tracks;
     newTracks.push(playlistFactory.capturedTrack);
-    playlistFactory.editPlaylist(playlist, 'tracks', newTracks)
+    playlistFactory.editPlaylist(playlist)
     .then(function(response){
       // update our model somehow!
       messenger.show(playlistFactory.capturedTrack.trackName + " added to " + playlist.name);
@@ -111,16 +103,18 @@ crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playl
 		});
 	};
 
-  $scope.editList = function(list, field, value, event) {
+  $scope.editList = function(list, event) {
+    console.log(event.target);
     if (event) {
       value = event.target.innerHTML;
     }
 
-    playlistFactory.editPlaylist(list, field, value)
+    playlistFactory.editPlaylist(list)
     .then(function(response){
       var indexOfEditedList = $scope.myPlaylists.indexOf(list);
       $scope.myPlaylists.splice(indexOfEditedList, 1, response.data);
       $scope.currentPlaylist = response.data;
+      event.target.editing = false;
     })
   };
 
@@ -143,7 +137,7 @@ crate.controller('myMusicCtrl', function($scope, $rootScope, stereo, user, playl
     tracks[targetIndex] = track;
     tracks[current] = temp;
 
-    $scope.editList($scope.currentPlaylist, 'tracks', tracks);
+    $scope.editList($scope.currentPlaylist);
 	};
 
   // $scope.saveAlbumAsPlaylist = function(album) {

@@ -1,4 +1,4 @@
-	crate.controller('Uploader', function($scope, $location, config, stereo, discogsFactory, uploadFactory, messenger){
+	crate.controller('Uploader', function($scope, $location, user, config, stereo, discogsFactory, uploadFactory, messenger){
 	$scope.videoUrl = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
@@ -119,4 +119,9 @@
 
 	uploadFactory.progressUpdates = [];
 	uploadFactory.processingComplete = false;
+
+	// INIT
+	$scope.init = function() {
+		if (!user.isLoggedIn()) $location.path('/');
+	};
 });

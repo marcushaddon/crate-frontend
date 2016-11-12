@@ -1,12 +1,13 @@
 <div class='results'>
 
-                <h3 class='truncate'><span contenteditable="true" ng-blur='editList(currentgetCurrentPlaylist(), "name", null, $event)'>{{getCurrentPlaylist().name}}</span></h3>
+                <h3 ng-show='!this.editing' ng-click='this.editing = true' class='truncate'>{{currentPlaylist.name}}</h3>
+                <input type='text' ng-show='this.editing' ng-model='currentPlaylist.name' ng-blur='editList(currentPlaylist, $event); this.editing = false;' />
 
 
 
                 <div class='collection music-list' >
 
-                        <playlist-song-item ng-repeat='track in getCurrentPlaylist().tracks'></playlist-song-item>
+                        <playlist-song-item ng-repeat='track in currentPlaylist.tracks'></playlist-song-item>
 
 
 
