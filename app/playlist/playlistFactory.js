@@ -37,6 +37,7 @@ crate.factory('playlistFactory', function($http, user){
     },
 
     saveAlbumAsPlaylist: function(album, tracks) {
+      console.log(album.imgUrl);
       var albumPlaylist = {
         listType: 'playlist',
         name: album.artist + ' - ' + album.name,

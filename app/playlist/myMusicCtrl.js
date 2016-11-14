@@ -117,19 +117,26 @@ crate.controller('myMusicCtrl', function($scope, $location, stereo, user, playli
 		});
 	};
 
-  $scope.editList = function(list, event) {
-    console.log(event.target);
-    if (event) {
-      value = event.target.innerHTML;
-    }
-
-    playlistFactory.editPlaylist(list)
-    .then(function(response){
-      var indexOfEditedList = $scope.myPlaylists.indexOf(list);
-      $scope.myPlaylists.splice(indexOfEditedList, 1, response.data);
-      $scope.currentPlaylist = response.data;
+  $scope.editListName = function(list, event) {
+    $scope.editList(list)
+    .then(function(){
       event.target.editing = false;
+      messenger.show("Playlist name changed to '" + list.name + "'.");
     })
+  };
+
+  $scope.editList = function(list, event) {
+    // console.log(event.target);
+    // if (event) {
+    //   value = event.target.innerHTML;
+    // }
+
+    return playlistFactory.editPlaylist(list)
+        .then(function(response){
+          var indexOfEditedList = $scope.myPlaylists.indexOf(list);
+          $scope.myPlaylists.splice(indexOfEditedList, 1, response.data);
+          $scope.currentPlaylist = response.data;
+        });
   };
 
   // direction is either -1 (backwards) or 1 (forwards)

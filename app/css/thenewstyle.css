@@ -176,3 +176,28 @@ footer {
   height: 200px;
   width: 200px;
 }
+
+.material-icons.edit {
+  font-size: 14px;
+  padding: 0px;
+  padding-left: 4px;
+  margin: 0px;
+
+}
+
+input.h3-edit {
+  font-size: 44px;
+  text-align: left;
+  height: 42px;
+  padding: 1px;
+  margin: 0px;
+  margin-bottom: 12px;
+  margin-top: 24px;
+  border: none;
+
+}
+
+input.text-edit {
+  margin: 0px;
+  margin-bottom: -40px;
+}

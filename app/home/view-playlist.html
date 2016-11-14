@@ -1,7 +1,7 @@
 <div class='results'>
 
-                <h3 ng-show='!this.editing' ng-click='this.editing = true' class='truncate'>{{currentPlaylist.name}}</h3>
-                <input type='text' ng-show='this.editing' ng-model='currentPlaylist.name' ng-blur='editList(currentPlaylist, $event); this.editing = false;' />
+                <h3 ng-show='!this.editing' class='truncate'>{{currentPlaylist.name}}<a href=''><i class='material-icons edit' ng-click='this.editing = true'>edit</i></a></h3>
+                <input class='h3-edit' type='text' ng-show='this.editing' ng-model='currentPlaylist.name' ng-blur='editListName(currentPlaylist, $event); this.editing = false;' />
 
 
 

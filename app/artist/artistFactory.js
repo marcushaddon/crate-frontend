@@ -11,7 +11,7 @@ crate.factory('artistFactory', function($http){
     getArtistByDiscogsId: function(id) {
       return $http({
         method: 'GET',
-        url: '/api/discogsArtist/' + id
+        url: '/api/artist/discogs/' + id
       });
     },
 
@@ -20,7 +20,7 @@ crate.factory('artistFactory', function($http){
       // Creating an artist with our forthcoming RESTful artist POST endpoint!
       return $http({
         method: 'POST',
-        url: '/api/artists',
+        url: '/api/artist',
         data: artist
       });
     },
@@ -28,7 +28,7 @@ crate.factory('artistFactory', function($http){
     incrementListens: function(artistId) {
       return $http({
         method: "PUT",
-        url: "api/artists/" + artistId + "/increment-listens"
+        url: "api/artist/" + artistId + "/increment-listens"
       });
     }
 }
