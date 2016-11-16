@@ -8,35 +8,35 @@
 	<div class='col m12 s12'>
 		<div id='results'>
 
-		                <h3 class='truncate'>Search Results for {{searchField}}</h3>
+		                <h3 class='truncate'>Search Results for {{query}}</h3>
                     <div class='music-list'>
 
-                    <div ng-show='results.tracks.length > 0'>
+                    <div ng-show='tracks.length > 0'>
                     <h4>Tracks</h4>
 		                <div class='collection music-list' >
-                      <song-item ng-repeat='track in results.tracks'></song-item>
+                      <song-item ng-repeat='track in tracks'></song-item>
 		                </div>
                   </div>
 
 
-                    <div ng-show='results.albums.length > 0'>
+                    <div ng-show='albums.length > 0'>
                     <h4>Albums</h4>
 		                <div class='collection music-list' >
-		                        <album-item ng-repeat='album in results.albums'></album-item>
+		                        <album-item ng-repeat='album in albums'></album-item>
 		                </div>
                   </div>
 
-                    <div ng-show='results.artists.length > 0'>
+                    <div ng-show='artists.length > 0'>
                     <h4>Artists</h4>
                     <div class='collection music-list'>
-                      <artist-item ng-repeat='artist in results.artists'></artist-item>
+                      <artist-item ng-repeat='artist in artists'></artist-item>
                     </div>
                   </div>
 
-                    <div ng-show='results.playlists.length > 0'>
+                    <div ng-show='playlists.length > 0'>
                     <h4>Playlists</h4>
                     <div class='collection music-list'>
-                      <playlist-item ng-repeat='list in results.playlists' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
+                      <playlist-item ng-repeat='list in playlists' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
                     </div>
                   </div>
                   </div>

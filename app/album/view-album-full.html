@@ -16,7 +16,7 @@
 
         <p> discovered {{ album.foundOn | date}} by <a ng-href='#/user/{{album.foundBy.userId}}'>{{ album.foundBy.userName}}</a></p>
         <div class="chip" ng-repeat='tag in album.tags'>
-          {{tag}}
+          <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
         </div>
         <p>
           <div class='mini-control-panel grey lighten-2'>

@@ -41,7 +41,7 @@ crate.factory('playlistFactory', function($http, user){
       var albumPlaylist = {
         listType: 'playlist',
         name: album.artist + ' - ' + album.name,
-        description: '',
+        description: 'A playlist by ' + user.info.userName,
         imgUrl: album.imgUrl,
         tags: album.tags,
         favorites: 0,

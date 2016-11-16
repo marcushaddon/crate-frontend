@@ -42,7 +42,7 @@
           </ul>
         </div>
           <div class="chip" ng-repeat='tag in album.tags'>
-            {{tag}}
+            <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
           </div>
 
         </div>

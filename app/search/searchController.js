@@ -1,19 +1,80 @@
-crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, stereo){
-  $scope.results = {};
+crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, messenger, stereo){
 
-  $scope.search = function() {
-
-    $http({
+  // Search methods
+  $scope.artistSearch = function(query) {
+    return $http({
       method: 'GET',
-      url: '/api/search/' + $routeParams.searchField
-    }).then(function(response){
-      console.log(response.data);
-      $scope.results = JSON.parse(response.data);
+      url: '/api/search/artist/' + query
     });
   };
 
+  $scope.albumSearch = function(query) {
+    return $http({
+      method: 'GET',
+      url: '/api/search/album/' + query
+    });
+  };
+
+  $scope.trackSearch = function(query) {
+    return $http({
+      method: 'GET',
+      url: '/api/search/track/' + query
+    });
+  };
+
+  $scope.playlistSearch = function(query) {
+    return $http({
+      method: 'GET',
+      url: '/api/search/playlist/' + query
+    });
+  };
+
+  $scope.tagSearch = function(query) {
+    return $http({
+      method: 'GET',
+      url: '/api/search/tag/' + query
+    });
+  };
+
+  // Master search
+  $scope.search = function() {
+    var tag = $location.search().tag;
+    // If we are not searching for a tag
+    if (tag === undefined) {
+      var startTime = Date.now();
+      var query = $routeParams.searchField;
+      $scope.query = query;
+      $scope.artistSearch(query)
+      .then(function(results){
+        $scope.artists = results.data;
+        console.log(results.data);
+        $scope.albumSearch(query)
+        .then(function(response){
+          $scope.albums = response.data;
+          $scope.trackSearch(query)
+          .then(function(response){
+            $scope.tracks = response.data;
+            $scope.playlistSearch(query)
+            .then(function(response){
+              $scope.playlists = response.data;
+              var endTime = Date.now();
+              var duration = (endTime - startTime) / 1000;
+              messenger.show("Search for " + query + " completed in " + duration + " seconds!");
+            })
+          })
+        })
+      })
+    } else {
+      $scope.tagSearch(tag)
+      .then(function(response) {
+        $scope.albums = response.data;
+      })
+    }
+  };
+
+  // Cue my tracks
   $scope.cueMyTracks = function() {
-    stereo.setActiveTracks($scope.results.tracks);
+    stereo.setActiveTracks($scope.tracks);
   };
 
 });

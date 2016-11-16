@@ -1,53 +1,30 @@
 <div class='results'>
+<div class='row home list-header cyan'>
+  <div class='col m3'>
+    <img class='home playlist-img' ng-src='{{ currentPlaylist.imgUrl || albumImgPlaceholder }}'></img>
+  </div>
+  <div class='col m9'>
+    <div>
+      <h4 ng-show='!this.editing' class='truncate'>{{currentPlaylist.name}} <a href=''><i class='material-icons edit' ng-click='this.editing = true'>edit</i></a></h4>
+      <input class='h4-edit home' type='text' ng-show='this.editing' ng-model='currentPlaylist.name' ng-blur='editListName(currentPlaylist, $event); this.editing = false;' />
+  </div>
+  <div>
+      <small><i class='material-icons'>favorite</i> {{currentPlaylist.likes || 0}}<i class='material-icons'>play_arrow</i> {{currentPlaylist.listens || 0}} <i class='material-icons'>list</i> {{currentPlaylist.tracks.length}} tracks</small>
+    </div>
+    <p>{{currentPlaylist.description}}</p>
+    <div class="chip" ng-repeat='tag in currentPlaylist.tags'>
+      {{tag}}
+    </div>
+  </div>
+</div>
 
-                <h3 ng-show='!this.editing' class='truncate'>{{currentPlaylist.name}}<a href=''><i class='material-icons edit' ng-click='this.editing = true'>edit</i></a></h3>
-                <input class='h3-edit' type='text' ng-show='this.editing' ng-model='currentPlaylist.name' ng-blur='editListName(currentPlaylist, $event); this.editing = false;' />
 
+    <div class='collection music-list' >
 
-
-                <div class='collection music-list' >
-
-                        <playlist-song-item ng-repeat='track in currentPlaylist.tracks'></playlist-song-item>
-
-
-
-                </div>
-
-        </div>`
-
-
-          <!-- <main>
-            <div class='row list-header cyan'>
-              <div class='col m3 offset-m1'>
-                <img class='' ng-src='{{ getCurrentPlaylist().imgUrl || albumImgPlaceHolder }}'></img>
-              </div>
-              <div class='col m8'>
-                <h3>{{ getCurrentPlaylist().name }} <small class=''><i class='material-icons'>favorite</i> {{getCurrentPlaylist().likes || 0}}<i class='material-icons'>play_arrow</i> {{getCurrentPlaylist().plays || 0}} <i class='material-icons'>list</i> {{getCurrentPlaylist().tracks.length}} tracks</small>
-                  <small class='right'>
-
-                </small></h3>
-                <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
-
-                <p>
-                  {{getCurrentPlaylist().description}}
-                </p>
-                <div class="chip" ng-repeat='tag in album.tags'>
-                  {{tag}}
-                </div>
-
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col s12 m8 offset-m2'>
+            <playlist-song-item ng-repeat='track in currentPlaylist.tracks'></playlist-song-item>
 
 
 
+    </div>
 
-            <div class='collection' >
-                    <list-song-item ng-repeat='track in getCurrentPlaylist().tracks'></list-song-item>
-            </div>
-          </div>
-        </div>
-        </main>
-
-        </div> -->
+</div>`

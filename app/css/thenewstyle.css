@@ -150,6 +150,25 @@ footer {
   max-height: 300px;
 }
 
+.list-header.home {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.list-header img.home {
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.list-header h4 {
+
+  max-width: 45vw;
+}
+
+
+
 /*this is shitty*/
 .mini-control-panel {
   display: inline-block;
@@ -180,9 +199,11 @@ footer {
 .material-icons.edit {
   font-size: 14px;
   padding: 0px;
-  padding-left: 4px;
+  /*padding-left: 4px;*/
   margin: 0px;
+  display: inline;
 
+  color: black;
 }
 
 input.h3-edit {
@@ -194,7 +215,19 @@ input.h3-edit {
   margin-bottom: 12px;
   margin-top: 24px;
   border: none;
+}
 
+input.h4-edit.home {
+  display: inline;
+  float: left;
+  font-size: 34px;
+  text-align: left;
+  height: 36px;
+  padding: 1px;
+  margin: 0px;
+  margin-bottom: 12px;
+  margin-top: 24px;
+  border: none;
 }
 
 input.text-edit {
