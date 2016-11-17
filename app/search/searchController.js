@@ -65,9 +65,10 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
         })
       })
     } else {
+      $scope.tag = tag;
       $scope.tagSearch(tag)
       .then(function(response) {
-        $scope.albums = response.data;
+        $scope.taggedAlbums = response.data;
       })
     }
   };
