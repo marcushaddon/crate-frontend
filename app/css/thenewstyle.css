@@ -234,3 +234,7 @@ input.text-edit {
   margin: 0px;
   margin-bottom: -40px;
 }
+
+.tag-subtext {
+  font-size: 10px;
+}

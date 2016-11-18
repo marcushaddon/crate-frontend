@@ -100,7 +100,6 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 				};
 
 	this.init = function() {
-		alert($location.port());
 		var token = authTokenFactory.getToken();
 		user.refreshUser()
 		.then(function(response){
