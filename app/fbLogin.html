@@ -15,7 +15,7 @@
     token = token.slice(0, end);
     $.post("/auth/facebook/" + token, function(data, status){
         localStorage.setItem("auth-token", data);
-        window.location.replace("http://localhost:3000/");
+        window.location.replace("/");
      });
   });
 </script>
