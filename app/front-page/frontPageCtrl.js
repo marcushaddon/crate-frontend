@@ -1,4 +1,4 @@
-crate.controller('FrontPageCtrl', function($scope, $location, config, albumFactory, playlistFactory) {
+crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory, albumFactory, playlistFactory) {
   $scope.latestAlbums    = [];
   $scope.latestPlaylists = [];
   $scope.today = new Date();
@@ -12,6 +12,11 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, albumFacto
 
     playlistFactory.getLatestPlaylists(4, 0).then(function(response){
       $scope.latestPlaylists = response.data;
+    });
+
+    tagFactory.getTopTags(1, 30)
+    .then(function(response){
+      $scope.topTags = response.data;
     })
   }
 });

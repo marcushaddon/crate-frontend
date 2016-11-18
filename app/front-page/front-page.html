@@ -1,7 +1,17 @@
 <nav-bar></nav-bar>
 
+<div class='row list-header cyan' ng-init='init()'>
+  <div class='subtle-container'>
+    <h3>Browse Crate by genre</h3>
+    <div class="chip" ng-repeat='tag in topTags'>
+      <a ng-href='#/search-results/?tag={{tag.text}}'>{{tag.text}}</a>
+    </div>
+</div>
+</div>
+
 <div class='subtle-container'>
-<div ng-init='init()'>
+<div >
+
 
 
   <h3>Recent uploads</h3>
