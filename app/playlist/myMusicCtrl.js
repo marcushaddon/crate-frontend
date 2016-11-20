@@ -113,7 +113,7 @@ crate.controller('myMusicCtrl', function($scope, $location, stereo, user, playli
 		tracks.splice(pos, 1);
 		playlistFactory.editPlaylist($scope.currentPlaylist, 'tracks', tracks)
 		.then(function(response){
-      messenger.show(JSON.stringify(response.data));
+      messenger.show(track.trackName + ' removed from ' + $scope.currentPlaylist.name);
 		});
 	};
 

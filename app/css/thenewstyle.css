@@ -116,6 +116,13 @@ footer {
 
 .album-cover {
   min-height: 300px;
+  max-height: 300px;
+}
+
+.album-tile {
+  max-height: 300px;
+  margin-top: 6px;
+   margin-bottom: 6px;
 }
 
 .icon-list {
@@ -134,9 +141,9 @@ footer {
   padding-bottom: 16px;
 }
 
-/*.list-header a {
-  color: black;
-}*/
+.list-header a.contrast {
+  color: white;
+}
 
 .list-header small {
   font-size: 14px;

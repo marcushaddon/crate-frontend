@@ -9,7 +9,7 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
     playlistFactory.editPlaylist(playlist)
     .then(function(response){
       // update our model somehow!
-      messenger.show(response.data);
+      messenger.show(playlistFactory.capturedTrack.trackName + " added to " + playlist.name);
     });
   };
 
