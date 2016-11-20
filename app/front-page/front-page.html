@@ -5,7 +5,7 @@
     <h3>Browse Crate by genre...</h3>
     <div class="chip" ng-repeat='tag in topTags'>
       <a ng-href='#/search-results/?tag={{tag.text}}'>{{tag.text}} <span class='tag-subtext'>({{tag.occurences}})</span></a>
-    </div>
+    </div> <small ng-hide='tagsAreDone()'><a href='' ng-click='moreTags()'>more...</a></small>
 </div>
 </div>
 
