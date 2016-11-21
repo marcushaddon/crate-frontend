@@ -15,4 +15,4 @@ crate.factory('fbAuthFactory', function($http, $location, $window){
       $window.location.href = encodeURI(this.loginEndpoint + this.getRedirectUri() + '&response_type=token');
     }
   };
-})
+});
