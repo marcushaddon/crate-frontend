@@ -282,12 +282,12 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       }
 
       if (master.artists.length > 1) {
-        var contributers = masters.artists;
+        var contributers = master.artists;
       }
 
       if (master.extraartists) {
         if (contributers) {
-          contributers = contributres.concat(master.extraartists);
+          contributers = contributers.concat(master.extraartists);
         } else {
           var contributers = master.extraartists;
         }

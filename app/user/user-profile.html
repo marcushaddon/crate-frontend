@@ -49,23 +49,26 @@
 
       <div ng-show="viewing == 'tracks'">
       <h3>Tracks</h3>
-      <div class='collection music-list'>
+      <div ng-show='crateTracks.length > 0' class='collection music-list'>
         <list-song-item ng-repeat='track in crateTracks'></list-song-item>
       </div>
+      <i ng-show='crateTracks.length == 0'>You have't added any tracks to your crate!</i>
     </div>
 
       <div ng-show="viewing == 'playlists'">
         <h3>Playlists</h3>
-        <div class='row tile-rack' >
+        <div ng-show='playlists.length > 0' class='row tile-rack' >
         <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
       </div>
+      <i ng-show='playlists.length == 0'>You haven't added any playlists to your crate!</i>
     </div>
 
     <div ng-show="viewing == 'albums'">
       <h3>Albums</h3>
-      <div class='row tile-rack' >
+      <div ng-show='albums.length > 0' class='row tile-rack' >
       <album-tile ng-repeat='album in albums'></album-tile>
       </div>
+      <i ng-show='albums.length == 0'>You haven't added any albums to your crate!</i>
     </div>
 
       <!-- <div ng-show="viewing == 'discoveries'">
@@ -77,9 +80,10 @@
 
       <div ng-show="viewing == 'artists'">
       <h3>Artists</h3>
-      <div class='collection music-list'>
+      <div ng-show='crateArtists.length > 0' class='collection music-list'>
         <artist-item ng-repeat='artist in crateArtists'></artist-item>
       </div>
+      <i ng-show='crateArtists.length == 0'>You haven't added any artists to your crate!</i>
     </div>
 
 

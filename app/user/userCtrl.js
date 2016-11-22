@@ -3,7 +3,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   $scope.playlists = [];
   $scope.albums = [];
   $scope.user = user;
-  $scope.viewing = 'artists';
+  $scope.viewing = 'tracks';
   $scope.setView = function(view) {
     $scope.viewing = view;
   }
