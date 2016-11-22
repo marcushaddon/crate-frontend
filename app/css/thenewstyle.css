@@ -63,7 +63,7 @@ footer {
 }
 
 .tile-rack {
-  overflow: scroll;
+  overflow: visible;
 }
 
 /*.card-image {

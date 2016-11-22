@@ -27,12 +27,19 @@
       </div>
       <div class='subtle-container'>
         <div class='row center-align'>
-        <a class='btn' ng-click="setView('favorites')">
-          <i class='material-icons'>favorite</i>
+        <a class='btn' ng-click="setView('tracks')">
+          <i class='material-icons'>clear_all</i>
         </a>
         <a class='btn' ng-click="setView('albums')">
-          <i class='material-icons'>remove_red_eye</i>
+          <i class='material-icons'>queue_music</i>
         </a>
+        <a class='btn' ng-click="setView('artists')">
+          <i class='material-icons'>assignment_ind</i>
+        </a>
+
+        <!-- <a class='btn' ng-click="setView('discoveries')">
+          <i class='material-icons'>remove_red_eye</i>
+        </a> -->
         <a class='btn' ng-click="setView('playlists')">
           <i class='material-icons'>view_list</i>
         </a>
@@ -40,15 +47,42 @@
 
       <!-- Dropdown Trigger -->
 
-      <div class='row tile-rack' ng-show="viewing == 'playlists'">
-        <playlist-tile ng-repeat='list in playlists'></playlist-tile>
+      <div ng-show="viewing == 'tracks'">
+      <h3>Tracks</h3>
+      <div class='collection music-list'>
+        <list-song-item ng-repeat='track in crateTracks'></list-song-item>
       </div>
+    </div>
 
-      <div class='row tile-rack' ng-show="viewing == 'albums'">
+      <div ng-show="viewing == 'playlists'">
+        <h3>Playlists</h3>
+        <div class='row tile-rack' >
+        <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
+      </div>
+    </div>
+
+    <div ng-show="viewing == 'albums'">
+      <h3>Albums</h3>
+      <div class='row tile-rack' >
       <album-tile ng-repeat='album in albums'></album-tile>
       </div>
+    </div>
 
-      <h1 ng-show="viewing == 'favorites'">favorites</h1>
+      <!-- <div ng-show="viewing == 'discoveries'">
+        <h3>My discoveries</h3>
+        <div class='row tile-rack' >
+        <album-tile ng-repeat='album in discoveries'></album-tile>
+        </div>
+      </div> -->
+
+      <div ng-show="viewing == 'artists'">
+      <h3>Artists</h3>
+      <div class='collection music-list'>
+        <artist-item ng-repeat='artist in crateArtists'></artist-item>
+      </div>
+    </div>
+
+
 
 
 

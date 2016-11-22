@@ -44,6 +44,42 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 
 		},
 
+		getCrateArtists: function(pageSize, page) {
+			pageSize = pageSize || 30;
+			page = page || 1;
+			return $http({
+				method: 'GET',
+				url: '/api/user/' + this.info.userId + '/crate/artists?page=' + page + '&pageSize=' + pageSize
+			});
+		},
+
+		getCrateAlbums: function(pageSize, page) {
+			pageSize = pageSize || 30;
+			page = page || 1;
+			return $http({
+				method: 'GET',
+				url: '/api/user/' + this.info.userId + '/crate/albums?page=' + page + '&pageSize=' + pageSize
+			});
+		},
+
+		getCrateTracks: function(pageSize, page) {
+			pageSize = pageSize || 30;
+			page = page || 1;
+			return $http({
+				method: 'GET',
+				url: '/api/user/' + this.info.userId + '/crate/tracks?page=' + page + '&pageSize=' + pageSize
+			});
+		},
+
+		getCratePlaylists: function(pageSize, page) {
+			pageSize = pageSize || 30;
+			page = page || 1;
+			return $http({
+				method: 'GET',
+				url: '/api/user/' + this.info.userId + '/crate/playlists?page=' + page + '&pageSize=' + pageSize
+			});
+		},
+
 		toggleCrateArtist: function(artist) {
 			return $http({
 				method: 'PUT',

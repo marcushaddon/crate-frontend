@@ -24,9 +24,9 @@
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a ng-click='searchMode = true'><i class='material-icons'>search</i></a></li>
-      <li ng-show='user.isLoggedIn()'><a href="#/home">Home</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="#/home">Playlists</a></li>
       <li ng-show='user.isLoggedIn()'><a href="#/upload">Upload</a></li>
-      <li ng-show='user.isLoggedIn()'><a href="#/user/{{user.info.userId}}">Profile</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="#/user/{{user.info.userId}}">My Crate</a></li>
       <li></li>
     </ul>
     <small ng-show='user.isLoggedIn()' class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>

@@ -3,7 +3,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   $scope.playlists = [];
   $scope.albums = [];
   $scope.user = user;
-  $scope.viewing = 'albums';
+  $scope.viewing = 'artists';
   $scope.setView = function(view) {
     $scope.viewing = view;
   }
@@ -19,20 +19,35 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
     });
 
     // Get playlists by userId
-    playlistFactory.getUserPlaylists(userId)
+    user.getCratePlaylists()
     .then(function(response) {
       $scope.playlists = response.data;
-    },
-    function(response) {
-      messenger.show(response.data);
-    })
+    });
 
-    // Get albums by user
+    // Get albums discovered by user
     albumFactory.getAlbumsByUserId(userId)
     .then(function(response){
-      $scope.albums = response.data;
+      $scope.discoveries = response.data;
     }, function(response){
       messenger.show(response.data);
+    });
+
+    // Get albums liked by user
+    user.getCrateAlbums()
+    .then(function(response){
+      $scope.albums = response.data;
+    });
+
+    // Get tracks liked by user
+    user.getCrateTracks()
+    .then(function(response){
+      $scope.crateTracks = response.data;
+    });
+
+    user.getCrateArtists()
+    .then(function(response) {
+      console.log(response.data);
+      $scope.crateArtists = response.data;
     })
 
 
