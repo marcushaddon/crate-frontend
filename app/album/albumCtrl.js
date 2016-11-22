@@ -1,4 +1,4 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, playlistFactory, albumFactory){
+crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, user, playlistFactory, albumFactory){
   $scope.albumId = $routeParams.id;
   $scope.init = function() {
 
@@ -36,8 +36,15 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
     });
 	};
 
-  $scope.favoriteToggle = function(album) {
-    messenger.show("Soon you'll be able to like " + album.name + "! Just not yet...");
+  $scope.crateToggle = function(album) {
+    user.toggleCrateAlbum(album)
+    .then(function(response){
+      if (response.data == "removed") {
+        messenger.show(album.name + " removed from your crate");
+      } else {
+        messenger.show(album.name + " added to your crate!");
+      }
+    })
   };
 
   // $scope.$on('trackPlayToggle', function(event){

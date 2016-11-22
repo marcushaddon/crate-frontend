@@ -6,7 +6,7 @@
         <img class='' ng-src='{{ album.imgUrl || albumImgPlaceHolder }}'></img>
       </div>
       <div class='col m8'>
-        <h3>{{ album.name }} <small class=''><i class='material-icons'>favorite</i> {{album.likes || 0}}<i class='material-icons'>play_arrow</i> {{album.listens || 0}} <i class='material-icons'>list</i> {{album.noTracks}} tracks</small>
+        <h3>{{ album.name }} <small class=''><i class='material-icons'>favorite</i> {{album.favorites || 0}}<i class='material-icons'>play_arrow</i> {{album.listens || 0}} <i class='material-icons'>list</i> {{album.noTracks}} tracks</small>
           <small class='right'>
 
         </small></h3>
@@ -20,7 +20,7 @@
         </div>
         <p>
           <div class='mini-control-panel grey lighten-2'>
-            <a href=''  ng-click='favoriteToggle(album)'><i class='material-icons'>favorite</i></a>
+            <a href=''  ng-click='crateToggle(album)'><i class='material-icons'>favorite</i></a>
             <a href=''  ng-click='saveAlbumAsPlaylist(album, tracks)'><i class='material-icons'>save</i></a>
         </div>
       </p>

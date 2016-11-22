@@ -1,4 +1,4 @@
-crate.controller('trackCtrl', function($scope, stereo, playlistFactory){
+crate.controller('trackCtrl', function($scope, stereo, messenger, user, playlistFactory){
   $scope.playToggle = function(track) {
     // $scope.$emit('trackPlayToggle', event);
     $scope.$parent.cueMyTracks();
@@ -20,5 +20,16 @@ crate.controller('trackCtrl', function($scope, stereo, playlistFactory){
       return false;
     }
 
+  };
+
+  $scope.crateToggle = function(track) {
+    user.toggleCrateTrack(track)
+    .then(function(response) {
+      if (response.data !== "removed") {
+        messenger.show(track.trackName + " added to crate!");
+      } else {
+        messenger.show(track.trackName + " removed from crate.");
+      }
+    });
   };
 });

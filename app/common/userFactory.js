@@ -42,6 +42,38 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 			this.setUser({});
 			// More stuff here
 
+		},
+
+		toggleCrateArtist: function(artist) {
+			return $http({
+				method: 'PUT',
+				url: '/api/user/' + this.info.userId + '/crate/artist',
+				data: artist
+			});
+		},
+
+		toggleCrateAlbum: function(album) {
+			return $http({
+				method: 'PUT',
+				url: '/api/user/' + this.info.userId + '/crate/album',
+				data: album
+			});
+		},
+
+		toggleCrateTrack: function(track) {
+			return $http({
+				method: 'PUT',
+				url: '/api/user/' + this.info.userId + '/crate/track',
+				data: track
+			});
+		},
+
+		toggleCratePlaylist: function(playlist) {
+			return $http({
+				method: 'PUT',
+				url: '/api/user/' + this.info.userId + '/crate/playlist',
+				data: playlist
+			});
 		}
 	}
 });
