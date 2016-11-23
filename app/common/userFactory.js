@@ -44,39 +44,39 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 
 		},
 
-		getCrateArtists: function(pageSize, page) {
+		getCrateArtists: function(user, pageSize, page) {
 			pageSize = pageSize || 30;
 			page = page || 1;
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + this.info.userId + '/crate/artists?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/artists?page=' + page + '&pageSize=' + pageSize
 			});
 		},
 
-		getCrateAlbums: function(pageSize, page) {
+		getCrateAlbums: function(user, pageSize, page) {
 			pageSize = pageSize || 30;
 			page = page || 1;
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + this.info.userId + '/crate/albums?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/albums?page=' + page + '&pageSize=' + pageSize
 			});
 		},
 
-		getCrateTracks: function(pageSize, page) {
+		getCrateTracks: function(user, pageSize, page) {
 			pageSize = pageSize || 30;
 			page = page || 1;
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + this.info.userId + '/crate/tracks?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/tracks?page=' + page + '&pageSize=' + pageSize
 			});
 		},
 
-		getCratePlaylists: function(pageSize, page) {
+		getCratePlaylists: function(user, pageSize, page) {
 			pageSize = pageSize || 30;
 			page = page || 1;
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + this.info.userId + '/crate/playlists?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/playlists?page=' + page + '&pageSize=' + pageSize
 			});
 		},
 
