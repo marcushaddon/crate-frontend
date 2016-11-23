@@ -5,23 +5,23 @@
     <main>
       <div class='row list-header cyan'>
         <div class='col m3 offset-m1'>
-          <img class='' ng-src='{{ user.picUrl || userImgPlaceholder }}'></img>
+          <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
         <div class='col m8'>
-          <h3>{{ user.userName }} <small class=''><i class='material-icons'>favorite</i>{{user.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
+          <h3>{{ userProfile.userProfileName }} <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
             <small class='right'>
 
           </small></h3>
-          member since {{ user.joinedOn | date}}
+          member since {{ userProfile.joinedOn | date}}
           <p>
-            {{ user.bio || "Really cool story about user??!?!" }}
+            {{ userProfile.bio || "Really cool story about userProfile??!?!" }}
           </p>
           <ul>
-            <li><i class="fa fa-facebook-official" aria-hidden="true"></i><i>{{ user.facebook || "n/a" }}</i></li>
-            <li><i class="fa fa-instagram" aria-hidden="true"></i><i>{{ '@' + user.instagram || 'n/a' }}</i></li>
-            <li><i class="fa fa-soundcloud" aria-hidden="true"></i><i>{{ user.soundcloud || 'n/a' }}</i></li>
-            <li><i class="fa fa-twitter" aria-hidden="true"></i><i>{{ user.twitter || 'n/a' }}</i></li>
-            <li><i class="fa fa-snapchat-ghost" aria-hidden="true"></i><i>{{ user.snapchat || 'n/a'}}</i></li>
+            <li><i class="fa fa-facebook-official" aria-hidden="true"></i><i>{{ userProfile.facebook || "n/a" }}</i></li>
+            <li><i class="fa fa-instagram" aria-hidden="true"></i><i>{{ '@' + userProfile.instagram || 'n/a' }}</i></li>
+            <li><i class="fa fa-soundcloud" aria-hidden="true"></i><i>{{ userProfile.soundcloud || 'n/a' }}</i></li>
+            <li><i class="fa fa-twitter" aria-hidden="true"></i><i>{{ userProfile.twitter || 'n/a' }}</i></li>
+            <li><i class="fa fa-snapchat-ghost" aria-hidden="true"></i><i>{{ userProfile.snapchat || 'n/a'}}</i></li>
           </ul>
         </div>
       </div>
