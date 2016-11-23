@@ -1,4 +1,4 @@
-crate.controller('userCtrl', function($scope, $routeParams, $location, config, user, playlistFactory, albumFactory, messenger){
+crate.controller('userCtrl', function($scope, $routeParams, $location, config, user, stereo, playlistFactory, albumFactory, messenger){
   $scope.userProfile = {};
   $scope.playlists = [];
   $scope.albums = [];
@@ -50,6 +50,10 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
     })
 
 
+  };
+
+  $scope.cueMyTracks = function() {
+    stereo.setActiveTracks($scope.crateTracks);
   };
 
   $scope.userProfileImgPlaceholder = config.userImgPlaceholder;
