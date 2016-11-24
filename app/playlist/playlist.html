@@ -3,14 +3,16 @@
   <main>
     <div class='row list-header cyan'>
       <div class='col m3 offset-m1'>
-        <img class='' ng-src='{{ playlist.imgUrl || albumImgPlaceholder }}'></img>
+        <div class='playlist-img-container'>
+          <img class='playlist-img' ng-src='{{ playlist.imgUrl || albumImgPlaceholder }}'></img>
+          <a ng-show='editing && !editingImg' ng-click='editingImg = true' class='right' href=''><i class='material-icons'>edit</i></a>
+          <input ng-show='editing && editingImg' type='text' ng-model='playlist.imgUrl' ng-blur='editImg()' placeholder='Enter an image url...' />
+        </div>
       </div>
       <div class='col m8'>
-        <h3>{{ playlist.name }} <small class=''><i class='material-icons'>favorite</i> {{playlist.likes || 0}}<i class='material-icons'>play_arrow</i> {{playlist.listens || 0}} <i class='material-icons'>list</i> {{playlist.tracks.length}} tracks</small>
-          <small class='right'>
-
-        </small></h3>
-        <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
+        <h3 ng-show='!editing'>{{ playlist.name }} <small class=''><i class='material-icons'>favorite</i> {{playlist.likes || 0}}<i class='material-icons'>play_arrow</i> {{playlist.listens || 0}} <i class='material-icons'>list</i> {{playlist.tracks.length}} tracks</small></h3>
+        <input class='edit-h3' ng-show='editing' ng-model='playlist.name' ng-keyup='checkForEnter($event)' ng-blur='updateName(false)' type='text' />
+        <!-- <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a> -->
         <p> a playlist by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{ playlist.createdBy.userName }}</a></p>
         <p>
           {{playlist.description}}
@@ -18,13 +20,17 @@
         <div class="chip" ng-repeat='tag in album.tags'>
           {{tag}}
         </div>
-        <p>
+        <!-- <p> -->
           <div class='mini-control-panel grey lighten-2'>
-        <a href=''  ng-click='crateToggle(playlist)'><i class='material-icons' ng-class="playlist.iLikeThis ? 'in-my-crate' : '' ">favorite</i></a>
-        <a href=''  ng-click='copyPlaylist(playlist)'><i class='material-icons'>save</i></a>
+            <a href='' ng-show='!editing' ng-click='crateToggle(playlist)'><i class='material-icons' ng-class="playlist.iLikeThis ? 'in-my-crate' : '' ">favorite</i></a>
+            <a href='' ng-show='!editing' ng-click='copyPlaylist(playlist)'><i class='material-icons'>save</i></a>
+            <a href='' ng-click='editToggle()' ng-show='editable'><i class='material-icons'>edit</i></a>
+            <a href='' ng-click='deletePlaylist()' ng-show='editing'><i class='material-icons danger'>delete</i></a>
+          </div>
+      <!-- </p> -->
       </div>
-      </p>
-      </div>
+
+
     </div>
     <div class='row'>
       <div class='col s12 m8 offset-m2'>
@@ -34,7 +40,7 @@
 
 
     <div class='collection' >
-            <list-song-item ng-repeat='track in playlist.tracks'></list-song-item>
+            <playlist-song-item ng-repeat='track in playlist.tracks'></playlist-song-item>
     </div>
   </div>
 </div>

@@ -10,10 +10,6 @@
     background: none;
 }
 
-/*
-body {
-    max-height: 100%;
-}*/
 
 body {
   height:100%; /* fix height to 100% for IE */
@@ -38,7 +34,7 @@ body {
   	clear:both;
 }
 body {
-  margin: 0 0 40px;
+  margin: 0 0 60px;
 }
 
 footer {
@@ -141,6 +137,10 @@ footer {
   padding-bottom: 16px;
 }
 
+.danger {
+  color: red;
+}
+
 .list-header a.contrast {
   color: white;
 }
@@ -159,6 +159,30 @@ footer {
   min-height: 300px;
   max-width: 300px;
   max-height: 300px;
+}
+
+.list-header div.col {
+  min-height: 300px;
+}
+
+.playlist-img-container {
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.playlist-img-container a i {
+  position: relative;
+  bottom: 36px;
+  right: 0px;
+}
+
+.playlist-img-container input {
+  position: relative;
+  bottom: 52px;
+  background-color: white;
+
 }
 
 .list-header.home {
@@ -197,57 +221,22 @@ footer {
   overflow-x: scroll;*/
 }
 
-.read-more {
-  max-height: 150px;
-  overflow: hidden;
-}
 
 .thumb {
   height: 200px;
   width: 200px;
 }
 
-.material-icons.edit {
-  font-size: 14px;
-  padding: 0px;
-  /*padding-left: 4px;*/
-  margin: 0px;
-  display: inline;
-
-  color: black;
-}
-
 .in-my-crate {
   color: red;
 }
 
-input.h3-edit {
-  font-size: 44px;
-  text-align: left;
-  height: 42px;
-  padding: 1px;
-  margin: 0px;
-  margin-bottom: 12px;
-  margin-top: 24px;
-  border: none;
-}
 
-input.h4-edit.home {
-  display: inline;
-  float: left;
-  font-size: 34px;
-  text-align: left;
-  height: 36px;
-  padding: 1px;
-  margin: 0px;
-  margin-bottom: 12px;
-  margin-top: 24px;
-  border: none;
-}
 
-input.text-edit {
-  margin: 0px;
-  margin-bottom: -40px;
+input.edit-h3 {
+  font-size: 2.92rem;
+  line-height: 110%;
+  margin: 1.46rem 0 1.168rem 0;
 }
 
 .tag-subtext {

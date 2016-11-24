@@ -5,11 +5,13 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
   };
 
   $scope.addTrackToPlaylist = function(playlist) {
+    event.preventDefault();
     playlist.tracks.push(playlistFactory.capturedTrack);
     playlistFactory.editPlaylist(playlist)
     .then(function(response){
       // update our model somehow!
       messenger.show(playlistFactory.capturedTrack.trackName + " added to " + playlist.name);
+      angular.element('#bottomModal').closeModal();
     });
   };
 

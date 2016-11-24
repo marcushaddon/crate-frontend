@@ -14,11 +14,6 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'login'
 	})
 
-	.when('/home', {
-		templateUrl: 'home/home.html',
-		controller: 'myMusicCtrl'
-	})
-
 	.when('/', {
 		templateUrl: 'front-page/front-page.html',
 		controller: 'FrontPageCtrl'

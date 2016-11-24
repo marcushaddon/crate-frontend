@@ -17,7 +17,8 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
       // Get playlists by userProfileId
       user.getCratePlaylists($scope.userProfile)
       .then(function(response) {
-        $scope.playlists = response.data;
+        var sortedLists = response.data.sort(function(listA, listB) { return listA.dateCreated < listB.dateCreated; });
+        $scope.playlists = sortedLists;
       });
 
       // Get albums discovered by userProfile
@@ -55,6 +56,23 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   $scope.cueMyTracks = function() {
     stereo.setActiveTracks($scope.crateTracks);
   };
+
+  $scope.newPlaylist = function() {
+    var newPlaylist = {
+      listType: "playlist",
+      name: "New playlist",
+      description: "A cool new playlist by " + user.info.userName,
+      imgUrl: null,
+      tracks: []
+    };
+
+		playlistFactory.createPlaylist(newPlaylist)
+		.then(function(response){
+      $scope.playlists.unshift(response.data);
+			messenger.show(response.data.name + " created!");
+		});
+
+	};
 
   $scope.userProfileImgPlaceholder = config.userImgPlaceholder;
   $scope.albumImgPlaceHolder = config.albumImgPlaceHolder;

@@ -8,7 +8,7 @@
           <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
         <div class='col m8'>
-          <h3>{{ userProfile.userProfileName }} <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
+          <h3>{{ userProfile.userName }} <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites.length || 0}} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
             <small class='right'>
 
           </small></h3>
@@ -56,7 +56,7 @@
     </div>
 
       <div ng-show="viewing == 'playlists'">
-        <h3>Playlists</h3>
+        <h3>Playlists <small><a href='' ng-click='newPlaylist()'>new playlist <i class='material-icons'>add</i></a></small></h3>
         <div ng-show='playlists.length > 0' class='row tile-rack' >
         <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
       </div>
