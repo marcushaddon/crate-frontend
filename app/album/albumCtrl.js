@@ -9,6 +9,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
 
     albumFactory.getTracksByAlbumId($scope.albumId)
     .then(function(response){
+      var sortedTracks = response.data.sort(function(a, b) { return a.trackNum > b.trackNum; } );
       $scope.tracks = response.data;
     });
 
