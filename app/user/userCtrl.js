@@ -68,8 +68,9 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
 
 		playlistFactory.createPlaylist(newPlaylist)
 		.then(function(response){
-      $scope.playlists.unshift(response.data);
+      $location.path('/playlist/' + response.data._id);
 			messenger.show(response.data.name + " created!");
+
 		});
 
 	};
