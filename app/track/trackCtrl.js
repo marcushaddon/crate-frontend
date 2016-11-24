@@ -26,8 +26,10 @@ crate.controller('trackCtrl', function($scope, stereo, messenger, user, playlist
     user.toggleCrateTrack(track)
     .then(function(response) {
       if (response.data !== "removed") {
+        track.iLikeThis = true;
         messenger.show(track.trackName + " added to crate!");
       } else {
+        track.iLikeThis = false;
         messenger.show(track.trackName + " removed from crate.");
       }
     });

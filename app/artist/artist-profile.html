@@ -11,14 +11,14 @@
     <div class='col m8'>
       <h3>{{ artist.name }} <small class=''><i class='material-icons'>favorite</i> {{artist.favorites || 0}}<i class='material-icons'>play_arrow</i> {{artist.listens || 0}} <i class='material-icons'>library_music</i> {{ albums.length || 0 }} <i class='fa fa-music'></i> {{ tracks.length || 0 }}</small></h3>
 
-      <div class="chip" ng-repeat='tag in artist.tags'>
-        {{tag}}
+      <div class="chip" ng-repeat='tag in album.tags'>
+        <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
       </div>
 
 
     <p>
       <div class='mini-control-panel grey lighten-2'>
-        <a href=''  ng-click='crateToggle(artist)'><i class='material-icons'>favorite</i></a>
+        <a href=''  ng-click='crateToggle(artist)'><i class='material-icons' ng-class="artist.iLikeThis ? 'in-my-crate' : '' ">favorite</i></a>
         <a href=''  ng-href='{{artist.link}}' target='#'><i class='material-icons'>link</i></a>
     </div>
   </p>

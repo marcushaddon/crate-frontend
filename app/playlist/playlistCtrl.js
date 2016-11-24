@@ -24,8 +24,10 @@ crate.controller('playlistCtrl', function($scope, $routeParams, $http, playlistF
     user.toggleCratePlaylist(playlist)
     .then(function(response){
       if (response.data === 'removed') {
+        playlist.iLikeThis = false;
         messenger.show(playlist.name + " removed from your crate.");
       } else {
+        playlist.iLikeThis = true;
         messenger.show(playlist.name + " added to your crate!");
       }
     });

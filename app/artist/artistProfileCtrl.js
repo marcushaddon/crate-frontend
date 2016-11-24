@@ -32,8 +32,10 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
     user.toggleCrateArtist(artist)
     .then(function(response) {
       if (response.data !== "removed") {
+        artist.iLikeThis = true;
         messenger.show(artist.name + " added to your crate!");
       } else {
+        artist.iLikeThis = false;
         messenger.show(artist.name + " removed from your crate.");
       }
     });

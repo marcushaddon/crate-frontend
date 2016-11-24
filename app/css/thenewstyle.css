@@ -217,6 +217,10 @@ footer {
   color: black;
 }
 
+.in-my-crate {
+  color: red;
+}
+
 input.h3-edit {
   font-size: 44px;
   text-align: left;

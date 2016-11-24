@@ -20,7 +20,7 @@
         </div>
         <p>
           <div class='mini-control-panel grey lighten-2'>
-            <a href=''  ng-click='crateToggle(album)'><i class='material-icons'>favorite</i></a>
+            <a href=''  ng-click='crateToggle(album)'><i class='material-icons' ng-class="album.iLikeThis ? 'in-my-crate' : '' ">favorite</i></a>
             <a href=''  ng-click='saveAlbumAsPlaylist(album, tracks)'><i class='material-icons'>save</i></a>
         </div>
       </p>

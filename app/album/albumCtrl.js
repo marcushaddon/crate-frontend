@@ -40,8 +40,10 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
     user.toggleCrateAlbum(album)
     .then(function(response){
       if (response.data == "removed") {
+        album.iLikeThis = false;
         messenger.show(album.name + " removed from your crate");
       } else {
+        album.iLikeThis = true;
         messenger.show(album.name + " added to your crate!");
       }
     })
