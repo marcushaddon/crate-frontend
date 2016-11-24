@@ -125,6 +125,10 @@ footer {
   display: block;
 }
 
+.large-icon {
+  font-size: 68px;
+}
+
 .icon-list > li {
   float: left;
   margin: 5px;
