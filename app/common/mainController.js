@@ -101,10 +101,13 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 
 	this.init = function() {
 		var token = authTokenFactory.getToken();
-		user.refreshUser()
-		.then(function(response){
-				user.setUser(response.data);
-		})
+		if (token) {
+			user.refreshUser()
+			.then(function(response){
+					user.setUser(response.data);
+			});
+		}
+
 
 	};
 
