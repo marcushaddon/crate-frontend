@@ -1,8 +1,12 @@
 crate.controller('trackCtrl', function($scope, stereo, messenger, user, playlistFactory){
   $scope.playToggle = function(track) {
-    // $scope.$emit('trackPlayToggle', event);
     $scope.$parent.cueMyTracks();
-    stereo.setTrack(track);
+    if (stereo.activeTrack !== track) {
+      stereo.setTrack(track);
+    } else {
+      stereo.playToggle();
+    }
+
 
   };
 
