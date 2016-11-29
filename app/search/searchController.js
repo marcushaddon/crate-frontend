@@ -75,6 +75,7 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
 
   // Cue my tracks
   $scope.cueMyTracks = function() {
+    stereo.activeList = null;
     stereo.setActiveTracks($scope.tracks);
   };
 

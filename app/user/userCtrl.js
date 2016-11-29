@@ -54,6 +54,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   };
 
   $scope.cueMyTracks = function() {
+    stereo.activeList = $scope.userProfile;
     stereo.setActiveTracks($scope.crateTracks);
   };
 

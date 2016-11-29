@@ -17,6 +17,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
   };
 
   $scope.cueMyTracks = function() {
+    stereo.activeList = $scope.album;
     stereo.setActiveTracks($scope.tracks);
     if (user.isLoggedIn())
     albumFactory.incrementListens($scope.albumId);

@@ -198,13 +198,15 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('albumTile', function(){
 	return {
-		templateUrl: 'components/album-tile.html'
+		templateUrl: 'components/album-tile.html',
+		controller: 'albumTileCtrl'
 	}
 })
 
 .directive('playlistTile', function(){
 	return {
-		templateUrl: 'components/playlist-tile.html'
+		templateUrl: 'components/playlist-tile.html',
+		controller: 'albumTileCtrl'
 	}
 })
 

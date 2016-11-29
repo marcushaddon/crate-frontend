@@ -20,6 +20,7 @@ crate.controller('playlistCtrl', function($scope, $location, $routeParams, $http
   };
 
   $scope.cueMyTracks = function() {
+    stereo.activeList = $scope.playlist;
     playlistFactory.incrementListens($scope.playlistId);
     stereo.setActiveTracks($scope.playlist.tracks);
   };

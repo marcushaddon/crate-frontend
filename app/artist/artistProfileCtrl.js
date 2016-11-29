@@ -25,6 +25,7 @@ crate.controller('ArtistProfileCtrl', function($scope, $location, $routeParams, 
 	};
 
   $scope.cueMyTracks = function() {
+    stereo.activeList = $scope.artist;
     stereo.setActiveTracks($scope.tracks);
   };
 
