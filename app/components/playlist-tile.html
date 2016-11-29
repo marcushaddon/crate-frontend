@@ -34,7 +34,7 @@
           by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{playlist.createdBy.userName}}</a>
           <ul class='icon-list'>
           <li class='valign-wrapper'><i ng-click='playToggle()' class='material-icons valign'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i> {{playlist.listens || 0}}</li>
-          <li class='valign-wrapper'><i class='material-icons valign' ng-class="playlist.iLikeThis ? 'in-my-crate' : '' ">favorite</i> {{playlist.favorites || 0}}</li>
+          <li class='valign-wrapper'><i ng-click='crateToggle()' class='material-icons valign' ng-class="playlist.iLikeThis ? 'in-my-crate' : '' ">favorite</i> {{playlist.favorites || 0}}</li>
           <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{playlist.tracks.length || 0}} tracks</li>
         </ul>
         <div class="chip" ng-repeat='tag in album.tags'>

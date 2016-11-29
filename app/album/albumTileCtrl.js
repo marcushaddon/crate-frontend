@@ -1,4 +1,4 @@
-crate.controller('albumTileCtrl', function($scope, stereo, albumFactory, messenger) {
+crate.controller('albumTileCtrl', function($scope, stereo, albumFactory, user, messenger) {
   $scope.isActiveList = function() {
     var id;
     if ($scope.album) {
@@ -39,5 +39,31 @@ crate.controller('albumTileCtrl', function($scope, stereo, albumFactory, messeng
     }
 
 
+  };
+
+  $scope.crateToggle = function() {
+    if ($scope.album) {
+      user.toggleCrateAlbum($scope.album)
+      .then(function(response) {
+        if (response.data == 'removed') {
+          $scope.album.iLikeThis = false;
+          messenger.show($scope.album.name + " removed from your crate.");
+        } else {
+          $scope.album.iLikeThis = true;
+          messenger.show($scope.album.name + " added to your crate!");
+        }
+      })
+    } else {
+      user.toggleCratePlaylist($scope.playlist)
+      .then(function(response){
+        if (response.data == 'removed') {
+          $scope.playlist.iLikeThis = false;
+          messenger.show($scope.playlist.name + " removed from your crate.");
+        } else {
+          $scope.playlist.iLikeThis = true;
+          messenger.show($scope.playlist.name + " added to your crate!");
+        }
+      });
+    }
   };
 });

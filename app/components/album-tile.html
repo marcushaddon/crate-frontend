@@ -37,7 +37,7 @@
           <div class='row'>
           <ul class='icon-list'>
             <li class='valign-wrapper'><i ng-click='playToggle()' class='material-icons valign'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i> {{album.listens || 0}}</li>
-            <li class='valign-wrapper'><i class='material-icons valign' ng-class="album.iLikeThis ? 'in-my-crate' : '' ">favorite</i> {{album.favorites || 0}}</li>
+            <li class='valign-wrapper'><i ng-click='crateToggle()' class='material-icons valign' ng-class="album.iLikeThis ? 'in-my-crate' : '' ">favorite</i> {{album.favorites || 0}}</li>
             <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{album.noTracks || 0}} tracks</li>
           </ul>
         </div>
