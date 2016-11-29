@@ -71,6 +71,10 @@ footer {
     /*font-size: 32px;*/
 }
 
+.action:hover {
+  cursor: pointer;
+}
+
 .collection-item:hover {
     cursor: pointer;
 }

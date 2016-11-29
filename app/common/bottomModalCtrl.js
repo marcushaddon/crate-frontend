@@ -15,7 +15,22 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
     });
   };
 
-
+  $scope.newPlaylistFromTrack = function() {
+    var newPlaylist = {
+      listType: 'playlist',
+      name: playlistFactory.capturedTrack.artist + ' - ' + playlistFactory.capturedTrack.trackName,
+      description: 'A deep cut.',
+      imgUrl: '',
+      tags: [],
+      tracks: [playlistFactory.capturedTrack]
+    };
+    playlistFactory.createPlaylist(newPlaylist)
+    .then(function(response) {
+      $scope.playlists.unshift(response.data);
+      messenger.show(response.data.name + ' created!');
+      angular.element('#bottomModal').closeModal();
+    });
+  };
 
   $scope.$on('modalRefresh', function(){
     playlistFactory.getUserPlaylists(user.info.userId)
