@@ -13,6 +13,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
     user.getUser(userProfileId)
     .then(function(response) {
       $scope.userProfile = response.data;
+      $scope.userProfile.recentlyListenedItems = $scope.userProfile.recentlyListenedItems.reverse();
 
       // Get playlists by userProfileId
       user.getCratePlaylists($scope.userProfile)
@@ -53,9 +54,15 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
 
   };
 
-  $scope.cueMyTracks = function() {
+  $scope.cueMyTracks = function(recentlyListened) {
+    recentlyListened = recentlyListened || false;
+    if (!recentlyListened) {
+      stereo.setActiveTracks($scope.crateTracks);
+    } else {
+      var recentTracks = $scope.userProfile.recentlyListenedItems.map(function(o) { return o.track; });
+      stereo.setActiveTracks(recentTracks);
+    }
     stereo.activeList = $scope.userProfile;
-    stereo.setActiveTracks($scope.crateTracks);
   };
 
   $scope.newPlaylist = function() {

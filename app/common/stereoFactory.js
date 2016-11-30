@@ -77,7 +77,7 @@ crate.factory('stereo', function(
 
 		setTrack: function(track) {
 			this.activeTrack = track;
-			trackFactory.incrementListens(track._id);
+			trackFactory.incrementListens(track);
 			artistFactory.incrementListens(track.artistId);
 			player.loadVideoById({ videoId: this.activeTrack.videoId, startSeconds: this.activeTrack.begin });
 			this.isPlaying = true;

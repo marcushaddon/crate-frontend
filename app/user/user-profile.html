@@ -46,7 +46,8 @@
       </div>
 
       <!-- Dropdown Trigger -->
-
+    <div class='row'>
+      <div class='col m9'>
       <div ng-show="viewing == 'tracks'">
       <h3>Tracks</h3>
       <div ng-show='crateTracks.length > 0' class='collection music-list'>
@@ -86,10 +87,20 @@
       <i ng-show='crateArtists.length == 0'>You haven't added any artists to your crate!</i>
     </div>
 
+  </div>
 
+  <div class='col m3 music-list'>
+    <h4>Recently listened</h4>
+    <ul>
+      <li ng-repeat='item in userProfile.recentlyListenedItems'>
+      <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
+        <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='#/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date}}</small></span>
+      </div>
+    </li>
+    </ul>
+  </div>
 
-
-
+</div>
   </div>
   </main>
 

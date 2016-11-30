@@ -239,6 +239,9 @@ footer {
   color: red;
 }
 
+.recently-listened-item {
+  max-width: 300px;
+}
 
 
 input.edit-h3 {
