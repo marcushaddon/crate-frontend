@@ -12,12 +12,32 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
 
     user.getUser(userProfileId)
     .then(function(response) {
+      var days = [];
+      var itemsArray = [];
+      var listenHistory = response.data.recentlyListenedItems;
+      for (item in listenHistory) {
+        var date = new Date(listenHistory[item].dateAdded);
+        var day = date.toDateString();
+        var existingDay = days.findIndex(function(o){ return o == day; });
+        if (existingDay == -1) {
+          days.push(day);
+          itemsArray.push([listenHistory[item]]);
+        } else {
+          itemsArray[existingDay].push(listenHistory[item]);
+        }
+      }
+      // Now sort them
+      itemsArray = itemsArray.reverse().map(function(array) {
+        return array.sort(function(a, b) { return new Date(b.dateAdded) - new Date(a.dateAdded); });
+      });
       $scope.userProfile = response.data;
+      $scope.userProfile.recentlyListenedItemGroups = itemsArray;
       $scope.userProfile.recentlyListenedItems = $scope.userProfile.recentlyListenedItems.reverse();
 
       // Get playlists by userProfileId
       user.getCratePlaylists($scope.userProfile)
       .then(function(response) {
+
         var sortedLists = response.data.sort(function(listA, listB) { return listA.dateCreated < listB.dateCreated; });
         $scope.playlists = sortedLists;
       });
