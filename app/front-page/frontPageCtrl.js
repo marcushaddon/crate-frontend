@@ -36,5 +36,21 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
     .then(function(response){
       $scope.topTags = response.data;
     })
+  };
+
+  $scope.getMoreAlbums = function() {
+    var place = $scope.latestAlbums.length;
+    albumFactory.getLatestAlbums(4, place)
+    .then(function(response) {
+      $scope.latestAlbums = $scope.latestAlbums.concat(response.data);
+    });
+  };
+
+  $scope.getMorePlaylists = function() {
+    var place = $scope.latestPlaylists.length;
+    playlistFactory.getLatestPlaylists(4, place)
+    .then(function(response) {
+      $scope.latestPlaylists = $scope.latestPlaylists.concat(response.data);
+    });
   }
 });

@@ -20,12 +20,18 @@
     <album-tile ng-repeat='album in latestAlbums'></album-tile>
 </div>
 </div>
+<div class='row center-align'>
+  <a class='' href='' ng-click='getMoreAlbums()'>Show more...</a>
+</div>
 
 <!-- TODO: this needs to link to a playlist view -->
   <h3>Recent playlists</h3>
   <div class='row tile-rack'>
     <playlist-tile ng-repeat='playlist in latestPlaylists'></playlist-tile>
     <!-- <album-tile></album-tile> -->
+  </div>
+  <div class='row center-align'>
+    <a class='' href='' ng-click='getMorePlaylists()'>Show more...</a>
   </div>
 
 </div>
