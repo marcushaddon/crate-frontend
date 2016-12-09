@@ -53,10 +53,12 @@ footer {
     height: 100%;
 }
 
-.container {
+.scroll-container {
   max-height: 400px;
   overflow: scroll;
 }
+
+
 
 .tile-rack {
   overflow: visible;

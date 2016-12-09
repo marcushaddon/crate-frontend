@@ -91,6 +91,7 @@
 
   <div class='col m3 music-list'>
     <h4>Recently listened</h4>
+    <div class='scroll-container'>
     <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>
       <strong>{{group[0].dateAdded | date}}</strong>
       <ul>
@@ -101,6 +102,7 @@
         </li>
       </ul>
     </div>
+  </div>
     <!-- <ul>
       <li ng-repeat='item in userProfile.recentlyListenedItems'>
       <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
