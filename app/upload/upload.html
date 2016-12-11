@@ -3,13 +3,13 @@
 <div ng-init='init()' class='subtle-container'>
 	<div class='row'>
 	<!-- GUIDE -->
-	<div  ng-class="possibleMasters.length || possibleArtists.length ? 'col m4 offset-m2' : 'col m4 offset-m4'">
+	<div  class='col s12'>
 		<div id='upload-video'>
 		        <h3>Select Video</h3>
 						<div class=''>
 
 		        <ul class='collection'>
-		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Url' ng-model='videoUrl' /></li>
+		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Url' ng-model='videoUrl' ng-change='checkForVideo()' /></li>
 		            <li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' /></li>
 		            <li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='albumName' /></li>
 		</ul>
@@ -20,8 +20,25 @@
 
 		</div>
 	</div>
-
+</div>
 	<!-- possible discogs masters -->
+	<div class='row'>
+		<div class='col m6'>
+			<div class="card" ng-show='videoInfo'>
+				 <div class="card-image waves-effect waves-block waves-light">
+					 <img class="activator" ng-src="{{videoInfo.thumbnails.high.url}}">
+				 </div>
+				 <div class="card-content">
+					 <span class="card-title activator grey-text text-darken-4">{{videoInfo.title}}<i class="material-icons right">more_vert</i></span>
+					 <p><a ng-href="{{videoUrl}}" target='none'>See video on Youtube</a></p>
+				 </div>
+				 <div class="card-reveal">
+					 <span class="card-title grey-text text-darken-4">{{videoInfo.title}}<i class="material-icons right">close</i></span>
+					 <p>{{videoInfo.description}}.</p>
+				 </div>
+			 </div>
+
+		</div>
 	<div class='col m6'>
 		<div ng-show='possibleMasters.length'>
 			<h4>Is one of the following the correct release?</h4>
@@ -41,7 +58,7 @@
 
 	<!-- END GUIDE -->
 
-
+</div>
 
 	<!-- END UPLOAD TRACKS -->
 	</div>

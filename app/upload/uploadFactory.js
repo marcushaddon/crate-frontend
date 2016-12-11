@@ -69,9 +69,11 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       return crateTracklist;
     },
 
-    getVideoInfo: function() {
+    getVideoInfo: function(videoId) {
+      console.log(videoId);
       var factory = this;
-      return youtubeFactory.getVideoInfo(factory.videoId)
+      videoId = videoId || factory.videoId;
+      return youtubeFactory.getVideoInfo(videoId)
       .then(function(response){
         factory.videoInfo = response.data.items[0].snippet;
       })

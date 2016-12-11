@@ -117,14 +117,17 @@ footer {
 
 
 .album-cover {
-  min-height: 300px;
-  max-height: 300px;
+  /*min-height: 300px;
+  max-height: 300px;*/
+  width: 10vw;
+  max-height: 45vh;
 }
 
 .album-tile {
-  max-height: 300px;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  /*max-height: 300px;*/
+  max-height:45vh;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
 .icon-list {

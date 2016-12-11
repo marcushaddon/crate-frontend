@@ -41,7 +41,7 @@
             <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{album.noTracks || 0}} tracks</li>
           </ul>
         </div>
-          <div class="chip" ng-repeat='tag in album.tags'>
+          <div class="chip hide-on-small-only" ng-repeat='tag in album.tags'>
             <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
           </div>
 

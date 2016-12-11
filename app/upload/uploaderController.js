@@ -1,4 +1,4 @@
-	crate.controller('Uploader', function($scope, $location, user, config, stereo, discogsFactory, uploadFactory, messenger){
+crate.controller('Uploader', function($scope, $location, user, config, stereo, discogsFactory, uploadFactory, messenger){
 	$scope.videoUrl = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
@@ -15,6 +15,10 @@
 
 	$scope.getNextStop = function() {
 		return uploadFactory.nextStop;
+	};
+
+	$scope.getVideoInfo = function() {
+		return uploadFactory.videoInfo;
 	};
 
 	// $scope.getTrackCandidates = function() {
@@ -115,6 +119,17 @@
 		return false;
 	};
 
+	$scope.checkForVideo = function() {
+		if ($scope.getVideoId()) {
+			console.log("Video id is: " + $scope.getVideoId());
+			uploadFactory.getVideoInfo($scope.getVideoId())
+			.then(function(response) {
+				$scope.videoInfo = uploadFactory.videoInfo;
+				messenger.show("We've displayed details about the video you just entered below!");
+			});
+		}
+	};
+
 	$scope.artistImgPlaceholder = config.artistImgPlaceholder;
 
 	uploadFactory.progressUpdates = [];
@@ -122,6 +137,6 @@
 
 	// INIT
 	$scope.init = function() {
-		if (!user.isLoggedIn()) $location.path('/');
+		// alert("FUCK OFF");
 	};
 });
