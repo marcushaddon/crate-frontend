@@ -130,6 +130,11 @@ footer {
   margin-bottom: 3vh;
 }
 
+.master-tile {
+  width: 10vw;
+  
+}
+
 .icon-list {
   display: block;
 }

@@ -212,7 +212,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .directive('masterTile', function(){
 	return {
-		templateUrl: 'components/master-tile.html'
+		templateUrl: 'components/master-tile.html',
+		controller: 'masterCtrl'
 	}
 })
 

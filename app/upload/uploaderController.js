@@ -125,6 +125,7 @@ crate.controller('Uploader', function($scope, $location, user, config, stereo, d
 			uploadFactory.getVideoInfo($scope.getVideoId())
 			.then(function(response) {
 				$scope.videoInfo = uploadFactory.videoInfo;
+				$scope.videoInfo.description = $scope.videoInfo.description.replace('\n', '<br>');
 				messenger.show("We've displayed details about the video you just entered below!");
 			});
 		}

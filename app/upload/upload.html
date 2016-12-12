@@ -1,7 +1,7 @@
 <nav-bar></nav-bar>
 
 <div ng-init='init()' class='subtle-container'>
-	<div class='row'>
+	<div ng-hide='videoInfo !== undefined' class='row'>
 	<!-- GUIDE -->
 	<div  class='col s12'>
 		<div id='upload-video'>
@@ -10,13 +10,10 @@
 
 		        <ul class='collection'>
 		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Url' ng-model='videoUrl' ng-change='checkForVideo()' /></li>
-		            <li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' /></li>
-		            <li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='albumName' /></li>
 		</ul>
 	</div>
 
-		<input type='button' class='btn btn-success' value='Submit' ng-click='checkDiscogsForUpload()'></input>
-		<input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
+
 
 		</div>
 	</div>
@@ -39,12 +36,22 @@
 			 </div>
 
 		</div>
-	<div class='col m6'>
+
+	<div class='col m6' ng-show='videoInfo'>
+		<div ng-hide='possibleMasters.length'>
+		<h4>Release details</h4>
+		<ul class='collection'>
+			<li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' /></li>
+			<li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='albumName' /></li>
+		</ul>
+		<input type='button' class='btn btn-success' value='Submit' ng-click='checkDiscogsForUpload()'></input>
+		<input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
+	</div>
 		<div ng-show='possibleMasters.length'>
 			<h4>Is one of the following the correct release?</h4>
 			<a class='btn' ng-click='checkDiscogsForArtist()'>These releases are by the wrong artist!</a>
 			<ul>
-				<li ng-repeat='master in possibleMasters track by $index'><a href='' ng-click='useDiscogsMaster(master)'><master-tile></master-tile></a></li>
+				<li ng-repeat='master in possibleMasters track by $index'><master-tile></master-tile></li>
 			</ul>
 	</div>
 
