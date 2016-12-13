@@ -3,7 +3,9 @@
       <div class="card-image">
         <a ng-href=''>
           <a href='' ng-click='useDiscogsMaster(master)'>
-            <img class="album-cover" ng-src="{{master.thumb || albumImgPlaceHolder }}">
+            <div class='album-cover-frame'>
+              <img class="album-cover" ng-src="{{master.thumb || albumImgPlaceHolder }}">
+            </div>
           </a>
       </a>
       </div>

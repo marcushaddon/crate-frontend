@@ -121,18 +121,27 @@ footer {
   max-height: 300px;*/
   width: 10vw;
   max-height: 45vh;
+  min-height: 45vh;
+}
+
+.album-cover-frame {
+  max-width: 20vw;
+  max-height: 45vh;
+  min-height: 45vh;
+  overflow: hidden;
 }
 
 .album-tile {
   /*max-height: 300px;*/
   max-height:45vh;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
+  min-height: 45vh;
+  margin-top: 1.5vh;
+  margin-bottom: 1.5vh;
 }
 
 .master-tile {
   width: 10vw;
-  
+
 }
 
 .icon-list {

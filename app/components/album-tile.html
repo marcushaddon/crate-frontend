@@ -27,7 +27,9 @@
     <div class="card horizontal">
       <div class="card-image">
         <a ng-href='#/album/{{album._id}}'>
-          <img class="album-cover" ng-src="{{album.imgUrl || playlist.imgUrl || albumImgPlaceHolder }}">
+          <div class='album-cover-frame'>
+            <img class="album-cover" ng-src="{{album.imgUrl || playlist.imgUrl || albumImgPlaceHolder }}">
+          </div>
       </a>
       </div>
       <div class="card-stacked">
