@@ -3,13 +3,15 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   $scope.playlists = [];
   $scope.albums = [];
   $scope.viewing = 'tracks';
+  $scope.showProfile = true;
   $scope.setView = function(view) {
     $scope.viewing = view;
   }
+
   $scope.init = function() {
     if (!user.isLoggedIn()) $location.path('/');
     var userProfileId = $routeParams.id;
-
+    if (userProfileId == user.info.userId) $scope.showProfile = false;
     user.getUser(userProfileId)
     .then(function(response) {
       var days = [];

@@ -1,11 +1,3 @@
-/*html, body, #container {
-  height: 100%;
-}*/
-
-/*body > #container {
-  height: auto; min-height: 100%;
-}*/
-
 ::selection {
     background: none;
 }
@@ -122,6 +114,7 @@ footer {
   width: 10vw;
   max-height: 45vh;
   min-height: 45vh;
+  object-fit: cover;
 }
 
 .album-cover-frame {
@@ -139,6 +132,11 @@ footer {
   margin-bottom: 1.5vh;
 }
 
+.album-tile-content {
+  max-height: 275px;
+  overflow: hidden;
+}
+
 .master-tile {
   width: 10vw;
 
@@ -154,7 +152,10 @@ footer {
 
 .icon-list > li {
   float: left;
-  margin: 5px;
+  margin-top: 4px;
+  margin-right: 4px;
+  margin-bottom: 0px;
+  margin-left: 4px;
 }
 
 
@@ -162,6 +163,12 @@ footer {
 .list-header {
   padding-top: 16px;
   padding-bottom: 16px;
+}
+
+.small-pic {
+  max-height: 50px;
+  margin-top: 12px;
+  margin-bottom: -6px;
 }
 
 .danger {

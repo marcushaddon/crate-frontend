@@ -23,7 +23,7 @@
 
 
 
-<div class="col s12 m6 album-tile">
+<div class="col m12 l6 album-tile">
     <div class="card horizontal">
       <div class="card-image">
         <a ng-href='#/album/{{album._id}}'>
@@ -33,7 +33,7 @@
       </a>
       </div>
       <div class="card-stacked">
-        <div class="card-content">
+        <div class="album-tile-content  card-content">
           <h5>{{album.name}}</h5>
           <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
           <div class='row'>
@@ -43,7 +43,7 @@
             <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{album.noTracks || 0}} tracks</li>
           </ul>
         </div>
-          <div class="chip hide-on-small-only" ng-repeat='tag in album.tags'>
+          <div class="chip hide-on-med-and-down" ng-repeat='tag in album.tags'>
             <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
           </div>
 

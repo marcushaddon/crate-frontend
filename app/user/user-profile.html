@@ -3,7 +3,17 @@
   <div ng-init='init()'>
 
     <main>
-      <div class='row list-header cyan'>
+
+      <div class='row cyan' ng-show='showProfile == false'>
+        <div class='col s3 l1 valign-wrapper'>
+        <img src='{{ userProfile.picUrl || userProfileImgPlaceholder }}' class='circle small-pic responsive-img valign' />
+      </div>
+      <div class='col s9 l11 white-text'>
+        <h4>{{userProfile.userName}}'s Crate</h4>
+        <small class='action right' ng-click='showProfile = true'>show more...</small>
+      </div>
+      </div>
+      <div ng-show='showProfile' class='row list-header cyan'>
         <div class='col m3 offset-m1'>
           <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
@@ -24,6 +34,7 @@
             <li><i class="fa fa-snapchat-ghost" aria-hidden="true"></i><i>{{ userProfile.snapchat || 'n/a'}}</i></li>
           </ul>
         </div>
+        <small class='action right white-text' ng-click='showProfile = false'>show less...</small>
       </div>
       <div class='subtle-container'>
         <div class='row center-align'>
