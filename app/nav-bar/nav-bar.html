@@ -28,7 +28,7 @@
       <li ng-show='user.isLoggedIn()'><a href="#/user/{{user.info.userId}}">My Crate</a></li>
       <li></li>
     </ul>
-    <small ng-show='user.isLoggedIn()' class='right'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
+    <small ng-show='user.isLoggedIn()' class='right hide-on-small-only'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
     <small ng-show='!user.isLoggedIn()' class='right'><a href='#/login'>Log in</a></small>
 
 </div>

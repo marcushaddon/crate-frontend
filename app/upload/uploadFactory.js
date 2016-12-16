@@ -22,8 +22,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       tracklist = tracklist.filter(function(track){
         return track.type_ == "track";
       });
-      console.log("tracks goin out");
-      console.log(tracklist);
       var weHaveDurations = true;
       // Make sure every track has a duration
       for (track in tracklist) {
@@ -70,7 +68,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     },
 
     getVideoInfo: function(videoId) {
-      console.log(videoId);
       var factory = this;
       videoId = videoId || factory.videoId;
       return youtubeFactory.getVideoInfo(videoId)
@@ -361,6 +358,13 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                   trackFactory.createTracks(factory.tracks)
                   .then(function(result){
                     factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
+                    factory.nextStop = '#/album/' + factory.album._id;
+                    factory.processingComplete = true;
+                  });
+                } else if (factory.validateTrackTimes(factory.youtubeTracks)) {
+                  factory.createTracks(factory.youtubeTracks)
+                  .then(function(response) {
+                    factory.progressUpdates.push("We got everything we needed from Youtube!");
                     factory.nextStop = '#/album/' + factory.album._id;
                     factory.processingComplete = true;
                   });
