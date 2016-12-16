@@ -1,4 +1,4 @@
-var crate = angular.module('main-app', ['ngRoute'])
+var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 
 .constant('config', {
 	artistImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=artist&w=300&h=300',

@@ -26,32 +26,35 @@
         <a class='right' href='' ng-show='!showInfo' ng-click='getMoreInfo(master)'><i class='material-icons'>info</i>More Info</a>
         <a class='right' href='' ng-show='showInfo' ng-click='showInfo = false'><i class='material-icons'>info</i>Less Info</a>
       </div>
-        <div ng-show='info && showInfo'>
-          <strong>Notes</strong>
-          <p>
-            <i>{{info.notes}}</i>
-          </p>
-          <ul>
-            <li>
-              <strong>Country:</strong> {{info.country}}
-            </li>
-            <li>
-              <strong>Year:</strong> {{info.year}}
-            </li>
-            <li>
-              <strong>Styles:</strong> {{info.styles.join(", ")}}
-            </li>
-            <p ng-show='info.tracklist'>
-              <strong>Tracklist:</strong>
-              <ul>
-                <li ng-repeat='track in info.tracklist'>
-                  {{track.title}} <span ng-show='track.duration'> - </span> {{track.duration}}
-                </li>
-              </ul>
-            </p>
-          </ul>
 
-        </div>
       </div>
     </div>
+    <div class='card' ng-show='info && showInfo'>
+      <div class='card-content'>
+      <strong>Notes</strong>
+      <p>
+        <i>{{info.notes}}</i>
+      </p>
+      <ul>
+        <li>
+          <strong>Country:</strong> {{info.country}}
+        </li>
+        <li>
+          <strong>Year:</strong> {{info.year}}
+        </li>
+        <li>
+          <strong>Styles:</strong> {{info.styles.join(", ")}}
+        </li>
+        <p ng-show='info.tracklist'>
+          <strong>Tracklist:</strong>
+          <ul>
+            <li ng-repeat='track in info.tracklist'>
+              {{track.title}} <span ng-show='track.duration'> - </span> {{track.duration}}
+            </li>
+          </ul>
+        </p>
+      </ul>
+
+    </div>
+  </div>
   </div>
