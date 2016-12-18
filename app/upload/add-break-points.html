@@ -18,14 +18,20 @@
           <h3>Tracks <i class='material-icons right wave-effect' ng-click='setTime()'>queue</i></h3>
           <!-- <span ng-click='testTracks()'>SHOW ME THE TRACKS</span> -->
             <div class='collection'>
-                <div class='collection-item' ng-repeat='track in tracks'>
+                <div class='collection-item track-edit' ng-repeat='track in tracks'>
 
                       <div class='row'>
                         <div class='col m1 valign-wrapper'>
                               <strong class='valign'>{{track.trackNum}}</strong>
                               <i class='material-icons' ng-click='reviewMe($index)' ng-show='track.begin !== null'>play_arrow</i>
                             </div>
-                            <div class='col m7'><input type='text' ng-model='track.trackName' value='track.trackName' class='text-edit'></div>
+                            <div class='col m7'>
+                              <span class='truncate' ng-show='!track.isBeingEdited'>{{track.trackName}}</span>
+                              <input type='text' ng-model='track.trackName' ng-show='track.isBeingEdited' value='track.trackName' class='text-edit'>
+                              <small>
+                                <a ng-click='track.isBeingEdited = !track.isBeingEdited' href=''>edit</a>
+                              </small>
+                            </div>
 
                             <!-- pull-right is reversing these!!! -->
                             <div class='col m1 offset-m2'>
