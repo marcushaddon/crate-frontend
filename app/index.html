@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app='main-app'>
+<html ng-app='main-app' ng-csp='no-inline-style;no-unsafe-eval'>
 <head>
     <title>Crate</title>
 
@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <script src="lib/materialize/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://use.fontawesome.com/e2f98e976e.js"></script>
+    <!-- <script src="https://use.fontawesome.com/e2f98e976e.js"></script> -->
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-route.min.js"></script>
     <script src='style.js'></script>
     <script src='common/secToMinSec.js'></script>
+    <script src='../../angular_config.js'></script>
     <script src='config.js'></script>
     <script src="app.js"></script>
     <script src='common/messengerFactory.js'></script>

@@ -2,6 +2,8 @@ var crate = angular.module('main-app', ['ngRoute'])
 
 .constant('config', config)
 
+.constant('angularConfig', angularConfig)
+
 .config(function($routeProvider, $httpProvider){
 	$httpProvider.interceptors.push('authInterceptor')
 
