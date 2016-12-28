@@ -35,7 +35,7 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'trackEditCtrl'
 	})
 
-	.when('/search-results/:searchField', {
+	.when('/search-results/:searchType/:searchField', {
 		templateUrl: 'search/search-results.html',
 		controller: 'SearchCtrl'
 	})

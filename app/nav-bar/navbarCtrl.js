@@ -2,7 +2,7 @@ crate.controller('navbarCtrl', function($scope, $location, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
   $scope.search = function() {
-    $location.path('search-results/' + $scope.searchField);
+    $location.path('search-results/general/' + $scope.searchField);
   };
 
   $scope.logOut = function() {

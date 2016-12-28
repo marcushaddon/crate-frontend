@@ -38,9 +38,9 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
 
   // Master search
   $scope.search = function() {
-    var tag = $location.search().tag;
+    var searchType = $routeParams.searchType;
     // If we are not searching for a tag
-    if (tag === undefined) {
+    if (searchType === 'general') {
       var startTime = Date.now();
       var query = $routeParams.searchField;
       $scope.query = query;
@@ -65,7 +65,7 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
         })
       })
     } else {
-      $scope.tag = tag;
+      $scope.tag = $routeParams.searchField;
       $scope.tagSearch(tag)
       .then(function(response) {
         $scope.taggedAlbums = response.data;
