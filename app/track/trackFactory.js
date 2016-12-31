@@ -3,7 +3,7 @@ crate.factory('trackFactory', function($http){
     incrementListens: function(track) {
       return $http({
         method: "PUT",
-        url: "api/tracks/" + track._id + "/increment-listens",
+        url: "/api/tracks/" + track._id + "/increment-listens",
         data: track
       });
     },

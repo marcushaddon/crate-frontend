@@ -73,7 +73,7 @@ crate.factory('playlistFactory', function($http, user){
     incrementListens: function(playlistId) {
       return $http({
         method: "PUT",
-        url: "api/playlists/" + playlistId + "/increment-listens"
+        url: "/api/playlists/" + playlistId + "/increment-listens"
       });
     }
 

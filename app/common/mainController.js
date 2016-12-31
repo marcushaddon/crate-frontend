@@ -73,17 +73,17 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 
 
 	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
-	this.update = function() {
-		angular.element('#playtime').html(
-			app.secToMinSec(stereo.getProgress())
-		);
-		angular.element('#progress').val(stereo.getProgress());
-
-		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-			app.next();
-		}
-		$scope.$apply();
-	}
+	// this.update = function() {
+	// 	angular.element('#playtime').html(
+	// 		app.secToMinSec(stereo.getProgress())
+	// 	);
+	// 	angular.element('#progress').val(stereo.getProgress());
+	//
+	// 	if (player.getCurrentTime() >= stereo.activeTrack.stop) {
+	// 		app.next();
+	// 	}
+	// 	$scope.$apply();
+	// }
 
 	this.showText = function(event) {
 		alert(event);
@@ -111,10 +111,10 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 
 	};
 
-	$rootScope.$on('stereoUpdate', function(){
-		app.update();
-		$scope.$apply();
-	});
+	// $rootScope.$on('stereoUpdate', function(){
+	// 	app.update();
+	// 	$scope.$apply();
+	// });
 
 
 

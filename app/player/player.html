@@ -1,20 +1,17 @@
 <!-- <div class='player-spacer'>
 </div> -->
 
-<footer  ng-show='somethingToPlay()' class='page-footer'>
+<footer   class='page-footer' ng-show='true'>
 <div id='bottom'>
-
     <div class='row'>
-
-
-            <div id='controls' class='col m4 offset-s1' ng-show='getActiveTrack()'>
+            <div id='controls' class='col m4 offset-s1'>
 
               <div class='valign-wrapper'>
                 <i class='medium material-icons player-control action' ng-click='back()' ng-dblclick='backBack()'>skip_previous</i>
                 <i class="medium material-icons player-control action" ng-click='playToggle()'>{{getIsPlaying() ? "pause_circle_filled" : "play_circle_outline" }}</i>
                 <i class='medium material-icons player-control action' ng-click='next()'>skip_next</i>
                 &nbsp;
-                <span id='playtime' class=''>{{secToMinSec(progress)}}</span>
+                <span id='playtime' class=''>{{secToMinSec(getProgress())}}</span>
                 <span id='totalTime' class=''>/ {{secToMinSec(getActiveTrack().stop - getActiveTrack().begin)}}</span>
 
               </div>
