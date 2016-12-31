@@ -18,7 +18,6 @@ crate.factory('stereo', function(
 			context = context || this;
 			context.activeTrack = backgroundState.activeTrack;
 			context.progress = backgroundState.progress;
-			messenger.show(backgroundState.progress);
 			context.isPlaying = backgroundState.isPlaying;
 			$rootScope.$broadcast('stereoUpdate');
 		},
@@ -46,7 +45,6 @@ crate.factory('stereo', function(
 		},
 
 		sendCommand: function(command, payload, callback, context) {
-			messenger.show(callback);
 			context = context || this;
 			var message = {
 				command: command,
@@ -77,7 +75,6 @@ crate.factory('stereo', function(
 		setActiveTracks: function(tracks) {
 			this.activeTracks = tracks;
 			this.sendCommand('setActiveTracks', tracks, function(msg) {
-				messenger.show(msg);
 			});
 		},
 
@@ -105,6 +102,7 @@ crate.factory('stereo', function(
 
 		setTrack: function(track) {
 			this.sendCommand('setTrack', track, function success(response) {
+				messenger.show(response.artist + " - " + response.trackName);
 			});
 			this.activeTrack = track;
 			this.isPlaying = true;
@@ -116,7 +114,7 @@ crate.factory('stereo', function(
 
 		playToggle: function() {
 			this.sendCommand('playToggle', null, function success(response) {
-				messenger.show(response);
+				// messenger.show(response);
 			});
 		},
 
