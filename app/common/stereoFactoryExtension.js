@@ -17,9 +17,11 @@ crate.factory('stereo', function(
 		update: function(backgroundState, context) {
 			context = context || this;
 			context.activeTrack = backgroundState.activeTrack;
+			context.activeTracks = backgroundState.activeTracks;
 			context.progress = backgroundState.progress;
 			context.isPlaying = backgroundState.isPlaying;
 			$rootScope.$broadcast('stereoUpdate');
+			// messenger.show(context.activeTracks);
 		},
 
 		syncWithBackground: function(context) {
@@ -30,6 +32,7 @@ crate.factory('stereo', function(
 			var self = this;
 			// self.syncWithBackground(self);
 			var updateLoop = setInterval(self.syncWithBackground, 1000, self);
+
 		},
 
 		sendMessage: function(message, context, callback) {
@@ -79,7 +82,7 @@ crate.factory('stereo', function(
 		},
 
 		getActiveTracks: function() {
-
+			return this.activeTracks;
 		},
 
 		testThing: function() {
