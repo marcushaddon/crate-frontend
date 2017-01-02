@@ -4,7 +4,7 @@
 
 
 body {
-  width: 400px;
+  min-width: 400px;
   min-height: 600px;
   height:100%; /* fix height to 100% for IE */
   max-height:100%; /* fix height for other browsers */
