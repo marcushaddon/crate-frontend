@@ -55,7 +55,7 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger, a
 	};
 
   $scope.somethingToPlay = function() {
-    if (stereo.activeTrack !== {} ) {
+    if (stereo.activeTrack !== {} && stereo.activeTrack !== null) {
       return true;
     }
     return false;
