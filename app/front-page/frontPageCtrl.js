@@ -1,4 +1,4 @@
-crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory, albumFactory, playlistFactory) {
+crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory, albumFactory, playlistFactory, messenger) {
   $scope.tagPageSize = 10;
   $scope.latestAlbums    = [];
   $scope.latestPlaylists = [];

@@ -16,6 +16,7 @@ crate.factory('stereo', function(
 		isPlaying: false,
 		update: function(backgroundState, context) {
 			context = context || this;
+			// messenger.show(backgroundState.activeTracks);
 			context.activeTrack = backgroundState.activeTrack;
 			context.activeTracks = backgroundState.activeTracks;
 			context.progress = backgroundState.progress;

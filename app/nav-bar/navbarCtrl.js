@@ -1,4 +1,4 @@
-crate.controller('navbarCtrl', function($scope, $location, fbAuthFactory, user){
+crate.controller('navbarCtrl', function($scope, $location, $window, messenger, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
   $scope.search = function() {
@@ -14,5 +14,13 @@ crate.controller('navbarCtrl', function($scope, $location, fbAuthFactory, user){
 
   $scope.fbLogin = function() {
     fbAuthFactory.loginRedirect();
+  };
+
+  $scope.goBack = function() {
+    $window.history.back();
+  };
+
+  $scope.goForward = function() {
+    $window.history.forward();
   };
 });
