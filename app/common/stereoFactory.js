@@ -69,7 +69,13 @@ crate.factory('stereo', function(
 		},
 
 		getProgress: function() {
-			return player.getCurrentTime() - this.activeTrack.begin;
+			var progress;
+			if (player) {
+				progress = player.getCurrentTime() - this.activeTrack.begin;
+			} else {
+				progress = 0;
+			}
+			return progress;
 		},
 
 		setProgress: function() {
