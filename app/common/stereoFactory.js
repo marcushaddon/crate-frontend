@@ -6,6 +6,7 @@ crate.factory('stereo', function(
 	trackFactory,
 	messenger
 ){
+	console.log(player)
 	return {
 		stereo: this,
 		lists: [],
