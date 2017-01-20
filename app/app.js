@@ -20,6 +20,12 @@ var crate = angular.module('main-app', ['ngRoute'])
 		controller: 'FrontPageCtrl'
 	})
 
+	// To handle FB's weird hash redirect thing
+	.when('/_=_', {
+		templateUrl: 'front-page/front-page.html',
+		controller: 'FrontPageCtrl'
+	})
+
 	.when('/upload', {
 		templateUrl: 'upload/upload.html',
 		controller: 'Uploader'

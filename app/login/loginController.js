@@ -1,4 +1,4 @@
-crate.controller('login', function($scope, $location, fbAuthFactory, user, authTokenFactory){
+crate.controller('login', function($scope, $location, $window, fbAuthFactory, user, authTokenFactory){
 
   $scope.init = function() {
     var token = authTokenFactory.getToken();
@@ -13,7 +13,7 @@ crate.controller('login', function($scope, $location, fbAuthFactory, user, authT
   };
 
   $scope.fbLogin = function() {
-    fbAuthFactory.loginRedirect();
+    $window.location.href = ('/auth/facebook');
     };
-  
+
 });
