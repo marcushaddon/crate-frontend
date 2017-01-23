@@ -100,13 +100,16 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 				};
 
 	this.init = function() {
-		var token = authTokenFactory.getToken();
-		if (token) {
-			user.refreshUser()
-			.then(function(response){
-					user.setUser(response.data);
-			});
-		}
+		console.log("Getting user!");
+		user.refreshUser()
+		.then(function(response){
+			console.log(response.data);
+				user.setUser(response.data);
+		},
+		function failure(){
+			$location.path('/login');
+		});
+
 
 
 	};
