@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, authTokenFactory, albumFactory, stereo, messenger, user) {
+crate.controller('Main', function($scope, $location, $window, $rootScope, angularConfig, authTokenFactory, albumFactory, stereo, messenger, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;
@@ -107,7 +107,13 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 				user.setUser(response.data);
 		},
 		function failure(){
-			$location.path('/login');
+			// if (angularConfig.context === 'web') {
+				$location.path('/login');
+			// } else {
+			// 	// $window.location.href = 'https://cratebeta.herokuapp.com/auth/facebook/';
+			// 	messenger.show("sigh...");
+			// }
+
 		});
 
 
