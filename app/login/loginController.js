@@ -31,9 +31,10 @@ crate.controller('login', function($scope, $http, $location, $window, messenger,
          },
       data: {username: $scope.username, password: $scope.password}
     }).then(function success(response) {
-      console.log(response.headers('set-cookie'));
-      console.log(response.cookies);
       $location.path('/');
+    },
+    function failure(response) {
+      messenger.show("That key is incorrecet!");
     });
   };
 
