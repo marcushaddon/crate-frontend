@@ -1,4 +1,4 @@
-var crate = angular.module('main-app', ['ngRoute'])
+var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 
 .constant('config', config)
 

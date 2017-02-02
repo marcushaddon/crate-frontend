@@ -169,8 +169,12 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
               factory.youtubeTracks = tracksArray;
             });
       } else {
-        tracksArray[tracksArray.length - 1].stop = factory.videoDuration;
-        factory.youtubeTracks = tracksArray;
+        console.log("UPLOADER IS DUMB");
+        if (tracksArray.length > 0) {
+          tracksArray[tracksArray.length - 1].stop = factory.videoDuration;
+          factory.youtubeTracks = tracksArray;
+        }
+
       }
 
 
@@ -325,13 +329,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
 
             // Lets see if the youtube description has track times in it....
             factory.makeTracksFromVideoInfo(false)
-            .then(function(){
-              console.log("Youtube tracks:");
-              console.log(factory.youtubeTracks);
-
-              console.log("Discogs tracks:");
-              console.log(factory.tracks);
-              console.log("Validation: " + factory.validateTrackTimes(factory.youtubeTracks));
+            .then(function() {
               if (!factory.validateTrackTimes(factory.youtubeTracks)) {
                 factory.makeTracksFromVideoInfo(true);
               }
@@ -362,6 +360,8 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     factory.processingComplete = true;
                   });
                 } else if (factory.validateTrackTimes(factory.youtubeTracks)) {
+                  console.log("Apparently these validated?");
+                  console.log(factory.youtubeTracks);
                   factory.createTracks(factory.youtubeTracks)
                   .then(function(response) {
                     factory.progressUpdates.push("We got everything we needed from Youtube!");
@@ -386,6 +386,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     },
 
     validateTrackTimes: function(tracks) {
+      if (tracks.length === 0) return false;
       console.log("Validation being performed on youtube tracks");
       for (track in tracks) {
         if (track > 0) {
