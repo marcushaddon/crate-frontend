@@ -75,4 +75,5 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger, a
 		$scope.$apply();
 	});
   if (angularConfig.context === 'extension') stereo.init();
+  console.log("Contest: " + angularConfig.context);
 });

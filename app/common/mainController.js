@@ -39,7 +39,7 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 	        	loop = false;
 		        break;
 		      default:
-		        loop = window.setInterval(stereo.update, 1000);
+		        loop = window.setInterval(stereo.update, 1000, stereo);
 		      }
 		};
 
