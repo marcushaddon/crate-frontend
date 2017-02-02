@@ -7,6 +7,7 @@ crate.controller('playlistCtrl', function($scope, $location, $routeParams, $http
 
   // On load
   $scope.init = function() {
+    
     if ($scope.playlistId) {
       playlistFactory.getPlaylist($scope.playlistId)
       .then(function(response){

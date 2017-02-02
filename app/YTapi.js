@@ -2,8 +2,9 @@ loop = false;
 
 // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
+      // TODO: figure out CSP so we dont have to do this shit
+      var tagSrc = angularConfig.context === 'web' ? 'https://www.youtube.com/iframe_api' : 'lib/iframe_api.js'
+      tag.src = tagSrc;
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
@@ -25,7 +26,7 @@ loop = false;
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
-
+        console.log("PLAYER IS READY");
       }
 
       // 5. The API calls this function when the player's state changes.

@@ -1,11 +1,13 @@
-crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger){
-  $scope.getActiveTrack  = function() { return stereo.activeTrack; };
+crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger, angularConfig){
+  $scope.ho  = function() { return stereo.activeTrack; };
   $scope.getProgress     = function() { return stereo.getProgress(); };
   $scope.progress = 0;
   $scope.playToggle = function() {
 		var state = stereo.playToggle();
 	};
   $scope.getIsPlaying    = function() { return stereo.isPlaying; };
+
+  $scope.getActiveTrack = function() { return stereo.activeTrack; };
 
   $scope.back = function() {
 		// should call a stereo method
@@ -46,14 +48,14 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger){
 		);
 		angular.element('#progress').val(stereo.getProgress());
 
-		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-			$scope.next();
-		}
+		// if (player.getCurrentTime() >= stereo.activeTrack.stop) {
+		// 	$scope.next();
+		// }
 		$scope.$apply();
 	};
 
-  $scope.somethingToPlay = function() {    
-    if (stereo.activeTrack != null ) {
+  $scope.somethingToPlay = function() {
+    if (stereo.activeTrack !== {} && stereo.activeTrack !== null) {
       return true;
     }
     return false;
@@ -72,5 +74,6 @@ crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger){
 		$scope.update();
 		$scope.$apply();
 	});
-
+  if (angularConfig.context === 'extension') stereo.init();
+  console.log("Contest: " + angularConfig.context);
 });

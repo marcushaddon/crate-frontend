@@ -56,7 +56,7 @@ crate.factory('albumFactory', function($http, $q){
     incrementListens: function(albumId) {
       return $http({
         method: "PUT",
-        url: "api/album/" + albumId + "/increment-listens"
+        url: "/api/album/" + albumId + "/increment-listens"
       });
     }
   };

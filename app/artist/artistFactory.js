@@ -28,7 +28,7 @@ crate.factory('artistFactory', function($http){
     incrementListens: function(artistId) {
       return $http({
         method: "PUT",
-        url: "api/artist/" + artistId + "/increment-listens"
+        url: "/api/artist/" + artistId + "/increment-listens"
       });
     }
 }
