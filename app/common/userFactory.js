@@ -3,12 +3,11 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 		user: this,
 		info: {},
 		isLoggedIn: function() {
-			return authTokenFactory.getToken() !== null;
+			return this.info !== {};
 		},
 
 		setUser: function(userData) {
 			this.info = userData;
-			this.loggedIn = true;
 		},
 
 		refreshUser: function() {
@@ -25,20 +24,19 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 			});
 		},
 
-		logIn: function(userName, password) {
-			return $http({
-				method: 'POST',
-				url: '/login',
-				data: {
-					userName: userName,
-					password: password
-				}
-			});
-			// Need failure function
-		},
+		// logIn: function(userName, password) {
+		// 	return $http({
+		// 		method: 'POST',
+		// 		url: '/login',
+		// 		data: {
+		// 			userName: userName,
+		// 			password: password
+		// 		}
+		// 	});
+		// 	// Need failure function
+		// },
 
 		logOut: function() {
-			authTokenFactory.setToken();
 			this.setUser({});
 			// More stuff here
 

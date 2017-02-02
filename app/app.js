@@ -1,13 +1,14 @@
 var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 
-.constant('config', {
-	artistImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=artist&w=300&h=300',
-	albumImgPlaceHolder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300',
-	userImgPlaceholder: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=user&w=350&h=150'
-})
+.constant('config', config)
 
-.config(function($routeProvider, $httpProvider){
-	$httpProvider.interceptors.push('authInterceptor')
+.constant('angularConfig', angularConfig)
+
+.config(function($routeProvider, $httpProvider, $compileProvider){
+	// So our ng-hrefs will work in chrome extensions
+	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+
+	$httpProvider.interceptors.push('authInterceptor');
 
 	$routeProvider.when('/login', {
 		templateUrl: 'login/login.html',
@@ -15,6 +16,12 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 	})
 
 	.when('/', {
+		templateUrl: 'front-page/front-page.html',
+		controller: 'FrontPageCtrl'
+	})
+
+	// To handle FB's weird hash redirect thing
+	.when('/_=_', {
 		templateUrl: 'front-page/front-page.html',
 		controller: 'FrontPageCtrl'
 	})
@@ -34,7 +41,7 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 		controller: 'trackEditCtrl'
 	})
 
-	.when('/search-results/:searchField', {
+	.when('/search-results/:searchType/:searchField', {
 		templateUrl: 'search/search-results.html',
 		controller: 'SearchCtrl'
 	})

@@ -1,5 +1,5 @@
 
-crate.controller('Main', function($scope, $location, $rootScope, authTokenFactory, albumFactory, stereo, messenger, user) {
+crate.controller('Main', function($scope, $location, $window, $rootScope, angularConfig, authTokenFactory, albumFactory, stereo, messenger, user) {
 	// Right now this is a global, which is bad, but is being used by the youtube api's onReadyStateChange() function. hmm...
 	app                  = this;
 	stereoFace           = stereo;
@@ -39,7 +39,7 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 	        	loop = false;
 		        break;
 		      default:
-		        loop = window.setInterval(stereo.update, 1000);
+		        loop = window.setInterval(stereo.update, 1000, stereo);
 		      }
 		};
 
@@ -73,17 +73,17 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 
 
 	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
-	this.update = function() {
-		angular.element('#playtime').html(
-			app.secToMinSec(stereo.getProgress())
-		);
-		angular.element('#progress').val(stereo.getProgress());
-
-		if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-			app.next();
-		}
-		$scope.$apply();
-	}
+	// this.update = function() {
+	// 	angular.element('#playtime').html(
+	// 		app.secToMinSec(stereo.getProgress())
+	// 	);
+	// 	angular.element('#progress').val(stereo.getProgress());
+	//
+	// 	if (player.getCurrentTime() >= stereo.activeTrack.stop) {
+	// 		app.next();
+	// 	}
+	// 	$scope.$apply();
+	// }
 
 	this.showText = function(event) {
 		alert(event);
@@ -100,21 +100,30 @@ crate.controller('Main', function($scope, $location, $rootScope, authTokenFactor
 				};
 
 	this.init = function() {
-		var token = authTokenFactory.getToken();
-		if (token) {
-			user.refreshUser()
-			.then(function(response){
-					user.setUser(response.data);
-			});
-		}
+		console.log("Getting user!");
+		user.refreshUser()
+		.then(function(response){
+			console.log(response.data);
+				user.setUser(response.data);
+		},
+		function failure(){
+			// if (angularConfig.context === 'web') {
+				$location.path('/login');
+			// } else {
+			// 	// $window.location.href = 'https://cratebeta.herokuapp.com/auth/facebook/';
+			// 	messenger.show("sigh...");
+			// }
+
+		});
+
 
 
 	};
 
-	$rootScope.$on('stereoUpdate', function(){
-		app.update();
-		$scope.$apply();
-	});
+	// $rootScope.$on('stereoUpdate', function(){
+	// 	app.update();
+	// 	$scope.$apply();
+	// });
 
 
 
