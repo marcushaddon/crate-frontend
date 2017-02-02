@@ -289,10 +289,12 @@ var extensionStereo = function(
 var stereoController;
 if (angularConfig.context === 'web') {
 	stereoController = webStereo;
-	console.log("Using web stereo");
 } else {
 	stereoController = extensionStereo;
-	console.log("Using extension stereo");
+}
+
+if (stereoController == extensionStereo) {
+	console.log("Using extension stereo.");
 }
 
 crate.factory('stereo', stereoController);
