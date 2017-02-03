@@ -1,22 +1,12 @@
-crate.controller('login', function($scope, $http, $location, $window, messenger, fbAuthFactory, user, authTokenFactory){
+crate.controller('login', function($scope, $http, $location, $window, angularConfig, messenger, fbAuthFactory, user, authTokenFactory){
 
   $scope.init = function() {
-    // var token = authTokenFactory.getToken();
-    // if (token) {
-    //   user.refreshUser()
-    //   .then(function(response){
-    //     user.info = response.data;
-    //   });
-    //
-    //   $location.path('/front-page');
-    // }
+    $scope.context = angularConfig.context;
   };
 
   $scope.fbLogin = function() {
     $window.location.href = 'https://cratebeta.herokuapp.com/auth/facebook';
-
-
-    };
+  };
 
   $scope.extensionLogin = function() {
     $http({
