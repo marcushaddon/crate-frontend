@@ -1,4 +1,4 @@
-crate.controller('trackEditCtrl', function($scope, $location, uploadFactory, messenger, stereo){
+crate.controller('trackEditCtrl', function($scope, $location, artistFactory, albumFactory, trackFactory, uploadFactory, messenger, stereo){
   $scope.tracks = [];
   $scope.album = {};
   $scope.artist = {};
@@ -6,32 +6,46 @@ crate.controller('trackEditCtrl', function($scope, $location, uploadFactory, mes
   $scope.editField = null;
   $scope.videoLength = 0;
   $scope.init = function() {
-    $scope.album = uploadFactory.album;
-    $scope.artist = uploadFactory.artist;
-    $scope.tracks = uploadFactory.tracks;
-    $scope.tracks[0].begin = 0;
-    $scope.editTrack = $scope.tracks[0];
-    $scope.editField = 'stop';
-    // Cue our video
-    var preview = {
-      artistName: $scope.artist.name,
-      trackName: $scope.album.name,
-      videoId: $scope.tracks[0].videoId,
-      begin: 0,
-      stop: 100000
+    var albumId = $location.search().albumId;
+    albumFactory.getAlbum(albumId)
+    .then(function success(response) {
+      $scope.album = response.data;
+      var artistId = $scope.album.artistId;
+      artistFactory.getArtist(artistId)
+      .then(function success(response) {
+        $scope.artist = response.data;
+        trackFactory.getPendingTracksByAlbumId(albumId)
+        .then(function success(response) {
+          $scope.tracks = response.data;
+          $scope.tracks[0].begin = 0;
+          $scope.editTrack = $scope.tracks[0];
+          $scope.editField = 'stop';
 
-    };
+          // Cue our video
+          var preview = {
+            artistName: $scope.artist.name,
+            trackName: $scope.album.name,
+            videoId: $scope.tracks[0].videoId,
+            begin: 0,
+            stop: 100000
 
-    // new Track(0, $scope.artist.name, $scope.album.name, '', '', $scope.tracks[0].videoId, 0, 10000);
-    stereo.setTrack(preview);
-    var endingAdjustment = setTimeout(function(){
-					var theEnd = stereo.getVideoLength();
-          $scope.videoLength = theEnd;
-					angular.element('#progress').attr('max', theEnd);
-					angular.element('#totalTime').html(' / ' + secToMinSec(theEnd));
-					$scope.$apply();
-					console.log("THE LENGTH" + stereo.getVideoLength())
-				}, 3000);
+          };
+
+          // new Track(0, $scope.artist.name, $scope.album.name, '', '', $scope.tracks[0].videoId, 0, 10000);
+          stereo.setTrack(preview);
+          var endingAdjustment = setTimeout(function(){
+      					var theEnd = stereo.getVideoLength();
+                $scope.videoLength = theEnd;
+      					angular.element('#progress').attr('max', theEnd);
+      					angular.element('#totalTime').html(' / ' + secToMinSec(theEnd));
+      					$scope.$apply();
+      					console.log("THE LENGTH" + stereo.getVideoLength())
+      				}, 3000);
+        });
+      });
+    });
+
+
   };
 
   $scope.setEditTarget = function(index, field) {

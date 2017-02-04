@@ -244,7 +244,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
           .then(function(response) {
             factory.artist = response.data;
             factory.createAlbumFromMaster(master);
-            // TODO: CONTINUE!!!
           });
         });
       });
@@ -305,20 +304,25 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         };
 
         // AND HERE WE WILL SAVE THE ALBUM...
-        albumFactory.createAlbum(album)
+        albumFactory.maybeCreateAlbum(album)
         .then(function(response){
-
+          var maybeCreatedAlbum = response.data;
+          if (maybeCreatedAlbum.exists) {
+            messenger.show("Oops! It looks like somone has already found that album!!");
+            $location.path('/album/' + response.data._id);
+            return false;
+          }
           factory.album = response.data;
           // Now let's have a look at the tracks!!!
           factory.progressUpdates.push("Converting Discogs master track information...");
           // convert these tracks
           factory.tracks = factory.convertDiscogsTracklist(master.tracklist, factory.album, factory.artist, factory.videoId);
 
-
             // Lets see if the youtube description has track times in it....
             factory.makeTracksFromVideoInfo(false)
             .then(function() {
               if (!factory.validateTrackTimes(factory.youtubeTracks)) {
+                // If their track times don't make sense, try it again in idiot mode...
                 factory.makeTracksFromVideoInfo(true);
               }
               if (factory.youtubeTracks.length >= factory.tracks.length && factory.validateTrackTimes(factory.youtubeTracks)) {
@@ -337,7 +341,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                   factory.progressUpdates.push("We were able to get everything we needed from Youtube! Here's the album!");
                   factory.nextStop = '#/album/' + factory.album._id;
                   factory.processingComplete = true;
-                })
+                });
 
               } else {
                 if (factory.tracks[0].begin !== null) {
@@ -348,8 +352,6 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     factory.processingComplete = true;
                   });
                 } else if (factory.validateTrackTimes(factory.youtubeTracks)) {
-                  console.log("Apparently these validated?");
-                  console.log(factory.youtubeTracks);
                   factory.createTracks(factory.youtubeTracks)
                   .then(function(response) {
                     factory.progressUpdates.push("We got everything we needed from Youtube!");
@@ -357,9 +359,25 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     factory.processingComplete = true;
                   });
                 } else {
-                  factory.progressUpdates.push("We just need a few more things from you...");
-                  factory.processingComplete = true;
-                  factory.nextStop = '#/upload/add-break-points';
+                  // Persist pending tracks from discogs tracks (if they exist, other wise just make a stand in track)
+                  if (factory.tracks.length < 1) {
+                    trackFactory.tracks = [{
+                      albumId: factory.album._id,
+                      artistId: factory.artist._id,
+                      album: factory.album.name,
+                      artist: factory.artist.name,
+                      trackName: "Track 1",
+                      trackNum: 1
+                    }];
+                  }
+                  trackFactory.createPendingTracks(factory.tracks)
+                  .then(function(response) {
+                    var albumId = response.data;
+                    factory.progressUpdates.push("We just need a few more things from you...");
+                    factory.processingComplete = true;
+                    factory.nextStop = '#/upload/add-break-points?albumId=' + albumId;
+                  });
+
                 }
             }
 

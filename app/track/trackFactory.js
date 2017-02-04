@@ -24,6 +24,13 @@ crate.factory('trackFactory', function($http){
       });
     },
 
+    getPendingTracksByAlbumId: function(albumId) {
+      return $http({
+        method: 'GET',
+        url: '/api/tracks/pending/' + albumId
+      });
+    },
+
     getTracksByArtistId: function(id) {
       return $http({
         method: 'GET',
