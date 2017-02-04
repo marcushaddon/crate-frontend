@@ -46,7 +46,6 @@ var webStereo = function(
 
 		// OMG I hate this, but otherwise when the youtube API becomes 'this'
 		update: function(stereo) {
-			console.log(stereo);
 			stereo.progress = player.getCurrentTime() - stereo.getActiveTrack().begin;
 			// console.log("updateing");
 			// console.log("progress: " + player.getCurrentTime() + ", need to stop at: " + app.getActiveTrack())

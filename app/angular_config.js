@@ -5,6 +5,6 @@ var angularConfig = {
 
 
   // Constant
-  localHost: "http://localhost:3000",
+  localhost: "http://localhost:3000",
   heroku: "https://cratebeta.herokuapp.com"
 };

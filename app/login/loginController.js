@@ -5,7 +5,7 @@ crate.controller('login', function($scope, $http, $location, $window, angularCon
   };
 
   $scope.fbLogin = function() {
-    $window.location.href = 'https://cratebeta.herokuapp.com/auth/facebook';
+    $window.location.href = angularConfig[angularConfig.environment] + '/auth/facebook';
   };
 
   $scope.extensionLogin = function() {

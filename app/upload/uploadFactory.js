@@ -183,87 +183,75 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
     },
 
 
-    useDiscogsEntity: function(master) {
+    // discogsFactory.getArtist(discogsArtistId)
+    // .then(function(response){
+    //   var discArtist = response.data;
+    //   // Create the new artist
+    //   // Just in case the artist doesnt have an images array
+    //   var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
+    //   var imgs = discArtist.images? discArtist.images : [];
+    //   var link = discArtist.urls ? discArtist.urls[0] : discArtist.uri;
+    //   var crateArtist = {
+    //     name: discArtist.name.replace(/\s\(\d+\)/gi, ''),
+    //     bio: discArtist.profile,
+    //     link: link,
+    //     imgUrl: image,
+    //     imgs: imgs,
+    //     discogsId: discArtist.id,
+    //     discogsUrl: discArtist.resource_url,
+    //     discogsUri: discArtist.resource_uri,
+    //     aka: discArtist.namevariations,
+    //     tags: [],
+    //     favorites: 0,
+    //     listens: 0
+    //   };
+
+
+    useDiscogsEntity: function(entity) {
       var factory = this;
       if (factory.videoId === '') {
         messenger.show("Woops! Looks like you forgot to enter the Youtube URL!");
       }
-      factory.progressUpdates.push("Getting Youtube video info...");
-      factory.getVideoInfo()
-      .then(function(){
-        factory.progressUpdates.push("Checking Crate for this release...");
-        // First check to see if we have imported this master from discogs...
-        albumFactory.getAlbumByDiscogsId(master.id)
+      // Get the full result for the album/master entity
+      discogsFactory.getAlbum(entity.id, entity.type)
+      .then(function(response) {
+        var master = response.data;
+        var discogsArtistId = master.artists[0].id;
+        // Get discogs info on the artist
+        discogsFactory.getArtist(discogsArtistId)
         .then(function(response){
-          // If not, then continue....
-          if (response.data === null) {
-            factory.progressUpdates.push("Getting release information from Discogs...");
-            // This needs to accept a second argument of album type, master or release,
-            discogsFactory.getAlbum(master.id, master.type)
-            .then(function(response){
-              var master = response.data;
-              var discogsArtistId = master.artists[0].id;
-              // See if we already have this artist
-              factory.progressUpdates.push("Getting artist information from Discogs...");
-              artistFactory.getArtistByDiscogsId(discogsArtistId)
-              .then(function(response){
-                // We have this artist!
-                if (response.data != null && response.data != []) {
-                  factory.artist = response.data;
-                  factory.progressUpdates.push("Artist exists in Crate, pulling Crate artist info...");
-                  factory.createAlbumFromMaster(master);
-                } else {
-                  factory.progressUpdates.push("New artist! Pulling artist info from Discogs to create Crate artist...");
-                  // We dont have this artist, so create them and assign the result to our artistCandidate
-                  discogsFactory.getArtist(discogsArtistId)
-                  .then(function(response){
-                    var discArtist = response.data;
-                    // Create the new artist
-                    // Just in case the artist doesnt have an images array
-                    var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
-                    var imgs = discArtist.images? discArtist.images : [];
-                    var link = discArtist.urls ? discArtist.urls[0] : discArtist.uri;
-                    var crateArtist = {
-                      name: discArtist.name.replace(/\s\(\d+\)/gi, ''),
-                      bio: discArtist.profile,
-                      link: link,
-                      imgUrl: image,
-                      imgs: imgs,
-                      discogsId: discArtist.id,
-                      discogsUrl: discArtist.resource_url,
-                      discogsUri: discArtist.resource_uri,
-                      aka: discArtist.namevariations,
-                      tags: [],
-                      favorites: 0,
-                      listens: 0
-                    };
-
-                    // Put this artist into our db and use the result as our artist
-                    artistFactory.createArtist(crateArtist)
-                    .then(function(response){
-
-                      factory.artist = response.data;
-                      factory.createAlbumFromMaster(master);
-                    });
-
-                  });
-                }
-
-
-              });
-
-
-            });
-          } else {
-            messenger.show("Oops! It looks like somone has already found that album!!");
-            $location.path('/album/' + response.data._id);
-          }
+          var discArtist = response.data;
+          // Create the new artist
+          // Just in case the artist doesnt have an images array
+          var image = discArtist.images !== undefined ? discArtist.images[0].resource_url : null;
+          var imgs = discArtist.images? discArtist.images : [];
+          var link = discArtist.urls ? discArtist.urls[0] : discArtist.uri;
+          var crateArtist = {
+            name: discArtist.name.replace(/\s\(\d+\)/gi, ''),
+            bio: discArtist.profile,
+            link: link,
+            imgUrl: image,
+            imgs: imgs,
+            discogsId: discArtist.id,
+            discogsUrl: discArtist.resource_url,
+            discogsUri: discArtist.resource_uri,
+            aka: discArtist.namevariations,
+            tags: [],
+            favorites: 0,
+            listens: 0
+          };
+          artistFactory.maybeCreateArtist(crateArtist)
+          .then(function(response) {
+            factory.artist = response.data;
+            factory.createAlbumFromMaster(master);
+            // TODO: CONTINUE!!!
+          });
         });
-      })
+      });
 
 
     },
-
+//                       factory.createAlbumFromMaster(master);
     createAlbumFromMaster: function(master) {
       var factory = this;
       factory.progressUpdates.push("Creating album from Discogs info...");

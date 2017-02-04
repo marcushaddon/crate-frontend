@@ -25,6 +25,14 @@ crate.factory('artistFactory', function($http){
       });
     },
 
+    maybeCreateArtist: function(artist) {
+      return $http({
+        method: 'PUT',
+        url: '/api/artist',
+        data: artist
+      });
+    },
+
     incrementListens: function(artistId) {
       return $http({
         method: "PUT",

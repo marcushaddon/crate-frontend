@@ -16,6 +16,14 @@ crate.factory('trackFactory', function($http){
       });
     },
 
+    createPendingTracks: function(pendingTracks) {
+      return $http({
+        method: 'POST',
+        url: '/api/tracks/pending',
+        data: pendingTracks
+      });
+    },
+
     getTracksByArtistId: function(id) {
       return $http({
         method: 'GET',
