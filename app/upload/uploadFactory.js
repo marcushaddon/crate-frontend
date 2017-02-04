@@ -373,9 +373,16 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                   trackFactory.createPendingTracks(factory.tracks)
                   .then(function(response) {
                     var albumId = response.data;
-                    factory.progressUpdates.push("We just need a few more things from you...");
-                    factory.processingComplete = true;
-                    factory.nextStop = '#/upload/add-break-points?albumId=' + albumId;
+                    if (angularConfig.context == 'web') {
+                      factory.progressUpdates.push("We just need a few more things from you...");
+                      factory.processingComplete = true;
+                      factory.nextStop = '#/upload/add-break-points?albumId=' + albumId;
+                    } else if (angularConfig.context == 'extension') {
+                      chrome.tabs.create({
+                        url: angularConfig[angularConfig.environment] + '#/upload/add-break-points?albumId=' + albumId
+                      });
+                    }
+
                   });
 
                 }
