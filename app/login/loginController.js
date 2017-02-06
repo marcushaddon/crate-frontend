@@ -8,51 +8,17 @@ var webLoginController = function($scope, $http, $location, $window, angularConf
     $window.location.href = angularConfig[angularConfig.environment] + '/auth/facebook';
   };
 
-  $scope.extensionLogin = function() {
-    $http({
-      method: 'POST',
-      url: '/api/extension/login',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      transformRequest: function(obj) {
-           var str = [];
-           for(var p in obj)
-           str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-           return str.join("&");
-         },
-      data: {username: $scope.username, password: $scope.password}
-    }).then(function success(response) {
-      $location.path('/');
-    },
-    function failure(response) {
-      messenger.show("That key is incorrecet!");
-    });
-  };
-
 };
 
 var extensionLoginController = function($scope, angularConfig, $http, $location, $window) {
-
-  $scope.sendRequest = function(message, context, callback) {
-      var port = chrome.extension.connect({
-            name: "Sample Communication"
-       });
-       port.onMessage.addListener(function(msg) {
-
-          callback(msg, context);
-        });
-       port.postMessage(message);
-
+    $scope.getExtensionId = function() {
+      return chrome.runtime.id;
     };
-
+  // bknaoleceflaampejemhijmfieojgcie
     $scope.fbLogin = function() {
-      // var msg = {};
-      // msg.login = true;
-      // $scope.sendRequest(msg, this, function(msg) {
-      //   console.log(msg);
-      // });
-
+      var extensionId = chrome.runtime.id;
       chrome.identity.launchWebAuthFlow(
-        {'url': 'https://www.facebook.com/v2.8/dialog/oauth?client_id=1780591808825823&redirect_uri=https://bknaoleceflaampejemhijmfieojgcie.chromiumapp.org/provider_cb&response_type=token',
+        {'url': 'https://www.facebook.com/v2.8/dialog/oauth?client_id=1780591808825823&redirect_uri=https://' + extensionId + '.chromiumapp.org/provider_cb&response_type=token',
         'interactive': true},
         function(redirect_url) {
           // This should be replaced

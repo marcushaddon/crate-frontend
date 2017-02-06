@@ -73,6 +73,17 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
     }
   };
 
+  $scope.research = function() {
+    $location.path('search-results/general/' + $scope.searchField);
+  };
+
+  $scope.getResultsLength = function() {
+    return $scope.artists.length +
+    $scope.albums.length +
+    $scope.tracks.length +
+    $scope.playlists.length
+  };
+
   // Cue my tracks
   $scope.cueMyTracks = function() {
     stereo.activeList = null;

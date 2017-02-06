@@ -26,6 +26,10 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 		controller: 'FrontPageCtrl'
 	})
 
+	.when('/extension-nav', {
+		templateUrl: 'nav-bar/extension-nav.html'
+	})
+
 	.when('/upload', {
 		templateUrl: 'upload/upload.html',
 		controller: 'Uploader'

@@ -18,12 +18,9 @@
   <div class="nav-wrapper" >
     <div class='row' >
       <div class='col s4'>
-        <a href='' ng-click='goBack()'><i class='material-icons left hide-on-med-and-up'>go_back</i></a>
+        <a href='' ng-click='goBack()'>back</a>
         <a href="#/" class="brand-logo"><i class='material-icons'>album</i>crate</a>
-        <a class='hide-on-med-and-up' href="#/upload">temp upload link</a>
       </div>
-
-      <a href='' ng-click='goForward()'><i class='material-icons right hide-on-med-and-up'>forward</i></a>
 
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -34,6 +31,11 @@
     </ul>
     <small ng-show='user.isLoggedIn()' class='right hide-on-small-only'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
     <small ng-show='!user.isLoggedIn()' class='right'><a href='#/login'>Log in</a></small>
+
+    <a class='right hide-on-large' href='#/extension-nav'><i class='material-icons'>reorder</i></a>
+
+  </ul>
+
 
 </div>
   </div>

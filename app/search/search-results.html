@@ -3,12 +3,19 @@
 
 <div class='row'>
 <!-- SAVED PLAYLISTS -->
+	<form ng-submit='research()'>
+	<div class="input-field">
+			<input id="search" type="search" ng-model='searchField' required>
+			<label for="search"><i class="material-icons">search</i></label>
+			<i class="material-icons" ng-click='searchMode = false'>close</i>
+		</div>
+	</form>
 
 		<!-- CURRENT PLAYLIST -->
 	<div class='col m12 s12'>
 		<div id='results'>
 
-		                <h3 ng-show='query.length' class='truncate'>Search Results for {{query}}</h3>
+		                <h3 ng-show='getResultsLength()' class='truncate'>Search Results for {{query}}</h3>
                     <div class='music-list'>
 
                     <div ng-show='tracks.length > 0'>
