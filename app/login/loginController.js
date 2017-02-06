@@ -76,7 +76,7 @@ var extensionLoginController = function($scope, angularConfig, $http, $location,
 
 // angularConfig.environment == 'web'
 var loginController;
-if (angularConfig.environment == 'web') {
+if (angularConfig.context == 'web') {
   loginController = webLoginController;
   console.log("Using web login");
 } else {
