@@ -1,6 +1,11 @@
 crate.controller('navbarCtrl', function($scope, $location, $window, messenger, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
+
+  $scope.testThing = function() {
+    alert("TESTING");
+  };
+
   $scope.search = function() {
     $location.path('search-results/general/' + $scope.searchField);
   };

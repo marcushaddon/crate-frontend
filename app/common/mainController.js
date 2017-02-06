@@ -43,48 +43,6 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		      }
 		};
 
-
-	// this.setTrack = function(track) {
-	// 	stereo.setTrack(track);
-	// };
-
-	// this.setActiveList = function(list) {
-	//
-	// 	stereo.setActiveList(list);
-	// 	if (list.listType === 'playlist') {
-	// 		stereo.setActiveTracks(list.tracks);
-	// 	} else {
-	// 		// stereo is out of scope when oure success funciton runs! for now this is handled in MainCtrl :'(
-	// 		albumFactory.getTracksByAlbumId(list._id)
-	// 		.then(function(response){
-	// 			stereo.activeTracks = response.data;
-	// 		});
-	// 	}
-	// };
-
-	// this.isActiveList = function(list) {
-	// 	if (stereo.activeList == list) {
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// };
-
-
-
-	// TODO: The logic about whether to go to the next song needs to be inside of stereo factory
-	// this.update = function() {
-	// 	angular.element('#playtime').html(
-	// 		app.secToMinSec(stereo.getProgress())
-	// 	);
-	// 	angular.element('#progress').val(stereo.getProgress());
-	//
-	// 	if (player.getCurrentTime() >= stereo.activeTrack.stop) {
-	// 		app.next();
-	// 	}
-	// 	$scope.$apply();
-	// }
-
 	this.showText = function(event) {
 		alert(event);
 	};
@@ -103,27 +61,19 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		console.log("Getting user!");
 		user.refreshUser()
 		.then(function(response){
-			console.log(response.data);
-				user.setUser(response.data);
+			user.setUser(response.data);
+			if (angularConfig.context !== 'web') {
+				$location.path('/user/' + user.info.userId);
+			}
 		},
 		function failure(){
-			// if (angularConfig.context === 'web') {
 				$location.path('/login');
-			// } else {
-			// 	// $window.location.href = 'https://cratebeta.herokuapp.com/auth/facebook/';
-			// 	messenger.show("sigh...");
-			// }
-
 		});
 
 
 
 	};
 
-	// $rootScope.$on('stereoUpdate', function(){
-	// 	app.update();
-	// 	$scope.$apply();
-	// });
 
 
 
