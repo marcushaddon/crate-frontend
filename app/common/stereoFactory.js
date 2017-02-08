@@ -41,6 +41,10 @@ var webStereo = function(
 			return true;
 		},
 
+		getActiveList: function() {
+			return this.activeList;
+		},
+
 		testThing: function() {
 		},
 

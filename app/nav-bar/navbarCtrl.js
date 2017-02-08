@@ -1,6 +1,13 @@
-crate.controller('navbarCtrl', function($scope, $location, $window, messenger, fbAuthFactory, user){
+crate.controller('navbarCtrl', function($scope, $location, $window, stereo, messenger, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
+  $scope.onWeb = angularConfig.context === "web";
+
+  $scope.getNowPlaying = function() {
+    var current = stereo.getCurrentList();
+    var currentPath = '#/' + current.listType + '/' + current._id;
+    return currentPath;
+  };
 
   $scope.testThing = function() {
     alert("TESTING");
