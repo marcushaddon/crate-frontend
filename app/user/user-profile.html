@@ -27,12 +27,7 @@
             {{ userProfile.bio || "Really cool story about userProfile??!?!" }}
           </p>
           <ul>
-            <li><i class="fa fa-facebook-official" aria-hidden="true"></i><i>{{ userProfile.facebook || "n/a" }}</i></li>
-            <li><i class="fa fa-instagram" aria-hidden="true"></i><i>{{ '@' + userProfile.instagram || 'n/a' }}</i></li>
-            <li><i class="fa fa-soundcloud" aria-hidden="true"></i><i>{{ userProfile.soundcloud || 'n/a' }}</i></li>
-            <li><i class="fa fa-twitter" aria-hidden="true"></i><i>{{ userProfile.twitter || 'n/a' }}</i></li>
-            <li><i class="fa fa-snapchat-ghost" aria-hidden="true"></i><i>{{ userProfile.snapchat || 'n/a'}}</i></li>
-          </ul>
+
         </div>
         <small class='action right white-text' ng-click='showProfile = false'>show less...</small>
       </div>
@@ -61,6 +56,36 @@
       <div class='col m9'>
       <div ng-show="viewing == 'tracks'">
       <h3>Tracks</h3>
+      <!-- <div class="row">
+        <div class="col m1">
+          Sort by:
+        </div>
+        <div class="col m2">
+          <select class="" name="">
+            <option value="date">Date Added</option>
+            <option value="shit">Alphabetical</option>
+          </select>
+        </div>
+        <div class="col m2">
+          <select class="" name="">
+            <option value="">Ascending</option>
+            <option value="">Descending</option>
+          </select>
+        </div>
+        <div class="col m7">
+          <ul class="pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+          </ul>
+        </div>
+
+      </div> -->
+
       <div ng-show='crateTracks.length > 0' class='collection music-list'>
         <list-song-item ng-repeat='track in crateTracks'></list-song-item>
       </div>
@@ -100,7 +125,7 @@
 
   </div>
 
-  <div class='col m3 music-list'>
+  <div class='col m3 music-list' ng-show="onWeb || viewing == 'recent'">
     <h4>Recently listened</h4>
     <div class='scroll-container'>
     <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>

@@ -1,18 +1,28 @@
-crate.controller('userCtrl', function($scope, $routeParams, $location, config, user, stereo, playlistFactory, albumFactory, messenger){
+crate.controller('userCtrl', function($scope, $routeParams, $location, angularConfig, config, user, stereo, playlistFactory, albumFactory, messenger){
   $scope.userProfile = {};
   $scope.playlists = [];
   $scope.albums = [];
   $scope.viewing = 'tracks';
   $scope.showProfile = true;
+  $scope.onWeb = angularConfig.context === "web" ? true : false;
   $scope.setView = function(view) {
     $scope.viewing = view;
     // Append view to query string so this will create a history item
     $location.search('viewing', view);
   }
 
+  $scope.getViewTitle = function() {
+    return $scope.viewing[0].toUpperCase() + $scope.viewing.slice(1);
+  };
+
   $scope.init = function() {
     if (!user.isLoggedIn()) $location.path('/');
+    // Check what we should be viewing
     $scope.viewing = $location.search().viewing || 'albums';
+
+    // Initialize materialize's dropdowns
+    angular.element('select').material_select();
+
     var userProfileId = $routeParams.id;
     if (userProfileId == user.info.userId) $scope.showProfile = false;
     user.getUser(userProfileId)
@@ -77,6 +87,14 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
     });
 
 
+  };
+
+  $scope.getUserCrateViewParam = function(view, param) {
+    return user.getCrateViewParam(view, param);
+  };
+
+  $scope.setUserCrateViewParam = function(view, param, value) {
+    user.setCrateViewParam(view, param, value);
   };
 
   $scope.cueMyTracks = function(recentlyListened) {

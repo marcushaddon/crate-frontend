@@ -24,22 +24,45 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 			});
 		},
 
-		// logIn: function(userName, password) {
-		// 	return $http({
-		// 		method: 'POST',
-		// 		url: '/login',
-		// 		data: {
-		// 			userName: userName,
-		// 			password: password
-		// 		}
-		// 	});
-		// 	// Need failure function
-		// },
-
 		logOut: function() {
 			this.setUser({});
 			// More stuff here
 
+		},
+
+		crateViewParams: {
+			artists: {
+				pageSize: 10,
+				page: 1,
+				sortBy: 'dateAdded',
+				sort: 'asc'
+			},
+			albums: {
+				pageSize: 10,
+				page: 1,
+				sortBy: 'dateAdded',
+				sort: 'asc'
+			},
+			tracks: {
+				pageSize: 20,
+				page: 1,
+				sortBy: 'dateAdded',
+				sort: 'asc'
+			},
+			playlists: {
+				pageSize: 10,
+				page: 1,
+				sortBy: 'dateAdded',
+				sort: 'asc'
+			}
+		},
+
+		getCrateViewParam: function(view, param) {
+			return this.crateViewParams[view][param];
+		},
+
+		setCrateViewParam: function(view, param, value) {
+			this.crateViewParams[view][param] = value;
 		},
 
 		getCrateArtists: function(user, pageSize, page, sortBy, order) {
