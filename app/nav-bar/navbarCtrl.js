@@ -3,14 +3,13 @@ crate.controller('navbarCtrl', function($scope, $location, $window, stereo, mess
   $scope.searchField = '';
   $scope.onWeb = angularConfig.context === "web";
 
-  $scope.getNowPlaying = function() {
-    var current = stereo.getCurrentList();
-    var currentPath = '#/' + current.listType + '/' + current._id;
-    return currentPath;
+  $scope.goToNowPlaying = function() {
+    stereo.takeMeToNowPlaying();
   };
 
   $scope.testThing = function() {
-    alert("TESTING");
+    console.log($scope.getNowPlaying());
+    console.log(stereo.activeList);
   };
 
   $scope.search = function() {

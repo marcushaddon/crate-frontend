@@ -18,6 +18,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
 
   $scope.cueMyTracks = function() {
     // stereo.setActiveList($scope.album);
+    stereo.setActiveList($scope.album);
     stereo.setActiveTracks($scope.tracks);
     albumFactory.incrementListens($scope.albumId);
   };

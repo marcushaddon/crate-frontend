@@ -1,5 +1,6 @@
 var webStereo = function(
 	$rootScope,
+	$location,
 	clerk,
 	albumFactory,
 	artistFactory,
@@ -43,6 +44,17 @@ var webStereo = function(
 
 		getActiveList: function() {
 			return this.activeList;
+		},
+
+		takeMeToNowPlaying: function() {
+			var current = this.getActiveList();
+			if (current !== {}) {
+				var currentPath = current.listType + '/' + current._id;
+			} else {
+				currentPath = '';
+			}
+
+			$location.path(currentPath);
 		},
 
 		testThing: function() {
@@ -236,6 +248,14 @@ var extensionStereo = function(
 			return this.activeTracks;
 		},
 
+		getActiveListAsync: function(callback) {
+			this.sendRequest('activeList', null, null, callback);
+		},
+
+		getPathToCurrentlyPlayingAsync: function(callback) {
+
+		},
+
 		testThing: function() {
 
 		},
@@ -289,6 +309,8 @@ var extensionStereo = function(
 	}
 };
 
+
+
 var stereoController;
 if (angularConfig.context === 'web') {
 	stereoController = webStereo;
@@ -299,5 +321,9 @@ if (angularConfig.context === 'web') {
 if (stereoController == extensionStereo) {
 	console.log("Using extension stereo.");
 }
+
+
+
+
 
 crate.factory('stereo', stereoController);
