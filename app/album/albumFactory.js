@@ -31,10 +31,15 @@ crate.factory('albumFactory', function($http, $q){
       });
     },
 
-    getAlbumsByUserId: function(id) {
+    getAlbumsByUserId: function(id, pageSize, page, sortBy, order) {
+      pageSize = pageSize || 10;
+      page     = page || 1;
+      sortBy   = sortBy || 'foundOn';
+      order    = order || 'asc';
       return $http({
         method: 'GET',
-        url: '/api/user/' + id + '/albums'
+        // IS THIS RESTFUUUUUUUUULLLLL
+        url: '/api/user/' + id + '/albums?pageSize=' + pageSize + "&page=" + page + "&sortBy=" + sortBy + "&order=" + order
       });
     },
 

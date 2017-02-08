@@ -42,39 +42,47 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 
 		},
 
-		getCrateArtists: function(user, pageSize, page) {
+		getCrateArtists: function(user, pageSize, page, sortBy, order) {
 			pageSize = pageSize || 30;
-			page = page || 1;
+			page     = page     || 1;
+			sortBy   = sortBy   || 'dateAdded';
+			order    = order    || 'asc';
 			return $http({
 				method: 'GET',
 				url: '/api/user/' + user._id + '/crate/artists?page=' + page + '&pageSize=' + pageSize
 			});
 		},
 
-		getCrateAlbums: function(user, pageSize, page) {
+		getCrateAlbums: function(user, pageSize, page, sortBy, order) {
 			pageSize = pageSize || 30;
-			page = page || 1;
+			page     = page     || 1;
+			sortBy   = sortBy   || 'dateAdded';
+			order    = order    || 'asc';
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + user._id + '/crate/albums?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/albums?page=' + page + '&pageSize=' + pageSize + " &sortBy=" + sortBy + "&order=" + order
 			});
 		},
 
-		getCrateTracks: function(user, pageSize, page) {
+		getCrateTracks: function(user, pageSize, page, sortBy, order) {
 			pageSize = pageSize || 30;
-			page = page || 1;
+			page     = page     || 1;
+			sortBy   = sortBy   || 'dateAdded';
+			order    = order    || 'asc';
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + user._id + '/crate/tracks?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/tracks?page=' + page + '&pageSize=' + pageSize + " &sortBy=" + sortBy + "&order=" + order
 			});
 		},
 
-		getCratePlaylists: function(user, pageSize, page) {
+		getCratePlaylists: function(user, pageSize, page, sortBy, order) {
 			pageSize = pageSize || 30;
-			page = page || 1;
+			page     = page     || 1;
+			sortBy   = sortBy   || 'dateAdded';
+			order    = order    || 'asc';
 			return $http({
 				method: 'GET',
-				url: '/api/user/' + user._id + '/crate/playlists?page=' + page + '&pageSize=' + pageSize
+				url: '/api/user/' + user._id + '/crate/playlists?page=' + page + '&pageSize=' + pageSize + " &sortBy=" + sortBy + "&order=" + order
 			});
 		},
 

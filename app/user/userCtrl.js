@@ -6,10 +6,13 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
   $scope.showProfile = true;
   $scope.setView = function(view) {
     $scope.viewing = view;
+    // Append view to query string so this will create a history item
+    $location.search('viewing', view);
   }
 
   $scope.init = function() {
     if (!user.isLoggedIn()) $location.path('/');
+    $scope.viewing = $location.search().viewing || 'albums';
     var userProfileId = $routeParams.id;
     if (userProfileId == user.info.userId) $scope.showProfile = false;
     user.getUser(userProfileId)
@@ -46,15 +49,15 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, config, u
 
       // Get albums discovered by userProfile
       albumFactory.getAlbumsByUserId(userProfileId)
-      .then(function(response){
+      .then(function success(response) {
         $scope.discoveries = response.data;
-      }, function(response){
+      }, function failure(response) {
         messenger.show(response.data);
       });
 
       // Get albums liked by userProfile
       user.getCrateAlbums($scope.userProfile)
-      .then(function(response){
+      .then(function(response) {
         $scope.albums = response.data;
       });
 
