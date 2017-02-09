@@ -1,3 +1,32 @@
-<a href='' class='collection-item' ng-href='/#/album/{{album._id}}' class='collection-item'>
-    <i class='material-icons'>queue_music</i><span class='artist-name truncate'>{{album.artist}} - {{album.name}}</span><span class='right detail'>{{album.noTracks || 0}} songs</span>
-</a>
+<!-- <div class="col s12">
+  <div class="row">
+
+    <div class="col s2 m1">
+      <img ng-src="{{album.imgUrl}}" class='line-item-pic' alt="">
+    </div>
+    <div class="col s10">
+      <ul class=''>
+        <li>{{album.name}}</li>
+        <li>{{album.artist}}</li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+</div> -->
+
+<div class='col s12'>
+  <a ng-href='#/album/{{album._id}}'>
+    <div class="row collection-item">
+      <div class="col s2 m1">
+        <img ng-src="{{album.imgUrl}}" class="line-item-pic" alt="">
+      </div>
+      <div class="col s10">
+        <ul>
+          <li>{{album.name}}</li>
+          <li><small>{{album.artist}}</small></li>
+        </ul>
+      </div>
+    </div>
+
+  </a>
+</div>

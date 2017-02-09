@@ -169,6 +169,13 @@ footer {
   max-height: 50px;
   margin-top: 12px;
   margin-bottom: -6px;
+  margin-left: 20px;
+}
+
+.line-item-pic {
+  max-height: 50px;
+  margin-top: 6px;
+  margin-left: -12px;
 }
 
 .danger {

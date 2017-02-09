@@ -94,7 +94,7 @@
 
       <div ng-show="viewing == 'playlists'">
         <h3>Playlists <small><a href='' ng-click='newPlaylist()'>new playlist <i class='material-icons'>add</i></a></small></h3>
-        <div ng-show='playlists.length > 0' class='row tile-rack' >
+        <div ng-show='playlists.length > 0' class='row' >
         <playlist-tile ng-repeat='playlist in playlists'></playlist-tile>
       </div>
       <i ng-show='playlists.length == 0'>You haven't added any playlists to your crate!</i>
@@ -103,7 +103,9 @@
     <div ng-show="viewing == 'albums'">
       <h3>Albums</h3>
       <div ng-show='albums.length > 0' class='row tile-rack' >
-      <album-tile ng-repeat='album in albums'></album-tile>
+        <ul class='collection'>
+          <album-item ng-repeat='album in albums'></album-item>
+        </ul>
       </div>
       <i ng-show='albums.length == 0'>You haven't added any albums to your crate!</i>
     </div>

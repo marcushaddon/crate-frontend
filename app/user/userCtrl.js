@@ -21,7 +21,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, angularCo
     $scope.viewing = $location.search().viewing || 'albums';
 
     // Initialize materialize's dropdowns
-    angular.element('select').material_select();
+    // angular.element('select').material_select();
 
     var userProfileId = $routeParams.id;
     if (userProfileId == user.info.userId) $scope.showProfile = false;
@@ -68,7 +68,12 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, angularCo
       // Get albums liked by userProfile
       user.getCrateAlbums($scope.userProfile)
       .then(function(response) {
-        $scope.albums = response.data;
+        $scope.albums = response.data
+        .sort(function alphasort(a,b) {
+          var textA = a.name.toLowerCase().replace(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g, "");
+          var textB = b.name.toLowerCase().replace(/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g, "");
+          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
       });
 
       // Get tracks liked by userProfile
