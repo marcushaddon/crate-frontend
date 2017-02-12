@@ -51,6 +51,11 @@
         </a>
       </div>
 
+      <a class='btn' ng-click="setView('pending')">
+        <i class='material-icons'>view_list</i>
+      </a>
+    </div>
+
       <!-- Dropdown Trigger -->
     <div class='row'>
       <div class='col s12 m9'>
@@ -124,6 +129,16 @@
       </div>
       <i ng-show='crateArtists.length == 0'>You haven't added any artists to your crate!</i>
     </div>
+
+    <div  ng-show="viewing == 'pending'">
+      <h3>Pending</h3>
+      <ul ng-show='userProfile.pendingUploads.length > 0' class='collection music-list'>
+        <li ng-repeat='upload in userProfile.pendingUploads' class='collection-item'>
+          <a ng-href="#/upload/add-break-points?albumId={{upload._id}}">{{upload.name}} - {{upload.artist}} </a>
+        </li>
+      </ul>
+      <i ng-show='crateArtists.length == 0'>You don't have any pending uploads!</i>
+  </div>
 
   </div>
 
