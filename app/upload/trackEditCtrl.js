@@ -71,10 +71,8 @@ crate.controller('trackEditCtrl', function($scope, $location, artistFactory, alb
       angular.element('#submitTracks').removeClass('disabled');
       messenger.show("WHOOHOO");
     } else {
-      messenger.show("updating tracks!");
       trackFactory.updatePendingTracks($scope.tracks)
       .then(function(response){
-        messenger.show(response.data);
       });
     }
 
