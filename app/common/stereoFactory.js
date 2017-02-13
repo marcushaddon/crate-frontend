@@ -162,6 +162,7 @@ var webStereo = function(
 
 var extensionStereo = function(
 	$rootScope,
+	$location,
 	clerk,
 	albumFactory,
 	artistFactory,
@@ -254,6 +255,19 @@ var extensionStereo = function(
 
 		getPathToCurrentlyPlayingAsync: function(callback) {
 
+		},
+
+		takeMeToNowPlaying: function() {
+			this.sendRequest('getActiveList', null, null, function(msg) {
+				var current = msg.activeList;
+				var currentPath;
+				if (!current._id) {
+					currentPath = '/';
+				} else {
+					currentPath = current.listType + '/' + current._id;
+				}
+				$location.path(currentPath);
+			});
 		},
 
 		testThing: function() {

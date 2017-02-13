@@ -238,4 +238,14 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 	return {
 		templateUrl: 'components/artist-item.html'
 	}
+})
+
+.run(function($rootScope, $window) {
+	$rootScope.$on('$locationChangeStart', function(event, next, current) {
+		var startingUp = current.indexOf('#') < 0;
+		if (!startingUp) {
+			$window.localStorage.setItem("lastCrateLocation", next);
+		}
+		console.log($window.localStorage.getItem('lastCrateLocation'));
+	});
 });

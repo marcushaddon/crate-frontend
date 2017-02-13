@@ -63,13 +63,21 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		.then(function(response){
 			user.setUser(response.data);
 			if (angularConfig.context !== 'web') {
-				$location.path('/user/' + user.info.userId);
+				var lastPath = $window.localStorage.getItem('lastCrateLocation');
+				if (lastPath) {
+					var useless = lastPath.indexOf('#');
+					var useful = lastPath.slice(useless + 1);
+					$location.path(useful);
+				} else {
+					$location.path('/');
+				}
+
 			}
 		},
 		function failure(){
 				$location.path('/login');
 		});
-
+// chrome
 
 
 	};
