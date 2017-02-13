@@ -10,7 +10,7 @@
     </li>
       <li class='collection-item'>
         <h4>
-          <a href="#/upload"><i class='material-icons'>backup</i> Upload</a>
+          <a href="#/upload"><i class='material-icons'>backup</i> Upload <span ng-show='user.info.pendingUploads.length' class="new badge" data-badge-caption='pending'>{{user.info.pendingUploads.length}}</span></a>
         </h4>
       </li>
       <li class='collection-item'>

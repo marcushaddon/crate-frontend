@@ -10,9 +10,19 @@
 
 		        <ul class='collection'>
 		            <li><input id='videoId' type='text' class='collection-item' placeholder='Youtube Video Url' ng-model='videoUrl' ng-change='checkForVideo()' /></li>
-		</ul>
-	</div>
+				</ul>
+			</div>
 
+			<div ng-show='pendingUploads.length'>
+				<h4>Pending uploads</h4>
+				You started adding these albums to Crate, but we still need some information about them. We've saved your progress so you can pick up right where you left off!
+				<ul ng-show='pendingUploads.length > 0' class='collection music-list'>
+					<li ng-repeat='upload in pendingUploads' class='collection-item'>
+						<a ng-href="#/upload/add-break-points?albumId={{upload._id}}">{{upload.name}} - {{upload.artist}} </a>
+					</li>
+				</ul>
+				<i ng-show='user.pendingUploads.length == 0'>You don't have any pending uploads!</i>
+		</div>
 
 
 		</div>
