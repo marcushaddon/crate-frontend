@@ -1,4 +1,4 @@
-crate.controller('navbarCtrl', function($scope, $location, $window, stereo, messenger, fbAuthFactory, user){
+crate.controller('navbarCtrl', function($scope, $location, $window, angularConfig, stereo, messenger, fbAuthFactory, user){
   $scope.searchMode = false;
   $scope.searchField = '';
   $scope.onWeb = angularConfig.context === "web";

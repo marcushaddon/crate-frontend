@@ -62,6 +62,7 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		user.refreshUser()
 		.then(function(response){
 			user.setUser(response.data);
+			console.log(response.data);
 			if (angularConfig.context !== 'web') {
 				var lastPath = $window.localStorage.getItem('lastCrateLocation');
 				if (lastPath) {

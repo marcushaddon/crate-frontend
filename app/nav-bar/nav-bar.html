@@ -34,7 +34,7 @@
 
     <small ng-show='!user.isLoggedIn()' class='right'><a href='#/login'>Log in</a></small>
 
-    <a class='right hide-on-large' ng-show='angularConfig.context == "extension"' href='#/extension-nav'><i class='material-icons'>reorder</i></a>
+    <a class='right' ng-show='!onWeb' href='#/extension-nav'><i class='material-icons'>reorder</i></a>
 
   </ul>
 

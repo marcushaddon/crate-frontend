@@ -3,11 +3,10 @@
 
 <div class='row'>
 <!-- SAVED PLAYLISTS -->
-	<form ng-submit='research()'>
+	<form ng-submit='research()' ng-show="!isWeb">
 	<div class="input-field">
 			<input id="search" type="search" ng-model='searchField' required>
 			<label for="search"><i class="material-icons">search</i></label>
-			<i class="material-icons" ng-click='searchMode = false'>close</i>
 		</div>
 	</form>
 

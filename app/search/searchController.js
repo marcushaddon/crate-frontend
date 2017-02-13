@@ -1,5 +1,5 @@
-crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, messenger, stereo){
-
+crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, angularConfig, messenger, stereo){
+  $scope.isWeb = angularConfig.context === 'web';
   // Search methods
   $scope.artistSearch = function(query) {
     return $http({

@@ -1,5 +1,5 @@
 var webLoginController = function($scope, $http, $location, $window, angularConfig, messenger, fbAuthFactory, user, authTokenFactory){
-
+  $scope.onWeb = angularConfig.context === 'web';
   $scope.init = function() {
     $scope.context = angularConfig.context;
   };
