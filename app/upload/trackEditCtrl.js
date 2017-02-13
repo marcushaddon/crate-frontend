@@ -17,8 +17,12 @@ crate.controller('trackEditCtrl', function($scope, $location, artistFactory, alb
         trackFactory.getPendingTracksByAlbumId(albumId)
         .then(function success(response) {
           $scope.tracks = response.data;
+          // Find our place
+          var bookmark = $scope.tracks.findIndex(function(track) { return track.begin === null || track.stop === null; });
+
+          // Might not be the best?
           $scope.tracks[0].begin = 0;
-          $scope.editTrack = $scope.tracks[0];
+          $scope.editTrack = $scope.tracks[bookmark];
           $scope.editField = 'stop';
 
           // Cue our video
@@ -66,6 +70,10 @@ crate.controller('trackEditCtrl', function($scope, $location, artistFactory, alb
     if ($scope.testForCompleteness()) {
       angular.element('#submitTracks').removeClass('disabled');
       messenger.show("WHOOHOO");
+    } else {
+      trackFactory.updatePendingTracks($scope.tracks)
+      .then(function(response){
+      });
     }
 
   };

@@ -4,6 +4,7 @@ crate.controller('Uploader', function($scope, $location, user, config, stereo, d
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
 	$scope.possibleArtists = [];
+	$scope.pendingUploads = user.info.pendingUploads;
 
 	$scope.getUpdates = function() {
 		return uploadFactory.progressUpdates;

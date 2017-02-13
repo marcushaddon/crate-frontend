@@ -307,7 +307,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
         albumFactory.maybeCreateAlbum(album)
         .then(function(response){
           var maybeCreatedAlbum = response.data;
-          if (maybeCreatedAlbum.exists) {
+          if (maybeCreatedAlbum.status === 'complete') {
             messenger.show("Oops! It looks like somone has already found that album!!");
             $location.path('/album/' + response.data._id);
             return false;
