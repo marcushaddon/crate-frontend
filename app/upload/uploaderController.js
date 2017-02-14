@@ -1,10 +1,20 @@
-crate.controller('Uploader', function($scope, $location, user, config, stereo, discogsFactory, uploadFactory, messenger){
+crate.controller('Uploader', function($scope, $location, user, angularConfig, config, stereo, discogsFactory, uploadFactory, messenger){
 	$scope.videoUrl = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
 	$scope.possibleMasters = [];
 	$scope.possibleArtists = [];
 	$scope.pendingUploads = user.info.pendingUploads;
+
+	$scope.continueUpload = function(albumId) {
+		if (angularConfig.context === 'web') {
+			$location.path('/upload/add-break-points?albumId=' + albumId)
+		} else {
+			chrome.tabs.create({
+				url: angularConfig[angularConfig.environment] + '#/upload/add-break-points?albumId=' + albumId
+			});
+		}
+	};
 
 	$scope.getUpdates = function() {
 		return uploadFactory.progressUpdates;

@@ -47,7 +47,7 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		alert(event);
 	};
 
-	//better implemented as a custom filter
+	// better implemented as a custom filter
 	this.secToMinSec = function(seconds) {
 					var wholeSecs = Math.floor(seconds);
 					var secs = (wholeSecs % 60);
@@ -66,9 +66,14 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 			if (angularConfig.context !== 'web') {
 				var lastPath = $window.localStorage.getItem('lastCrateLocation');
 				if (lastPath) {
-					var useless = lastPath.indexOf('#');
-					var useful = lastPath.slice(useless + 1);
-					$location.path(useful);
+					var bookmark;
+					if (lastPath.indexOf('printout') > -1) {
+						bookmark = '/';
+					} else {
+						var useless = lastPath.indexOf('#');
+						bookmark = lastPath.slice(useless + 1);
+					}
+					$location.path(bookmark);
 				} else {
 					$location.path('/');
 				}
