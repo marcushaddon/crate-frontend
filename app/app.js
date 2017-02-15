@@ -50,6 +50,11 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 		controller: 'SearchCtrl'
 	})
 
+	.when('/search-results', {
+		templateUrl: 'search/search-results.html',
+		controller: 'SearchCtrl'
+	})
+
 	.when('/album/:id', {
 		templateUrl: 'album/view-album-full.html',
 		controller: 'AlbumCtrl'
