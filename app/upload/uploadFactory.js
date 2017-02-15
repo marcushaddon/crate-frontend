@@ -80,9 +80,12 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
       dumb = dumb || false;
       var factory = this;
       var desc = this.videoInfo.description;
+      console.log("This is the description im working with");
+      console.log(desc);
 
       var tracksArray = [];
       var descLines = desc.split('\n');
+      if (descLines.length < 2) descLines = desc.split('<br>');
 
       var firstSongLine = -1;
       for (line in descLines) {

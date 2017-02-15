@@ -138,7 +138,7 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 				var info = uploadFactory.videoInfo;
 				info.description = info.description.replace(/\n/g, '<br>');
 				$scope.videoInfo = info;
-				$scope.videoInfo.description = $scope.videoInfo.description.replace('\n', '<br>');
+				// $scope.videoInfo.description = $scope.videoInfo.description.replace('\n', '<br>');
 				messenger.show("We've displayed details about the video you just entered below!");
 			});
 		}
