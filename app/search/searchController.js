@@ -1,5 +1,10 @@
 crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $routeParams, angularConfig, messenger, stereo){
   $scope.isWeb = angularConfig.context === 'web';
+  $scope.artists = [];
+  $scope.albums = [];
+  $scope.tracks = [];
+  $scope.playlists = [];
+
   // Search methods
   $scope.artistSearch = function(query) {
     return $http({
@@ -47,7 +52,6 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
       $scope.artistSearch(query)
       .then(function(results){
         $scope.artists = results.data;
-        console.log(results.data);
         $scope.albumSearch(query)
         .then(function(response){
           $scope.albums = response.data;
@@ -60,16 +64,18 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
               var endTime = Date.now();
               var duration = (endTime - startTime) / 1000;
               messenger.show("Search for " + query + " completed in " + duration + " seconds!");
-            })
-          })
-        })
-      })
-    } else {
+            });
+          });
+        });
+      });
+    } else if (searchType === 'tag') {
       $scope.tag = $routeParams.searchField;
       $scope.tagSearch(tag)
       .then(function(response) {
         $scope.taggedAlbums = response.data;
       })
+    } else {
+      return;
     }
   };
 
@@ -78,10 +84,9 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
   };
 
   $scope.getResultsLength = function() {
-    return $scope.artists.length +
-    $scope.albums.length +
-    $scope.tracks.length +
-    $scope.playlists.length
+    var result = $scope.artists.length + $scope.albums.length + $scope.tracks.length + $scope.playlists.length;
+    console.log(result);
+    return result;
   };
 
   // Cue my tracks
