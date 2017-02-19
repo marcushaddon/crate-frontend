@@ -1,7 +1,7 @@
 var angularConfig = {
   // Variable (change for web deployment)
-  context: "web", // | 'extension',
-  environment: "heroku", // | 'localhost'
+  context: "web", // 'web' | 'extension',
+  environment: "heroku", // 'heroku' | 'localhost'
 
 
   // Constant
