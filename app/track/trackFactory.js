@@ -44,6 +44,14 @@ crate.factory('trackFactory', function($http){
         method: 'GET',
         url: '/api/artist/' + id + '/tracks'
       });
+    },
+
+    sortTracksByTrackNos: function(tracks) {
+      return tracks.sort(function(a, b) {
+        if (a.trackNum > b.trackNum) return 1;
+        if (a.trackNum < b.trackNum) return -1;
+        return 0;
+      });
     }
   }
 

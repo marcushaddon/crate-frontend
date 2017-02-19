@@ -1,4 +1,4 @@
-crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, user, playlistFactory, albumFactory){
+crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, stereo, messenger, user, trackFactory, playlistFactory, albumFactory){
   $scope.albumId = $routeParams.id;
   $scope.init = function() {
 
@@ -10,7 +10,7 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
     albumFactory.getTracksByAlbumId($scope.albumId)
     .then(function(response){
       // TODO figure out why this is broken
-      var sortedTracks = response.data.sort(function(a, b) { return a.trackNum > b.trackNum; } );
+      var sortedTracks = trackFactory.sortTracksByTrackNos(response.data);
       $scope.tracks = sortedTracks;
     });
 

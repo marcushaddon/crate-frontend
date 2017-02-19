@@ -16,7 +16,7 @@ crate.controller('trackEditCtrl', function($scope, $location, artistFactory, alb
         $scope.artist = response.data;
         trackFactory.getPendingTracksByAlbumId(albumId)
         .then(function success(response) {
-          $scope.tracks = response.data;
+          $scope.tracks = trackFactory.sortTracksByTrackNos(response.data);
           // Find our place
           var bookmark = $scope.tracks.findIndex(function(track) { return track.begin === null || track.stop === null; });
 
