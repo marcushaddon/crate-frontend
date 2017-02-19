@@ -8,7 +8,7 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 
 	$scope.continueUpload = function(albumId) {
 		if (angularConfig.context === 'web') {
-			$location.path('/upload/add-break-points?albumId=' + albumId)
+			$location.path('/upload/add-break-points').search('albumId', albumId);
 		} else {
 			chrome.tabs.create({
 				url: angularConfig[angularConfig.environment] + '#/upload/add-break-points?albumId=' + albumId
