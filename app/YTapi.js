@@ -3,7 +3,7 @@ loop = false;
 // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
       // TODO: figure out CSP so we dont have to do this shit
-      var tagSrc = angularConfig.context === 'web' ? 'https://www.youtube.com/iframe_api' : 'lib/iframe_api.js'
+      var tagSrc = 'https://www.youtube.com/iframe_api';
       tag.src = tagSrc;
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);

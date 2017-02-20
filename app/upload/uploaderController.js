@@ -87,7 +87,7 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 
 	// yah redundant i know
 	$scope.useDiscogsMaster = function(master) {
-		uploadFactory.videoId = $scope.getVideoId();
+		uploadFactory.videoId = $scope.videoId;
 		// This should be called from inside of uploadFactoris method so other methods dont come out of order!
 
 		$location.path('/upload/printout');
@@ -96,7 +96,7 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 	};
 
 	$scope.useDiscogsRelease = function(release) {
-		uploadFactory.videoId = $scope.getVideoId();
+		uploadFactory.videoId = $scope.videoId;
 		$location.path('/upload/printout');
 		uploadFactory.useDiscogsEntity(release);
 	};
@@ -133,7 +133,8 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 	$scope.checkForVideo = function() {
 		if ($scope.getVideoId()) {
 			console.log("Video id is: " + $scope.getVideoId());
-			uploadFactory.getVideoInfo($scope.getVideoId())
+			$scope.videoId = $scope.getVideoId();
+			uploadFactory.getVideoInfo($scope.videoId)
 			.then(function(response) {
 				var info = uploadFactory.videoInfo;
 				info.description = info.description.replace(/\n/g, '<br>');
@@ -151,6 +152,17 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 
 	// INIT
 	$scope.init = function() {
-		// alert("FUCK OFF");
+		var possibleUpload = $location.search().videoId;
+		if (possibleUpload) {
+			$scope.videoId = possibleUpload;
+			uploadFactory.getVideoInfo(possibleUpload)
+			.then(function(response) {
+				var info = uploadFactory.videoInfo;
+				info.description = info.description.replace(/\n/g, '<br>');
+				$scope.videoInfo = info;
+				// $scope.videoInfo.description = $scope.videoInfo.description.replace('\n', '<br>');
+				messenger.show("If this video is an album, upload it to Crate!");
+			});
+		}
 	};
 });
