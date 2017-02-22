@@ -13,7 +13,8 @@ crate.controller('trackCtrl', function($scope, stereo, messenger, user, playlist
   $scope.captureTrack = function(track) {
 		playlistFactory.capturedTrack = track;
     $scope.$emit('modalRefresh');
-		angular.element('#bottomModal').openModal();
+
+		angular.element('#bottomModal').modal('open');
 	};
 
   // THIS is what i wanna use

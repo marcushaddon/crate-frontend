@@ -32,6 +32,10 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
     });
   };
 
+  $scope.init = function() {
+    angular.element('#bottomModal').modal();
+  };
+
   $scope.$on('modalRefresh', function(){
     playlistFactory.getUserPlaylists(user.info.userId)
     .then(function(response){
