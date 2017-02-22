@@ -57,26 +57,47 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 					return readOut;
 				};
 
+	this.returnToLastLocation = function() {
+		var lastPath = $window.localStorage.getItem('lastCrateLocation');
+		if (lastPath) {
+			var bookmark;
+			if (lastPath.indexOf('printout') > -1) {
+				bookmark = '/';
+			} else {
+				var useless = lastPath.indexOf('#');
+				bookmark = lastPath.slice(useless + 1);
+			}
+			$location.path(bookmark);
+		} else {
+			$location.path('/');
+		}
+	};
+
 	this.init = function() {
+		var test = $location.search().test;
+		messenger.show(test);
+		console.log(test);
 		console.log("Getting user!");
 		user.refreshUser()
 		.then(function(response){
 			user.setUser(response.data);
 			console.log(response.data);
 			if (angularConfig.context !== 'web') {
-				var lastPath = $window.localStorage.getItem('lastCrateLocation');
-				if (lastPath) {
-					var bookmark;
-					if (lastPath.indexOf('printout') > -1) {
-						bookmark = '/';
-					} else {
-						var useless = lastPath.indexOf('#');
-						bookmark = lastPath.slice(useless + 1);
-					}
-					$location.path(bookmark);
-				} else {
-					$location.path('/');
-				}
+				// make request to background and see if there is a pending upload AND the upload is in the currently active tab
+				var request = { isContentMessage: true, action: 'getPendingUpload' };
+				console.log("checking possible uploads!");
+				stereo.sendMessage(request, this, function(msg) {
+					// See if the upload came from the currently active tab
+					chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+						var currentTabId = tabs[0].id;
+						if (currentTabId === msg.tabId) {
+							$location.path('/upload').search('videoId', msg.videoId);
+						} else {
+							app.returnToLastLocation();
+						}
+					});
+				});
+
 
 			}
 		},
