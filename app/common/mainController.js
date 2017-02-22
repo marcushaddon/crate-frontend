@@ -93,7 +93,7 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 						if (currentTabId === msg.tabId) {
 							$location.path('/upload').search('videoId', msg.videoId);
 						} else {
-							this.returnToLastLocation();
+							app.returnToLastLocation();
 						}
 					});
 				});
