@@ -69,6 +69,14 @@ footer {
   cursor: pointer;
 }
 
+.crate-line-item {
+  cursor: pointer;
+}
+
+.crate-line-item:hover {
+  background-color: rgba(230,230,230,1);
+}
+
 .collection-item:hover {
     cursor: pointer;
 }
@@ -77,16 +85,11 @@ footer {
   display: none;
 }
 
-.collection-item:hover .hidden-controls { display:inline; }
-.collection-item:hover .detail { display:none; }
+.crate-line-item:hover .hidden-controls { display:inline; }
+.crate-line-item:hover .detail { display:none; }
 
 .material-icons {
   margin-right: 7px;
-}
-
-.player-control, #playtime, #totalTime {
-  /*bottom:80px;
-  position:sticky;*/
 }
 
 .artist-name {
@@ -95,7 +98,7 @@ footer {
 }
 
 .detail {
-  float:clear;
+  float:right;
   display:inline;
 }
 
