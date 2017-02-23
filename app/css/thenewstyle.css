@@ -65,6 +65,14 @@ footer {
     /*font-size: 32px;*/
 }
 
+.player-control {
+  margin-top: -7px;
+}
+
+#progress {
+  margin-top: 24px;
+}
+
 .action:hover {
   cursor: pointer;
 }
