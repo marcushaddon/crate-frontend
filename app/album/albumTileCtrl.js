@@ -8,7 +8,9 @@ crate.controller('albumTileCtrl', function($scope, stereo, albumFactory, user, m
     }
     return stereo.activeList._id === id;
   };
-  $scope.playToggle = function() {
+  $scope.playToggle = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
     var id;
     var iAmAnAlbum;
     if ($scope.album) {

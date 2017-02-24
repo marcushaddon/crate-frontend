@@ -19,6 +19,11 @@ body {
   bottom: 0px;
 }
 
+.naked {
+  padding: none;
+  margin: none;
+}
+
 #footer {}
 
 .player-spacer {
@@ -100,6 +105,8 @@ footer {
   margin-right: 7px;
 }
 
+
+
 .artist-name {
   display: inline;
   width: 20px;
@@ -122,10 +129,54 @@ footer {
 .album-cover {
   /*min-height: 300px;
   max-height: 300px;*/
-  width: 10vw;
+  width: 20vw;
   max-height: 45vh;
   min-height: 45vh;
   object-fit: cover;
+}
+
+.crate-album-cover {
+  min-width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 20vh;
+}
+
+.cover-wrap {
+  position: relative;
+  margin-bottom: 8px;
+  /*height: 25%;*/
+  /*width: 25%;*/
+}
+.cover-controls {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  color: #fff;
+  padding: 10px;
+
+  /*remove comment if you want a gradual transition between states
+      -webkit-transition: visibility opacity 0.2s;
+      */
+}
+
+.hidden-cover-controls {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.cover-wrap:hover .hidden-cover-controls {
+  visibility: visible;
+  opacity: 1;
+}
+
+.cover-play {
+  position: relative;
+  left: 26%;
+  font-size: 130px;
 }
 
 .album-cover-frame {
@@ -133,6 +184,10 @@ footer {
   max-height: 45vh;
   min-height: 45vh;
   overflow: hidden;
+}
+
+.tinted {
+  background: rgba(0, 0, 0, .5);
 }
 
 .album-tile {

@@ -1,50 +1,18 @@
-<!-- <div class="col s12 l6">
-  <div class="card">
-    <div class="card-image">
-      <img ng-src="{{album.imgUrl || playlist.imgUrl || 'https://d13yacurqjgara.cloudfront.net/users/231299/screenshots/1739646/crate.png'}}">
-      <span class="card-title activator">{{album.name || playlist.name}}</span><i class="material-icons right">more_vert</i>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4 truncate">{{album.name || playlist.name}}<i class="material-icons right">close</i></span>
-      <small>by</small> {{album.artist || playlist.createdBy.userName}}<br>
-      <hr>
-      {{album.noTracks || playlist.tracks.length}} tracks<br>
-      <small>{{album ? 'Found' : 'Created'}}</small> {{album.foundOn || playlist.dateCreated | date}}<br>
-      <span ng-show='album'><small>by</small> {{album.foundBy.userName}}<br></span>
-      <a ng-href='/#/album/{{album._id}}'>Listen</a>
+<div class="col s12 m4">
+  <div class="cover-wrap naked">
 
-
-    </div>
-    <div class="card-action">
-      <a ng-href='/#/album/{{album._id}}'>Listen</a>
-    </div>
+        <img class="crate-album-cover" ng-src="{{album.imgUrl || playlist.imgUrl || albumImgPlaceHolder }}">
+        <div class="cover-controls hidden-cover-controls tinted">
+          <!-- just for tinting -->
+        </div>
+        <div class="cover-controls">
+          <strong>{{playlist.name}}</strong><br>
+          <small>by {{playlist.createdBy.userName}}</small>
+        </div>
+        <a ng-href='#/playlist/{{playlist._id}}'>
+          <div class='cover-controls hidden-cover-controls valign-wrapper'>
+            <i ng-click='playToggle($event)' class='material-icons valign cover-play action'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_circle_outline' }}</i>
+          </div>
+      </a>
   </div>
-</div> -->
-
-
-
-<div class="col m12 l6 album-tile">
-    <div class="card horizontal">
-      <div class="card-image">
-        <a ng-href='#/playlist/{{playlist._id}}'><img class="album-cover" ng-src="{{playlist.imgUrl || playlist.imgUrl || 'https://placeholdit.imgix.net/~text?txtsize=33&txt=album+cover&w=300&h=300'}}"></a>
-      </div>
-      <div class="card-stacked">
-        <div class="album-tile-content card-content">
-          <h5>{{playlist.name}}</h5>
-          by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{playlist.createdBy.userName}}</a>
-          <ul class='icon-list'>
-          <li class='valign-wrapper'><i ng-click='playToggle()' class='material-icons valign'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i> {{playlist.listens || 0}}</li>
-          <li class='valign-wrapper'><i ng-click='crateToggle()' class='material-icons valign' ng-class="playlist.iLikeThis ? 'in-my-crate' : '' ">favorite</i> {{playlist.favorites || 0}}</li>
-          <li class='valign-wrapper'><i class='material-icons valign'>list</i> {{playlist.tracks.length || 0}} tracks</li>
-        </ul>
-        <div class="chip" ng-repeat='tag in playlist.tags'>
-          {{tag}}
-        </div>
-        </div>
-        <div class=''>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
