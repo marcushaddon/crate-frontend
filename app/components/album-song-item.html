@@ -1,3 +1,11 @@
-<a class='collection-item' ng-class='{active: isActiveTrack(track)}' >
-  <i class='material-icons' ng-click='playToggle(track)'>{{ isActiveTrack(track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i><span>{{track.artist}} - {{track.trackName}}<span class='hidden-controls'><i class="material-icons right" aria-hidden="true" ng-click='captureTrack(track)'>add</i></span><span class='right track-length detail'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span></span>
-</a>
+<div class='collection-item crate-line-item row' ng-class='{active: isActiveTrack(track)}'>
+  <div class='col s10 m11 valign-wrapper'>
+    <i class='material-icons valign' ng-click='playToggle(track)'>{{ isActiveTrack(track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i>
+    <span class='valign'>{{track.trackName}}</span>
+  </div>
+  <div class="col s2 m1 valign-wrapper">
+    <i class="material-icons hidden-controls" ng-class="track.iLikeThis ? 'in-my-crate' : '' " aria-hidden="true" ng-click='crateToggle(track)'>favorite</i>
+    <i class="material-icons hidden-controls" aria-hidden="true" ng-click='captureTrack(track)'>playlist_add</i>
+  <span class='right track-length align-right detail'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span>
+  </div>
+</div>

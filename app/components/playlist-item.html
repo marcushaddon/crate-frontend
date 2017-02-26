@@ -1,3 +1,11 @@
-<a ng-href='/#/playlist/{{list._id}}' class='collection-item' ng-class='{active: isActiveList(list)}' class='collection-item'>
-    <i class='material-icons'>assessment</i><span class='artist-name truncate' ng-model='list.naame'>{{list.name}}</span><small> by {{list.createdBy.userName}}</small><span class='hidden-controls'><i ng-click='deleteList(list)' class='material-icons right'>delete</i></span><span class='right track-count detail'>{{list.tracks.length || 0}} songs</span>
+<a ng-href="#/playlist/{{list._id}}">
+  <div class='collection-item crate-line-item row'>
+    <div class='col s10 valign-wrapper'>
+      <i class='material-icons valign'>assessment</i>
+      <span class='valign'>{{list.name}}</span>
+    </div>
+    <div class="col s2 valign-wrapper">
+    <span class='right track-length align-right detail'>{{list.tracks.length}} tracks</span>
+    </div>
+  </div>
 </a>

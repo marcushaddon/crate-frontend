@@ -1,65 +1,65 @@
 <nav-bar></nav-bar>
 <div ng-init='search()'>
+<div class="container">
+	<div class='row'>
+	<!-- SAVED PLAYLISTS -->
+		<form ng-submit='research()' ng-show="!isWeb">
+		<div class="input-field">
+				<input id="search" type="search" ng-model='searchField' required>
+				<label for="search"><i class="material-icons">search</i></label>
+			</div>
+		</form>
 
-<div class='row'>
-<!-- SAVED PLAYLISTS -->
-	<form ng-submit='research()' ng-show="!isWeb">
-	<div class="input-field">
-			<input id="search" type="search" ng-model='searchField' required>
-			<label for="search"><i class="material-icons">search</i></label>
+			<!-- CURRENT PLAYLIST -->
+		<div class='col m12 s12'>
+			<div id='results'>
+
+			                <h3 ng-show='getResultsLength()' class='truncate'>Search Results for '{{query}}'</h3>
+	                    <div class='music-list'>
+
+	                    <div ng-show='tracks.length > 0'>
+	                    <h4>Tracks</h4>
+			                <div class='collection music-list' >
+	                      <song-item ng-repeat='track in tracks'></song-item>
+			                </div>
+	                  </div>
+
+
+	                    <div ng-show='albums.length > 0'>
+	                    <h4>Albums</h4>
+			                <ul class='collection music-list' >
+			                        <album-item ng-repeat='album in albums'></album-item>
+			                </ul>
+	                  </div>
+
+	                    <div ng-show='artists.length > 0'>
+	                    <h4>Artists</h4>
+	                    <div class='collection music-list'>
+	                      <artist-item ng-repeat='artist in artists'></artist-item>
+	                    </div>
+	                  </div>
+
+	                    <div ng-show='playlists.length > 0'>
+	                    <h4>Playlists</h4>
+	                    <div class='collection music-list'>
+	                      <playlist-item ng-repeat='list in playlists' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
+	                    </div>
+	                  </div>
+
+										<div ng-show='taggedAlbums.length > 0'>
+											<h4>Albums tagged '{{tag}}'</h4>
+											<div class='row'>
+										  <div class='tile-rack'>
+											    <album-tile ng-repeat='album in taggedAlbums'></album-tile>
+											</div>
+											</div>
+										</div>
+	                  </div>
+			        </div>
 		</div>
-	</form>
-
-		<!-- CURRENT PLAYLIST -->
-	<div class='col m12 s12'>
-		<div id='results'>
-
-		                <h3 ng-show='getResultsLength()' class='truncate'>Search Results for '{{query}}'</h3>
-                    <div class='music-list'>
-
-                    <div ng-show='tracks.length > 0'>
-                    <h4>Tracks</h4>
-		                <div class='collection music-list' >
-                      <song-item ng-repeat='track in tracks'></song-item>
-		                </div>
-                  </div>
-
-
-                    <div ng-show='albums.length > 0'>
-                    <h4>Albums</h4>
-		                <ul class='collection music-list' >
-		                        <album-item ng-repeat='album in albums'></album-item>
-		                </ul>
-                  </div>
-
-                    <div ng-show='artists.length > 0'>
-                    <h4>Artists</h4>
-                    <div class='collection music-list'>
-                      <artist-item ng-repeat='artist in artists'></artist-item>
-                    </div>
-                  </div>
-
-                    <div ng-show='playlists.length > 0'>
-                    <h4>Playlists</h4>
-                    <div class='collection music-list'>
-                      <playlist-item ng-repeat='list in playlists' ng-click="PlayCtrl.setActiveList(list)"></playlist-item>
-                    </div>
-                  </div>
-
-									<div ng-show='taggedAlbums.length > 0'>
-										<h4>Albums tagged '{{tag}}'</h4>
-										<div class='row'>
-									  <div class='tile-rack'>
-										    <album-tile ng-repeat='album in taggedAlbums'></album-tile>
-										</div>
-										</div>
-									</div>
-                  </div>
-		        </div>
+	<!-- END CURRENT PLAYLIST -->
 	</div>
-<!-- END CURRENT PLAYLIST -->
 </div>
-
 </div>
 
 <player></player>

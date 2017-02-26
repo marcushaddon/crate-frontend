@@ -1,7 +1,7 @@
 <nav-bar></nav-bar>
 
-<div class='row list-header cyan hide-on-med-and-down' ng-init='init()'>
-  <div class='subtle-container'>
+<div class='row list-header light-blue lighten-3 hide-on-med-and-down' ng-init='init()'>
+  <div class='container'>
     <h3>Browse Crate by genre...</h3>
     <div class="chip" ng-repeat='tag in topTags'>
       <a ng-href='#/search-results/tag/{{tag.text}}'>{{tag.text}} <span class='tag-subtext'>({{tag.occurences}})</span></a>
@@ -11,17 +11,32 @@
 
 <div class='container'>
 <div >
+  <div class="row">
 
-  <h3>Recent uploads</h3>
+    <div class="col s6 valign-wrapper">
+      <i class='material-icons'>av_timer</i><strong>recent albums</strong>
+    </div>
+    <div class="col m1 s3 offset-m5">
+      <i class="fa fa-arrow-circle-left action" aria-hidden="true"></i>
+      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='getMoreAlbums()'></i>
+    </div>
+  </div>
   <div class='row'>
   <div class='tile-rack'>
     <album-tile ng-repeat='album in latestAlbums'></album-tile>
 </div>
 </div>
-<div class='row center-align'>
-  <a class='' href='' ng-click='getMoreAlbums()'>Show more...</a>
-</div>
-  <h3>Recent playlists</h3>
+
+  <div class="row">
+
+    <div class="col s6 valign-wrapper">
+      <i class='material-icons'>av_timer</i><strong>recent playlists</strong>
+    </div>
+    <div class="col m1 s3 offset-m5">
+      <i class="fa fa-arrow-circle-left action" aria-hidden="true"></i>
+      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='getMorePlaylists()'></i>
+    </div>
+  </div>
   <div class='row tile-rack'>
     <playlist-tile ng-repeat='playlist in latestPlaylists'></playlist-tile>
     <!-- <album-tile></album-tile> -->
