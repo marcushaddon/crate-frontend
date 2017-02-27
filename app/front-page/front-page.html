@@ -17,13 +17,13 @@
       <i class='material-icons'>av_timer</i><strong>recent albums</strong>
     </div>
     <div class="col m1 s3 offset-m5">
-      <i class="fa fa-arrow-circle-left action" aria-hidden="true"></i>
-      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='getMoreAlbums()'></i>
+      <i class="fa fa-arrow-circle-left action" aria-hidden="true" ng-click='lastPageOfAlbums()'></i>
+      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='nextPageOfAlbums()'></i>
     </div>
   </div>
   <div class='row'>
   <div class='tile-rack'>
-    <album-tile ng-repeat='album in latestAlbums'></album-tile>
+    <album-tile ng-repeat='album in viewAlbums'></album-tile>
 </div>
 </div>
 
@@ -33,17 +33,15 @@
       <i class='material-icons'>av_timer</i><strong>recent playlists</strong>
     </div>
     <div class="col m1 s3 offset-m5">
-      <i class="fa fa-arrow-circle-left action" aria-hidden="true"></i>
-      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='getMorePlaylists()'></i>
+      <i class="fa fa-arrow-circle-left action" aria-hidden="true" ng-click='lastPageOfPlaylists()'></i>
+      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='nextPageOfPlaylists()'></i>
     </div>
   </div>
   <div class='row tile-rack'>
-    <playlist-tile ng-repeat='playlist in latestPlaylists'></playlist-tile>
+    <playlist-tile ng-repeat='playlist in viewPlaylists'></playlist-tile>
     <!-- <album-tile></album-tile> -->
   </div>
-  <div class='row center-align'>
-    <a class='' href='' ng-click='getMorePlaylists()'>Show more...</a>
-  </div>
+
 
 </div>
 </div>

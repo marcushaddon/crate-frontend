@@ -4,7 +4,7 @@
 
     <main>
 
-      <div class='row light-blue lighten-3' ng-show='showProfile == false'>
+      <!-- <div class='row light-blue lighten-3' ng-show='showProfile == false'>
         <div class='col s3 l1 valign-wrapper'>
         <img src='{{ userProfile.picUrl || userProfileImgPlaceholder }}' class='circle small-pic responsive-img valign' />
       </div>
@@ -12,8 +12,8 @@
         <h4>{{userProfile.userName}}'s Crate</h4>
         <small class='action right' ng-click='showProfile = true'>show more...</small>
       </div>
-      </div>
-      <div ng-show='showProfile' class='row list-header'>
+      </div> -->
+      <div class='row list-header'>
         <div class='col m3 offset-m1'>
           <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
@@ -23,9 +23,9 @@
 
           </small></h3>
           member since {{ userProfile.joinedOn | date}}
-          <p>
+          <!-- <p>
             {{ userProfile.bio || "Really cool story about userProfile??!?!" }}
-          </p>
+          </p> -->
           <ul>
 
         </div>
