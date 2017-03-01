@@ -2,7 +2,7 @@
 <div>
   <div ng-init='init()'>
 
-    <main>
+    <main class='my-crate'>
 
       <!-- <div class='row light-blue lighten-3' ng-show='showProfile == false'>
         <div class='col s3 l1 valign-wrapper'>
@@ -14,14 +14,12 @@
       </div>
       </div> -->
       <div class='row list-header'>
-        <div class='col m3 offset-m1'>
+        <div class='col m4 offset-m1'>
           <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
-        <div class='col m8'>
-          <h3>{{ userProfile.userName }} <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites }} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small>
-            <small class='right'>
-
-          </small></h3>
+        <div class='col m7'>
+          <h3>{{ userProfile.userName }}</h3>
+          <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites }} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small><br>
           member since {{ userProfile.joinedOn | date}}
           <!-- <p>
             {{ userProfile.bio || "Really cool story about userProfile??!?!" }}
@@ -29,27 +27,54 @@
           <ul>
 
         </div>
-        <small class='action right white-text' ng-click='showProfile = false'>show less...</small>
+        <!-- <small class='action right white-text' ng-click='showProfile = false'>show less...</small> -->
       </div>
       <div class='subtle-container'>
-        <div class='row center-align'>
-        <a class='btn' ng-click="setView('tracks')">
-          <i class='material-icons'>clear_all</i>
-        </a>
-        <a class='btn' ng-click="setView('albums')">
-          <i class='material-icons'>queue_music</i>
-        </a>
-        <a class='btn' ng-click="setView('artists')">
-          <i class='material-icons'>assignment_ind</i>
-        </a>
+
+
 
         <!-- <a class='btn' ng-click="setView('discoveries')">
           <i class='material-icons'>remove_red_eye</i>
         </a> -->
-        <a class='btn' ng-click="setView('playlists')">
-          <i class='material-icons'>view_list</i>
-        </a>
-      </div>
+        <!-- <div class="col m6 offset-m3">
+          <nav>
+            <div class="nav-wrapper"> -->
+              <ul class='side-nav fixed'>
+                <li ng-class="{ 'active' : viewing == 'tracks' }">
+                <a class='valign-wrapper action' ng-click="setView('tracks')">
+                  <i class='material-icons'>clear_all</i> tracks
+                </a>
+                </li>
+                <li ng-class="{ 'active' : viewing == 'albums' }">
+                <a class='valign-wrapper action' ng-click="setView('albums')">
+                  <i class='material-icons'>queue_music</i> albums
+                </a>
+                </li>
+                <li ng-class="{ 'active' : viewing == 'artists' }">
+                <a class='valign-wrapper action' ng-click="setView('artists')">
+                  <i class='material-icons'>assignment_ind</i> artists
+                </a>
+                </li>
+                <li ng-class="{ 'active' : viewing == 'playlists' }">
+                <a class='valign-wrapper action' ng-click="setView('playlists')">
+                  <i class='material-icons'>view_list</i> playlists
+                </a>
+                </li>
+                <li ng-class="{ 'active' : viewing == 'recent' }">
+                <a class='valign-wrapper' ng-click="setView('recent')">
+                <i class='material-icons'>av_timer</i> recent
+              </a>
+            </li>
+              </ul>
+            <!-- </div>
+
+          </nav>
+        </div> -->
+
+
+
+
+
 
     </div>
 
@@ -127,22 +152,24 @@
       <i ng-show='crateArtists.length == 0'>You haven't added any artists to your crate!</i>
     </div>
 
+    <div class='music-list' ng-show="viewing == 'recent'">
+      <h4>Recently listened</h4>
+      <div class='scroll-container'>
+      <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>
+        <strong>{{group[0].dateAdded | date}}</strong>
+        <ul>
+          <li ng-repeat='item in group'>
+            <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
+              <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='#/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date: "h:mm a" }}</small></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
-  <div class='col m3 music-list' ng-show="onWeb || viewing == 'recent'">
-    <h4>Recently listened</h4>
-    <div class='scroll-container'>
-    <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>
-      <strong>{{group[0].dateAdded | date}}</strong>
-      <ul>
-        <li ng-repeat='item in group'>
-          <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
-            <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='#/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date: "h:mm a" }}</small></span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+
     <!-- <ul>
       <li ng-repeat='item in userProfile.recentlyListenedItems'>
       <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >

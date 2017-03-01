@@ -16,6 +16,16 @@ body {
   border:0; /* remove borders */
 }
 
+header.my-crate, main.my-crate, footer.my-crate {
+      padding-left: 300px;
+    }
+
+@media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+
 .page-footer {
   position: fixed;
   bottom: 0px;
@@ -60,6 +70,10 @@ footer {
 .nested-music-list {
     max-height: 380px;
     overflow: scroll;
+}
+
+.inline-list > li {
+  float: left;
 }
 
 #main {

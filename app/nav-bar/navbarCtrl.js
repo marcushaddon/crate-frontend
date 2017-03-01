@@ -2,6 +2,7 @@ crate.controller('navbarCtrl', function($scope, $location, $window, angularConfi
   $scope.searchMode = false;
   $scope.searchField = '';
   $scope.onWeb = angularConfig.context === "web";
+  $scope.myCrate = $location.path().indexOf('user') > -1;
 
   $scope.goToNowPlaying = function() {
     stereo.takeMeToNowPlaying();
