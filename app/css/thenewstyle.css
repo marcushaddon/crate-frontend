@@ -113,6 +113,7 @@ footer {
 }
 
 .crate-line-item {
+  background-color: white;
   cursor: pointer;
 }
 
