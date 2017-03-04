@@ -48,8 +48,22 @@ var webStereo = function(
 
 		takeMeToNowPlaying: function() {
 			var current = this.getActiveList();
+			var currentPath;
 			if (current !== {}) {
-				var currentPath = current.listType + '/' + current._id;
+				switch (current.listType) {
+					case 'search':
+						currentPath = 'search-results/general/' + current.term;
+						break;
+					case 'playlist':
+					case 'album':
+					case 'user':
+					case 'artist-profile':
+						currentPath = current.listType + '/' + current._id;
+						break;
+					default:
+
+				}
+
 			} else {
 				currentPath = '';
 			}

@@ -15,6 +15,10 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, angularCo
     return $scope.viewing[0].toUpperCase() + $scope.viewing.slice(1);
   };
 
+  $scope.showNav = function() {
+
+  };
+
   $scope.init = function() {
     if (!user.isLoggedIn()) $location.path('/');
     // Check what we should be viewing
@@ -110,6 +114,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, angularCo
       var recentTracks = $scope.userProfile.recentlyListenedItems.map(function(o) { return o.track; });
       stereo.setActiveTracks(recentTracks);
     }
+    $scope.userProfile.listType = 'user';
     stereo.activeList = $scope.userProfile;
   };
 

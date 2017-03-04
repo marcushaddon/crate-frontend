@@ -18,7 +18,7 @@
           <img class='' ng-src='{{ userProfile.picUrl || userProfileImgPlaceholder }}'></img>
         </div>
         <div class='col m7'>
-          <h3>{{ userProfile.userName }}</h3>
+          <h3 ng-click='showNav()'>{{ userProfile.userName }}</h3>
           <small class=''><i class='material-icons'>favorite</i>{{userProfile.favorites }} favorites <i class='material-icons'>remove_red_eye</i>{{albums.length || 0}} discoveries <i class='material-icons'>view_list</i>{{playlists.length || 0 }} playlists</small><br>
           member since {{ userProfile.joinedOn | date}}
           <!-- <p>
@@ -154,7 +154,7 @@
 
     <div class='music-list' ng-show="viewing == 'recent'">
       <h4>Recently listened</h4>
-      <div class='scroll-container'>
+      <!-- <div class='scroll-container'>
       <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>
         <strong>{{group[0].dateAdded | date}}</strong>
         <ul>
@@ -164,6 +164,13 @@
             </div>
           </li>
         </ul>
+      </div>
+    </div> -->
+    <div ng-repeat='group in userProfile.recentlyListenedItemGroups'>
+      <strong>{{group[0].dateAdded | date}}</strong>
+      <div class="collection music-list">
+        <history-item ng-repeat='item in group'>
+        </history-item>
       </div>
     </div>
 

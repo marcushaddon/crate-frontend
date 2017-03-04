@@ -245,6 +245,13 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 	}
 })
 
+.directive('historyItem', function() {
+	return {
+		templateUrl: 'components/history-item.html',
+		controller: 'trackCtrl'
+	}
+})
+
 .run(function($rootScope, $window) {
 	$rootScope.$on('$locationChangeStart', function(event, next, current) {
 		var startingUp = current.indexOf('#') < 0;

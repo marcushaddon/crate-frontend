@@ -14,14 +14,16 @@ body {
   padding:0; /*remove padding */
   margin:0; /* remove margins */
   border:0; /* remove borders */
+
 }
+
 
 header.my-crate, main.my-crate, footer.my-crate {
       padding-left: 300px;
     }
 
 @media only screen and (max-width : 992px) {
-      header, main, footer {
+      header.my-crate, main.my-crate, footer.my-crate {
         padding-left: 0;
       }
     }

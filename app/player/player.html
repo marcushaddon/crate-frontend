@@ -1,6 +1,6 @@
 <!-- <div class='player-spacer'>
 </div> -->
-<footer id='trans'  class='page-footer trans' ng-show='somethingToPlay()'>
+<footer id='trans' ng-class="{'my-crate': myCrate}" class='page-footer trans' ng-show='somethingToPlay()'>
 
     <div class='row '>
             <div id='controls' class='col m3 offset-s1 offset-m1 valign-wrapper'>
@@ -9,12 +9,13 @@
                 <i class='medium material-icons player-control action' ng-click='next()'>skip_next</i>
                 &nbsp;
                 <span id='playtime' class=''>{{secToMinSec(getProgress())}}</span>
-                <span id='totalTime' class=''>/ {{secToMinSec(getActiveTrack().stop - getActiveTrack().begin)}}</span>
+                <span id='totalTime' ng-hide='{{myCrate}}' class=''>/ {{secToMinSec(getActiveTrack().stop - getActiveTrack().begin)}}</span>
 
             </div>
 
             <div class='col m7 valign-wrapper'>
             <input type='range' class='valign' id='progress' min='0' max='{{getActiveTrack().stop - getActiveTrack().begin}}' ng-model='progress' ng-change='scrub()'/>
+            <!-- &nbsp;<span id='totalTime' class='valign'>{{secToMinSec(getActiveTrack().stop - getActiveTrack().begin)}}</span> -->
             </div>
 
         </div>

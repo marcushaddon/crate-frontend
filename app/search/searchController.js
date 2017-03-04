@@ -80,7 +80,7 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
   };
 
   $scope.research = function() {
-    $location.path('search-results/general/' + $scope.searchField);
+    $location.path('search' + $scope.searchField);
   };
 
   $scope.getResultsLength = function() {
@@ -91,7 +91,7 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
 
   // Cue my tracks
   $scope.cueMyTracks = function() {
-    stereo.activeList = null;
+    stereo.activeList = { listType: 'search', term: $routeParams.searchField };
     stereo.setActiveTracks($scope.tracks);
   };
 

@@ -1,10 +1,12 @@
-crate.controller('PlayerCtrl', function($scope, $rootScope, stereo, messenger, angularConfig){
+crate.controller('PlayerCtrl', function($scope, $rootScope, $location, stereo, messenger, angularConfig){
   $scope.ho  = function() { return stereo.activeTrack; };
   $scope.getProgress     = function() { return stereo.getProgress(); };
   $scope.progress = 0;
   $scope.playToggle = function() {
 		var state = stereo.playToggle();
 	};
+  $scope.myCrate = $location.path().indexOf('user') > -1;
+
   $scope.getIsPlaying    = function() { return stereo.isPlaying; };
 
   $scope.getActiveTrack = function() { return stereo.activeTrack; };

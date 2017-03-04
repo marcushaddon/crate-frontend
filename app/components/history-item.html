@@ -1,0 +1,9 @@
+<div class='collection-item crate-line-item row' ng-class='{active: isActiveTrack(item.track)}'>
+  <div class='col s10 m11 valign-wrapper'>
+    <i class='material-icons valign' ng-click='playToggle(item.track)'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow' }}</i>
+    <span class='valign'>{{item.track.artist}} - {{item.track.trackName}} <small>{{item.dateAdded | date: "h:mm a" }}</small></span>
+  </div>
+  <div class="col s2 m1 valign-wrapper">
+  <span class='right track-length align-right detail'>{{PlayCtrl.secToMinSec(item.track.stop - item.track.begin)}}</span>
+  </div>
+</div>
