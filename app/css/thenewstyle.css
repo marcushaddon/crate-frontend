@@ -161,7 +161,7 @@ footer {
   /*min-height: 300px;
   max-height: 300px;*/
   width: 20vw;
-  max-height: 45vh;
+  min-height: 45vh;
   min-height: 45vh;
   object-fit: cover;
 }
