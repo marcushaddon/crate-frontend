@@ -4,11 +4,13 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 
 .constant('angularConfig', angularConfig)
 
-.config(function($routeProvider, $httpProvider, $compileProvider){
+.config(function($routeProvider, $locationProvider, $httpProvider, $compileProvider){
 	// So our ng-hrefs will work in chrome extensions
 	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
 
 	$httpProvider.interceptors.push('authInterceptor');
+
+	$locationProvider.html5Mode(true);
 
 	$routeProvider.when('/login', {
 		templateUrl: 'login/login.html',

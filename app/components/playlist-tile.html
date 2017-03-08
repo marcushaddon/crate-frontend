@@ -9,7 +9,7 @@
           <strong>{{playlist.name}}</strong><br>
           <small>by {{playlist.createdBy.userName}}</small>
         </div>
-        <a ng-href='#/playlist/{{playlist._id}}'>
+        <a ng-href='/playlist/{{playlist._id}}'>
           <div class='cover-controls hidden-cover-controls valign-wrapper'>
             <i ng-click='playToggle($event)' class='material-icons valign cover-play action'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_circle_outline' }}</i>
           </div>

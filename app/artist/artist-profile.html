@@ -12,7 +12,7 @@
       <h3>{{ artist.name }} <small class=''><i class='material-icons'>favorite</i> {{artist.favorites || 0}}<i class='material-icons'>play_arrow</i> {{artist.listens || 0}} <i class='material-icons'>library_music</i> {{ albums.length || 0 }} <i class='fa fa-music'></i> {{ tracks.length || 0 }}</small></h3>
 
       <div class="chip" ng-repeat='tag in album.tags'>
-        <a ng-href='#/search-results/?tag={{tag}}'>{{tag}}</a>
+        <a ng-href='/search-results/?tag={{tag}}'>{{tag}}</a>
       </div>
 
 

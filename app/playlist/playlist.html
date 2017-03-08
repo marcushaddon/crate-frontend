@@ -12,8 +12,8 @@
       <div class='col m8'>
         <h3 ng-show='!editing'>{{ playlist.name }} <small class=''><i class='material-icons'>favorite</i> {{playlist.favorites || 0}}<i class='material-icons'>play_arrow</i> {{playlist.listens || 0}} <i class='material-icons'>list</i> {{playlist.tracks.length}} tracks</small></h3>
         <input class='edit-h3' ng-show='editing' ng-model='playlist.name' ng-keyup='checkForEnter($event)' ng-blur='updateName(false)' type='text' />
-        <!-- <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a> -->
-        <p> a playlist by <a ng-href='#/user/{{playlist.createdBy.userId}}'>{{ playlist.createdBy.userName }}</a></p>
+        <!-- <a ng-href='/artist-profile/{{album.artistId}}'>{{album.artist}}</a> -->
+        <p> a playlist by <a ng-href='/user/{{playlist.createdBy.userId}}'>{{ playlist.createdBy.userName }}</a></p>
         <p>
           {{playlist.description}}
         </p>

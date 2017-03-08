@@ -10,13 +10,13 @@
           <small class='right'>
 
         </small></h3>
-        <a ng-href='#/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
+        <a ng-href='/artist-profile/{{album.artistId}}'>{{album.artist}}</a>
 
         <br>
 
-        <p> discovered {{ album.foundOn | date}} by <a ng-href='#/user/{{album.foundBy.userId}}'>{{ album.foundBy.userName}}</a></p>
+        <p> discovered {{ album.foundOn | date}} by <a ng-href='/user/{{album.foundBy.userId}}'>{{ album.foundBy.userName}}</a></p>
         <div class="chip" ng-repeat='tag in album.tags'>
-          <a ng-href='#/search-results/tag/{{tag}}'>{{tag}}</a>
+          <a ng-href='/search-results/tag/{{tag}}'>{{tag}}</a>
         </div>
         <p>
           <div class='mini-control-panel grey lighten-2'>

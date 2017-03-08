@@ -5,22 +5,22 @@
     <ul class='collection'>
       <li class='collection-item'>
       <h4>
-        <a ng-href="#/search-results"><i class='material-icons'>search</i> Search Crate</a>
+        <a ng-href="/search-results"><i class='material-icons'>search</i> Search Crate</a>
       </h4>
     </li>
       <li class='collection-item'>
         <h4>
-          <a href="#/upload"><i class='material-icons'>backup</i> Upload <span ng-show='user.info.pendingUploads.length' class="new badge" data-badge-caption='pending'>{{user.info.pendingUploads.length}}</span></a>
+          <a href="/upload"><i class='material-icons'>backup</i> Upload <span ng-show='user.info.pendingUploads.length' class="new badge" data-badge-caption='pending'>{{user.info.pendingUploads.length}}</span></a>
         </h4>
       </li>
       <li class='collection-item'>
       <h4>
-        <a href="#/"><i class='material-icons'>new_releases</i> What's new</a>
+        <a href="/"><i class='material-icons'>new_releases</i> What's new</a>
       </h4>
     </li>
     <li class='collection-item'>
     <h4>
-      <a ng-href="#/user/{{user.info.userId}}"><i class='material-icons'>account_circle</i> My Crate</a>
+      <a ng-href="/user/{{user.info.userId}}"><i class='material-icons'>account_circle</i> My Crate</a>
     </h4>
   </li>
     </ul>

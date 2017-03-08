@@ -19,15 +19,15 @@
     <div class='row' >
       <div class='col s4'>
         <a ng-show='!onWeb' href='' ng-click='goBack()'>back</a>
-        <span class='brand-logo'><a ng-click='goToNowPlaying()'><i class='material-icons action'>album</i></a><a href="#/">crate</a></span>
+        <span class='brand-logo'><a ng-click='goToNowPlaying()'><i class='material-icons action'>album</i></a><a href="/">crate</a></span>
 
       </div>
 
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a ng-click='searchMode = true'><i class='material-icons'>search</i></a></li>
-      <li ng-show='user.isLoggedIn()'><a href="#/upload">Upload<span ng-show='user.info.pendingUploads.length' class="new badge" data-badge-caption='pending'>{{user.info.pendingUploads.length}}</span></a></li>
-      <li ng-show='user.isLoggedIn()'><a href="#/user/{{user.info.userId}}">My Crate</a></li>
+      <li ng-show='user.isLoggedIn()'><a href="/upload">Upload<span ng-show='user.info.pendingUploads.length' class="new badge" data-badge-caption='pending'>{{user.info.pendingUploads.length}}</span></a></li>
+      <li ng-show='user.isLoggedIn()'><a href="/user/{{user.info.userId}}">My Crate</a></li>
       <li></li>
     </ul>
     <small ng-show='user.isLoggedIn()' class='right hide-on-small-only'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>

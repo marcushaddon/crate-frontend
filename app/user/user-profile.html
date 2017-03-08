@@ -160,7 +160,7 @@
         <ul>
           <li ng-repeat='item in group'>
             <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
-              <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='#/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date: "h:mm a" }}</small></span>
+              <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date: "h:mm a" }}</small></span>
             </div>
           </li>
         </ul>
@@ -180,7 +180,7 @@
     <!-- <ul>
       <li ng-repeat='item in userProfile.recentlyListenedItems'>
       <div ng-controller='trackCtrl' class="chip list-item recently-listened-item truncate" ng-class="{teal : isActiveTrack(item.track) }" >
-        <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='#/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date}}</small></span>
+        <span class='valign-wrapper'> <i ng-click='playToggle(item.track, true)' class='material-icons valign action'>{{ isActiveTrack(item.track) && PlayCtrl.getIsPlaying() ? 'pause' : 'play_arrow'}}</i>{{item.track.trackName}}&nbsp;<small> by <a ng-href='/artist-profile/{{item.track.artistId}}'>{{item.track.artist}}</a> {{item.dateAdded | date}}</small></span>
       </div>
     </li>
     </ul> -->

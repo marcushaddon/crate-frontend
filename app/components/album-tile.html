@@ -9,7 +9,7 @@
           <strong>{{album.name}}</strong><br>
           <small>{{album.artist}}</small>
         </div>
-        <a ng-href='#/album/{{album._id}}'>
+        <a ng-href='/album/{{album._id}}'>
           <div class='cover-controls hidden-cover-controls valign-wrapper'>
             <i ng-click='playToggle($event)' class='material-icons valign cover-play action'>{{ isActiveList() && PlayCtrl.getIsPlaying() ? 'pause' : 'play_circle_outline' }}</i>
           </div>

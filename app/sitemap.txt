@@ -1,1 +1,1 @@
-https://cratebeta.herokuapp.com/#/album/58aba4c710547a0004c1eb51
+https://cratebeta.herokuapp.com/album/58aba4c710547a0004c1eb51
