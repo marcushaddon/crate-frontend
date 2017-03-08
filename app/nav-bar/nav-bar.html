@@ -32,7 +32,7 @@
     </ul>
     <small ng-show='user.isLoggedIn()' class='right hide-on-small-only'>Welcome back, {{getUser().userName}}!<small> <a href='' ng-click='logOut()'>(log out)</a></small></small>
 
-    <small ng-show='!user.isLoggedIn()' class='right'><a href='#/login'>Log in</a></small>
+    <small ng-show='!user.isLoggedIn()' class='right'><a href='/login'>Log in</a></small>
 
     <a class='right' ng-show='!onWeb' href='#/extension-nav'><i class='material-icons'>reorder</i></a>
 

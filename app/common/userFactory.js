@@ -3,7 +3,7 @@ crate.factory('user', function($rootScope, $http, $location, authTokenFactory) {
 		user: this,
 		info: {},
 		isLoggedIn: function() {
-			return this.info !== {};
+			return this.info.userId !== undefined;
 		},
 
 		setUser: function(userData) {

@@ -81,7 +81,6 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 		user.refreshUser()
 		.then(function(response){
 			user.setUser(response.data);
-			console.log(response.data);
 			if (angularConfig.context !== 'web') {
 				// make request to background and see if there is a pending upload AND the upload is in the currently active tab
 				var request = { isContentMessage: true, action: 'getPendingUpload' };

@@ -1,7 +1,7 @@
 var webStereo = function(
 	$rootScope,
 	$location,
-	clerk,
+	user,
 	albumFactory,
 	artistFactory,
 	trackFactory,
@@ -116,6 +116,11 @@ var webStereo = function(
 		},
 
 		setTrack: function(track) {
+			if (!user.isLoggedIn()) {
+				$location.path('/login');
+				messenger.show("You have to be logged in to play tracks on Crate!");
+				return false;
+			}
 			this.activeTrack = track;
 			trackFactory.incrementListens(track);
 			artistFactory.incrementListens(track.artistId);
