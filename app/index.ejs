@@ -7,9 +7,9 @@
 
     <meta name='description' content='<%= description %>'/>
     <meta name='keywords' content='<%= keywords.join(",") %>' />
-    <% for (var i = 0, length = structuredDataStrings.length; i < length; i++) { %>
+    <% for (var i = 0, length = structuredDataObjects.length; i < length; i++) { %>
       <script type='application/ld+json'>
-        <%- JSON.stringify(structuredDataStrings[i]) %>
+        <%- JSON.stringify(structuredDataObjects[i]) %>
       </script>
     <% } %>
 
