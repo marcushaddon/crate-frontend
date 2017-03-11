@@ -2,14 +2,17 @@
 
 <html ng-app='main-app' ng-csp='no-inline-style;no-unsafe-eval'>
 <head>
-    <title>Crate</title>
+    <% title = title || "Crate" %>
+    <title><%= title %></title>
 
-    <!-- exprement-->
-    <!-- <meta http-equiv="Content-Security-Policy"
-            content="default-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline' 'unsafe-eval';"> -->
+    <meta name='description' content='<%= description %>'/>
+    <meta name='keywords' content='<%= keywords.join(",") %>' />
+    <% for (var i = 0, length = structuredDataObjects.length; i < length; i++) { %>
+      <script type='application/ld+json'>
+        <%- JSON.stringify(structuredDataObjects[i]) %>
+      </script>
+    <% } %>
 
-    <!-- <link rel="stylesheet" href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'> -->
-    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
     <link rel='shortcut icon' type='image/x-icon' href='img/favicon.ico'/>
     <script src="/lib/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
