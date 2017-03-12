@@ -342,7 +342,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                 trackFactory.createTracks(factory.youtubeTracks)
                 .then(function(){
                   factory.progressUpdates.push("We were able to get everything we needed from Youtube! Here's the album!");
-                  factory.nextStop = '#/album/' + factory.album._id;
+                  factory.nextStop = '/album/' + factory.album._id;
                   factory.processingComplete = true;
                 });
 
@@ -351,14 +351,14 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                   trackFactory.createTracks(factory.tracks)
                   .then(function(result){
                     factory.progressUpdates.push("We were able to get everything we needed from Discogs! Here's the album!");
-                    factory.nextStop = '#/album/' + factory.album._id;
+                    factory.nextStop = '/album/' + factory.album._id;
                     factory.processingComplete = true;
                   });
                 } else if (factory.validateTrackTimes(factory.youtubeTracks)) {
                   factory.createTracks(factory.youtubeTracks)
                   .then(function(response) {
                     factory.progressUpdates.push("We got everything we needed from Youtube!");
-                    factory.nextStop = '#/album/' + factory.album._id;
+                    factory.nextStop = '/album/' + factory.album._id;
                     factory.processingComplete = true;
                   });
                 } else {
@@ -379,7 +379,7 @@ crate.factory('uploadFactory', function($http, $location, discogsFactory, youtub
                     if (angularConfig.context == 'web') {
                       factory.progressUpdates.push("We just need a few more things from you...");
                       factory.processingComplete = true;
-                      factory.nextStop = '#/upload/add-break-points?albumId=' + albumId;
+                      factory.nextStop = '/upload/add-break-points?albumId=' + albumId;
                     } else if (angularConfig.context == 'extension') {
                       chrome.tabs.create({
                         url: angularConfig[angularConfig.environment] + '#/upload/add-break-points?albumId=' + albumId
