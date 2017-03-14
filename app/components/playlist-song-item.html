@@ -4,6 +4,7 @@
     <span class='valign'>{{track.artist}} - {{track.trackName}}</span>
   </div>
   <div class="col s2 m1 valign-wrapper">
+    <i class="material-icons" ng-show="editing" aria-hidden="true" ng-click="removeTrack(track)">delete</i>
     <i class="material-icons" ng-show="editing" aria-hidden="true" ng-click="moveTrack(track, -1)">arrow_upward</i>
     <i class="material-icons" ng-show="editing" aria-hidden="true" ng-click="moveTrack(track, 1)">arrow_downward</i>
 
