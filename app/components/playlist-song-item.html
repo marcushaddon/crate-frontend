@@ -4,7 +4,10 @@
     <span class='valign'>{{track.artist}} - {{track.trackName}}</span>
   </div>
   <div class="col s2 m1 valign-wrapper">
-    <i class="material-icons hidden-controls" aria-hidden="true" ng-click='captureTrack(track)'>playlist_add</i>
-  <span class='right track-length align-right detail'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span>
+    <i class="material-icons" ng-show="editing" aria-hidden="true" ng-click="moveTrack(track, -1)">arrow_upward</i>
+    <i class="material-icons" ng-show="editing" aria-hidden="true" ng-click="moveTrack(track, 1)">arrow_downward</i>
+
+    <i class="material-icons hidden-controls" ng-hide='editing' aria-hidden="true" ng-click='captureTrack(track)'>playlist_add</i>
+    <span class='right track-length align-right detail' ng-hide='editing'>{{PlayCtrl.secToMinSec(track.stop - track.begin)}}</span>
   </div>
 </div>
