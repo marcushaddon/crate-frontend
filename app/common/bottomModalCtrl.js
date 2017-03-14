@@ -11,7 +11,7 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
     .then(function(response){
       // update our model somehow!
       messenger.show(playlistFactory.capturedTrack.trackName + " added to " + playlist.name);
-      angular.element('#bottomModal').closeModal();
+      angular.element('#bottomModal').modal("close");
     });
   };
 
@@ -28,7 +28,7 @@ crate.controller('bottomModalCtrl', function($scope, playlistFactory, stereo, me
     .then(function(response) {
       $scope.playlists.unshift(response.data);
       messenger.show(response.data.name + ' created!');
-      angular.element('#bottomModal').closeModal();
+      angular.element('#bottomModal').modal('close');
     });
   };
 
