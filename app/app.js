@@ -22,6 +22,10 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 		controller: 'FrontPageCtrl'
 	})
 
+	.when('/about', {
+		templateUrl: 'about/aboutPage.html'
+	})
+
 	// To handle FB's weird hash redirect thing
 	.when('/_=_', {
 		templateUrl: 'front-page/front-page.html',
