@@ -3,8 +3,8 @@
   <main>
     <div class='row list-header'>
       <div class='col m3 offset-m1'>
-        <div class='playlist-img-container'>
-          <img class='playlist-img' ng-src='{{ playlist.imgUrl || albumImgPlaceholder }}'></img>
+        <div class='playlist-img-container profile-pic'>
+          <img class='crate-album-cover' ng-src='{{ playlist.imgUrl || albumImgPlaceholder }}'></img>
           <a ng-show='editing && !editingImg' ng-click='editingImg = true' class='right' href=''><i class='material-icons'>edit</i></a>
           <input ng-show='editing && editingImg' type='text' ng-model='playlist.imgUrl' ng-blur='editImg()' placeholder='Enter an image url...' />
         </div>

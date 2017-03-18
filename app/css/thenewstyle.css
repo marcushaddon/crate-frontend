@@ -160,16 +160,22 @@ footer {
 .album-cover {
   /*min-height: 300px;
   max-height: 300px;*/
-  width: 20vw;
+  min-width: 20vw;
+  max-width: 20vw;
   min-height: 45vh;
   min-height: 45vh;
   object-fit: cover;
 }
 
 .crate-album-cover {
-  width: 100%;
+  /*width: 100%;
   height: 100%;
   min-height: 20vh;
+  max-height: 30vh;*/
+  width: 100%;
+  height: 100%;
+  min-height: 45vh;
+  max-height: 45vh;
 }
 
 .cover-wrap {
@@ -318,10 +324,9 @@ footer {
 }
 
 .playlist-img-container {
-  min-width: 300px;
-  min-height: 300px;
-  max-width: 300px;
-  max-height: 300px;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 .playlist-img-container a i {
