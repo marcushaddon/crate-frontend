@@ -74,10 +74,6 @@ crate.controller('Main', function($scope, $location, $window, $rootScope, angula
 	};
 
 	this.init = function() {
-		var test = $location.search().test;
-		messenger.show(test);
-		console.log(test);
-		console.log("Getting user!");
 		user.refreshUser()
 		.then(function(response){
 			user.setUser(response.data);

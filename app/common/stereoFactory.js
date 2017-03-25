@@ -103,7 +103,7 @@ var webStereo = function(
 
 		getProgress: function() {
 			var progress;
-			if (player) {
+			if (player && this.activeTrack) {
 				progress = player.getCurrentTime() - this.activeTrack.begin;
 			} else {
 				progress = 0;
@@ -299,13 +299,10 @@ var extensionStereo = function(
 
 		},
 
-		getProgress: function() {
-			return this.progress;
-		},
+		// getProgress: function() {
+		// 	return this.progress;
+		// },
 
-		setProgress: function() {
-
-		},
 
 		setTrack: function(track) {
 			this.sendCommand('setTrack', track, function success(response) {
