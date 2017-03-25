@@ -28,6 +28,19 @@ header.my-crate, main.my-crate, footer.my-crate {
       }
     }
 
+
+.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+
+.header h1 {
+  /*position: relative;
+  top: 180px;
+  left: 10px;*/
+}
+
 .page-footer {
   position: fixed;
   bottom: 0px;
@@ -312,7 +325,7 @@ footer {
   vertical-align: middle;
 }
 
-.list-header img {
+.list-header img.not(.main-logo) {
   min-width: 100%;
   min-height: 100%;
   max-width: 100%;
@@ -320,7 +333,7 @@ footer {
 }
 
 .list-header div.col {
-  min-height: 300px;
+  /*min-height: 300px;*/
 }
 
 .playlist-img-container {
@@ -355,7 +368,6 @@ footer {
 }
 
 .list-header h4 {
-
   max-width: 45vw;
 }
 

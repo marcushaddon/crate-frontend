@@ -258,6 +258,12 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 	}
 })
 
+.directive('logo', function() {
+	return {
+		templateUrl: 'components/logo.html'
+	}
+})
+
 .run(function($rootScope, $window) {
 	$rootScope.$on('$locationChangeStart', function(event, next, current) {
 		var startingUp = current.indexOf('#') < 0;
