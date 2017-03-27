@@ -30,15 +30,16 @@ header.my-crate, main.my-crate, footer.my-crate {
 
 
 .header img {
-  float: left;
-  width: 100px;
-  height: 100px;
+  display: block;
+    margin: auto;
+    width: 80%;
 }
 
-.header h1 {
+.header h2 {
   /*position: relative;
   top: 180px;
   left: 10px;*/
+  padding-top: 25px;
 }
 
 .page-footer {
@@ -326,11 +327,10 @@ footer {
 }
 
 .list-header img.not(.main-logo) {
-  min-width: 100%;
-  min-height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
 }
+
 
 .list-header div.col {
   /*min-height: 300px;*/
