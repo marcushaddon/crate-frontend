@@ -1,5 +1,1 @@
-https://cratebeta.herokuapp.com/album/58aba4c710547a0004c1eb51
-NEW GUY
-NEW GUY
-http://localhost:3000/album/58c497abfb14ad782547e1c1
-http://localhost:3000/album/58c4a0d4fb14ad78254801fe
+http://www.mycrate.io/album/58d9cb50800a7b000457fc6d
