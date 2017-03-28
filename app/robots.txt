@@ -1,1 +1,1 @@
-Sitemap: https://cratebeta.herokuapp.com/sitemap.txt
+Sitemap: https://www.mycrate.io/sitemap.txt
