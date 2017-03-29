@@ -2,9 +2,15 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 	$scope.videoUrl = '';
 	$scope.albumNmae = '';
 	$scope.artistName = '';
+	$scope.searched = false;
+	$scope.loading = false;
 	$scope.possibleMasters = [];
 	$scope.possibleArtists = [];
 	$scope.pendingUploads = user.info.pendingUploads;
+
+	$scope.resetSearch = function() {
+		$scope.searched = false;
+	};
 
 	$scope.continueUpload = function(albumId) {
 		if (angularConfig.context === 'web') {
@@ -37,6 +43,7 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 	// };
 
 	$scope.checkDiscogsForUpload = function() {
+		$scope.loading = true;
 		// There must be a urlStringEncode method or something
 		var query = $scope.albumName + ' ' + $scope.artistName;
 		discogsFactory.searchForRelease(query)
@@ -59,14 +66,15 @@ crate.controller('Uploader', function($scope, $location, user, angularConfig, co
 						$scope.possibleMasters = $scope.possibleMasters.sort(function(releaseA, releaseB) {
 							return $scope.textMatch($scope.albumName, releaseB.title) - $scope.textMatch($scope.albumName, releaseA.title);
 						});
-						// $scope.possibleMasters = response.data.releases;
-						// console.log($scope.possibleMasters);
+						$scope.loading = false;
 					})
+				} else {
+					$scope.loading = false;
 				}
-			})
-		})
+			});
+		});
 
-
+		$scope.searched = true;
 	};
 
 	$scope.checkDiscogsForArtist = function() {

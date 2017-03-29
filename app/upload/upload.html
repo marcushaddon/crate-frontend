@@ -51,12 +51,15 @@
 		<div ng-hide='possibleMasters.length'>
 		<h4>Release details</h4>
 		<ul class='collection'>
-			<li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' /></li>
+			<li><input id='artistName' type='text' class='collection-item' placeholder='Artist Name' ng-model='artistName' ng-change='resetSearch()'/></li>
 			<li><input id='albumName' type='text' class='collection-item' placeholder='Album Name' ng-model='albumName' /></li>
 		</ul>
 		<input type='button' class='btn btn-success' value='Submit' ng-click='checkDiscogsForUpload()'></input>
 		<input type='button' class='btn btn-danger' value='Reset' ng-click='resetUpload()'></input>
 	</div>
+	<p ng-show='!possibleMasters.length && !loading && searched'>
+		Oops! Discogs didn't have any results for the artist {{artistName}}. Maybe check to make sure you spelled it correctly?
+	</p>
 		<div ng-show='possibleMasters.length'>
 			<h4>Is one of the following the correct release?</h4>
 			<a class='btn' ng-click='checkDiscogsForArtist()'>These releases are by the wrong artist!</a>
