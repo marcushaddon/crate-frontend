@@ -53,6 +53,16 @@ crate.controller('AlbumCtrl', function($scope, $location, $routeParams, config, 
     })
   };
 
+  $scope.deleteAlbum = function() {
+    var confirmed = confirm("Are you sure you want to delete " + $scope.album.name + "?");
+    if (confirmed) {
+      albumFactory.deleteAlbum($scope.album)
+      .then(function(res) {
+        $location.path('/');
+      });
+    }
+  };
+
   // $scope.$on('trackPlayToggle', function(event){
   //   $scope.$emit('listPlayToggle', $scope.album);
   //   // event.stopPropagation();
