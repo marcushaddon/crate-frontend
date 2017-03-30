@@ -33,6 +33,8 @@ header.my-crate, main.my-crate, footer.my-crate {
   display: block;
     margin: auto;
     width: 80%;
+    margin-top: 40px;
+    margin-bottom: -40px;
 }
 
 .header h2 {
