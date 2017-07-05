@@ -29,13 +29,14 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
   };
 
   $scope.init = function() {
-    albumFactory.getLatestAlbums($scope.listPageSize,0)
+    albumFactory.getLatestAlbums($scope.listPageSize, $scope.albumPage)
     .then(function(response){
       $scope.latestAlbums = response.data;
       $scope.viewAlbums = $scope.latestAlbums.slice(($scope.albumPage - 1) * $scope.listPageSize, $scope.listPageSize);
     });
 
-    playlistFactory.getLatestPlaylists($scope.listPageSize, 0).then(function(response){
+    playlistFactory.getLatestPlaylists($scope.listPageSize, 0)
+    .then(function(response){
       $scope.latestPlaylists = response.data;
       $scope.viewPlaylists = $scope.latestPlaylists.slice($scope.playlistPage - 1, $scope.listPageSize);
     });
@@ -59,7 +60,7 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
   };
 
   $scope.getMoreAlbums = function() {
-    var place = $scope.latestAlbums.length;
+    var place = $scope.latestAlbums.length / $scope.listPageSize + 1;
     return albumFactory.getLatestAlbums($scope.listPageSize, place)
     .then(function(response) {
       $scope.latestAlbums = $scope.latestAlbums.concat(response.data);

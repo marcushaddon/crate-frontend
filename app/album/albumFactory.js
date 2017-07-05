@@ -22,12 +22,10 @@ crate.factory('albumFactory', function($http, $q){
         });
     },
 
-    getLatestAlbums: function(count, offset) {
-      var count = count;
-  		var offset = offset || 0;
+    getLatestAlbums: function(pageSize, page) {
       return $http({
         method: 'GET',
-        url: '/api/album/latest/' + count + '/' + offset
+        url: '/api/album?sort_by=foundOn&sort_order=desc&page_size=' + pageSize + '&page=' + page
       });
     },
 
