@@ -37,7 +37,7 @@ crate.factory('albumFactory', function($http, $q){
       return $http({
         method: 'GET',
         // IS THIS RESTFUUUUUUUUULLLLL
-        url: '/api/user/' + id + '/albums?pageSize=' + pageSize + "&page=" + page + "&sortBy=" + sortBy + "&order=" + order
+        url: '/api/user/' + id + '/albums?page_size=' + pageSize + "&page=" + page + "&sort_by=" + sortBy + "&sort_order=" + order
       });
     },
 

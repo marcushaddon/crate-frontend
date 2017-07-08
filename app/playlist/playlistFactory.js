@@ -19,12 +19,10 @@ crate.factory('playlistFactory', function($http, user){
 
 
 
-    getLatestPlaylists: function(count, offset) {
-      var count = count || 0;
-      var offset = offset || 0;
+    getLatestPlaylists: function(page_size, page) {
       return $http({
         method: 'GET',
-        url: '/api/playlists/latest/' + count + '/' + offset
+        url: '/api/playlists?sort_by=dateCreated&sort_order=desc&page_size=' + page_size + '&page=' + page 
       });
     },
 

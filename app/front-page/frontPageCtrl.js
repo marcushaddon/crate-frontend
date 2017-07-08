@@ -35,7 +35,7 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
       $scope.viewAlbums = $scope.latestAlbums.slice(($scope.albumPage - 1) * $scope.listPageSize, $scope.listPageSize);
     });
 
-    playlistFactory.getLatestPlaylists($scope.listPageSize, 0)
+    playlistFactory.getLatestPlaylists($scope.listPageSize, $scope.playlistPage)
     .then(function(response){
       $scope.latestPlaylists = response.data;
       $scope.viewPlaylists = $scope.latestPlaylists.slice($scope.playlistPage - 1, $scope.listPageSize);
