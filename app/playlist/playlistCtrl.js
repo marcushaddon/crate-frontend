@@ -7,7 +7,7 @@ crate.controller('playlistCtrl', function($scope, $location, $routeParams, $http
 
   // On load
   $scope.init = function() {
-    
+
     if ($scope.playlistId) {
       playlistFactory.getPlaylist($scope.playlistId)
       .then(function(response){
@@ -40,7 +40,15 @@ crate.controller('playlistCtrl', function($scope, $location, $routeParams, $http
   };
 
   $scope.copyPlaylist = function(playlist) {
-    alert("COPTCAT??!");
+    playlist.createdBy = {
+      userName: user.info.userName,
+      userId: user.info.userId
+    };
+    playlistFactory.createPlaylist(playlist)
+    .then(function(response) {
+      messenger.show("You created a copy of " + playlist.name + "!");
+      $location.path('/playlist/' + response.data._id);
+    });
   };
 
   $scope.deletePlaylist = function() {

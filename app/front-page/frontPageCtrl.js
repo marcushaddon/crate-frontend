@@ -2,9 +2,12 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
   $scope.tagPageSize = 10;
   $scope.listPageSize = 3;
   $scope.albumPage = 1;
+  $scope.popularAlbumsPage = 1;
   $scope.playlistPage = 1;
   $scope.latestAlbums    = [];
   $scope.latestPlaylists = [];
+  $scope.popularAlbums   = [];
+  $scope.viewPopularAlbums = [];
   $scope.viewAlbums      = [];
   $scope.viewPlaylists   = [];
   $scope.topTags = [];
@@ -35,6 +38,12 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
       $scope.viewAlbums = $scope.latestAlbums.slice(($scope.albumPage - 1) * $scope.listPageSize, $scope.listPageSize);
     });
 
+    albumFactory.getTopAlbums($scope.listPageSize, $scope.popularAlbumsPage)
+    .then(function(response) {
+      $scope.popularAlbums = response.data;
+      $scope.viewPopularAlbums = $scope.popularAlbums.slice(($scope.popularAlbumsPage - 1) * $scope.listPageSize, $scope.listPageSize);
+    });
+
     playlistFactory.getLatestPlaylists($scope.listPageSize, $scope.playlistPage)
     .then(function(response){
       $scope.latestPlaylists = response.data;
@@ -47,16 +56,45 @@ crate.controller('FrontPageCtrl', function($scope, $location, config, tagFactory
     })
   };
 
-  $scope.goToAlbumPage = function() {
-    var newBegin = (($scope.albumPage - 1) * $scope.listPageSize);
-    var newEnd = newBegin + $scope.listPageSize;
-    $scope.viewAlbums = $scope.latestAlbums.slice(newBegin, newEnd);
+  $scope.makeGoToPageFunction = function (
+    pageCursor,
+    viewCollection,
+    collection
+  ) {
+    return function() {
+      console.log('i am a function that changes tghe ' + pageCursor);
+      var newBegin = (($scope[pageCursor] - 1) * $scope.listPageSize);
+      var newEnd = newBegin + $scope.listPageSize;
+      $scope[viewCollection] = $scope[collection].slice(newBegin, newEnd);
+    }
   };
 
-  $scope.goToPlaylistPage = function() {
-    var newBegin = (($scope.playlistPage - 1) * $scope.listPageSize);
-    var newEnd = newBegin + $scope.listPageSize;
-    $scope.viewPlaylists = $scope.latestPlaylists.slice(newBegin, newEnd);
+  $scope.goToAlbumPage = $scope.makeGoToPageFunction('albumPage', 'viewAlbums', 'latestAlbums');
+  $scope.goToPlaylistPage = $scope.makeGoToPageFunction('playlistPage', 'viewPlaylists', 'latestPlaylists');
+  $scope.goToPopularAlbumsPage = $scope.makeGoToPageFunction('popularAlbumPage', 'viewPopularAlbums', 'popularAlbums');
+
+
+
+  $scope.getMorePopularAlbums = function() {
+    var place = $scope.popularAlbums.length / $scope.listPageSize + 1;
+    return albumFactory.getTopAlbums($scope.listPageSize, place)
+    .then(function(response) {
+      $scope.popularAlbums = $scope.popularAlbums.concat(response.data);
+    });
+  };
+
+  $scope.nextPageOfPopularAlbums = function() {
+    // See if there are more albums in our queue, or if we need more
+    var needMore = $scope.popularAlbums.length <= ($scope.listPageSize * $scope.popularAlbumsPage);
+    $scope.popularAbumPage++;
+    if (needMore) {
+      $scope.getMorePopularAlbums()
+      .then(function success(response) {
+        $scope.goToPopularAlbumsPage($scope.albumPage);
+      });
+    } else {
+      $scope.goToPopularAlbumsPage($scope.popularAlbumsPagealbumPage);
+    }
   };
 
   $scope.getMoreAlbums = function() {

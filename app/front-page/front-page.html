@@ -34,6 +34,21 @@
   <div class="row">
 
     <div class="col s6 valign-wrapper">
+      <i class='material-icons'>av_timer</i><strong>popular</strong>
+    </div>
+    <div class="col m1 s2 offset-m5 offset-s4">
+      <i class="fa fa-arrow-circle-left action" aria-hidden="true" ng-click='lastPageOfPopularAlbums()'></i>
+      <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='nextPageOfPopularAlbums()'></i>
+    </div>
+  </div>
+
+  <div class='row'>
+  <div class='tile-rack'>
+    <album-tile ng-repeat='album in popularAlbums'></album-tile>
+  </div>
+  </div>
+
+    <div class="col s6 valign-wrapper">
       <i class='material-icons'>av_timer</i><strong>recent albums</strong>
     </div>
     <div class="col m1 s2 offset-m5 offset-s4">
@@ -41,6 +56,7 @@
       <i class="fa fa-arrow-circle-right action" aria-hidden="true" ng-click='nextPageOfAlbums()'></i>
     </div>
   </div>
+
   <div class='row'>
   <div class='tile-rack'>
     <album-tile ng-repeat='album in viewAlbums'></album-tile>

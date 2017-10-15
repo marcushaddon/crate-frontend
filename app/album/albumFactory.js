@@ -29,6 +29,13 @@ crate.factory('albumFactory', function($http, $q){
       });
     },
 
+    getTopAlbums: function(pageSize, page) {
+      return $http({
+        method: 'GET',
+        url: '/api/album?sort_by=listens&page_size=' + pageSize + '&page=' + page
+      });
+    },
+
     getAlbumsByUserId: function(id, pageSize, page, sortBy, order) {
       pageSize = pageSize || 10;
       page     = page || 1;

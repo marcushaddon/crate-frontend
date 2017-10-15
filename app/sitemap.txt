@@ -1,1 +1,2 @@
 
+http://localhost:3000/album/59e284ed07dbd6b32c5a9d71
