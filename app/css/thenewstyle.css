@@ -190,6 +190,7 @@ footer {
   object-fit: cover;
   object-position: center;
   min-height: 300px;
+  max-height: 300px;
 }
 
 .cover-wrap {

@@ -32,7 +32,7 @@ crate.factory('albumFactory', function($http, $q){
     getTopAlbums: function(pageSize, page) {
       return $http({
         method: 'GET',
-        url: '/api/album?sort_by=listens&page_size=' + pageSize + '&page=' + page
+        url: '/api/album?sort_by=listens&sort_order=desc&page_size=' + pageSize + '&page=' + page
       });
     },
 
