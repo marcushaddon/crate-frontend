@@ -184,14 +184,12 @@ footer {
 }
 
 .crate-album-cover {
-  /*width: 100%;
-  height: 100%;
-  min-height: 20vh;
-  max-height: 30vh;*/
   width: 100%;
-  height: 100%;
-  min-height: 45vh;
-  max-height: 45vh;
+  min-height: 100%;
+  object-fit: cover;
+  object-fit: cover;
+  object-position: center;
+  min-height: 300px;
 }
 
 .cover-wrap {
