@@ -122,6 +122,7 @@ crate.controller('userCtrl', function($scope, $routeParams, $location, angularCo
     var newPlaylist = {
       listType: "playlist",
       name: "New playlist",
+      createdBy: { userId: user.info.userId, userName: user.info.userName },
       description: "A cool new playlist by " + user.info.userName,
       imgUrl: null,
       tracks: []
