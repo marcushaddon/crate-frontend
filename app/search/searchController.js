@@ -70,7 +70,7 @@ crate.controller('SearchCtrl', function($scope, $http, $rootScope, $location, $r
       });
     } else if (searchType === 'tag') {
       $scope.tag = $routeParams.searchField;
-      $scope.tagSearch(tag)
+      $scope.tagSearch($scope.tag)
       .then(function(response) {
         $scope.taggedAlbums = response.data;
       })
