@@ -415,3 +415,7 @@ input.edit-h3 {
 .tag-subtext {
   font-size: 10px;
 }
+
+.thumb.active {
+  display: none;
+}
