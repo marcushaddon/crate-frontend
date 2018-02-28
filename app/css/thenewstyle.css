@@ -419,3 +419,7 @@ input.edit-h3 {
 .thumb.active {
   display: none;
 }
+
+.skinny {
+  padding: 8px;
+}

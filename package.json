@@ -1,0 +1,14 @@
+{
+  "name": "crate-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for mycrate.ip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular-ismobile": "^1.0.0"
+  }
+}

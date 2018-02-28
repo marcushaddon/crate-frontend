@@ -79,6 +79,10 @@ var crate = angular.module('main-app', ['ngRoute','ngSanitize'])
 	.when('/user/:id', {
 		templateUrl: 'user/user-profile.html',
 		controller: 'userCtrl'
+	})
+	
+	.when('/mobile', {
+		templateUrl: 'mobile/mobile.html'
 	});
 
 

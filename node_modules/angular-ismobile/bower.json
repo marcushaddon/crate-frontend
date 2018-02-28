@@ -1,0 +1,28 @@
+{
+  "name": "angular-ismobile",
+  "version": "1.0.0",
+  "description": "A Angular wrapper provider-service for isMobile (https://github.com/kaimallea/isMobile)",
+  "homepage": "https://github.com/ronnyhaase/angular-ismobile",
+  "authors": [
+    "Ronny Haase <ronhaase@gmail.com>"
+  ],
+  "license": "CC0-1.0",
+  "keywords": [
+    "angular", "angularjs", "mobile", "device", "useragent", "ismobile"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ronnyhaase/angular-ismobile.git"
+  },
+
+  "main": "dist/angular-ismobile.js",
+  "ignore": [
+    ".idea",
+    "*.iml",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": ">= 1.2.0"
+  }
+}
